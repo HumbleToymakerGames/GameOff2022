@@ -27,6 +27,7 @@ public class ApplianceContextActionUI : MonoBehaviour
         {
             SimpleButton newButton = Instantiate(buttonPrefab, transform);
             newButton.SetButtonText(function.GetApplianceFunctionName());
+            newButton.button.onClick.AddListener(() => function.StartFunction());
         }
         SimpleButton backButton = Instantiate(buttonPrefab, transform);
         backButton.SetButtonText("Back");
