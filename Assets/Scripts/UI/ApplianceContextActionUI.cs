@@ -5,29 +5,24 @@ using TMPro;
 
 public class ApplianceContextActionUI : MonoBehaviour
 {
-    public TextMeshProUGUI applianceName;
-    public GameObject button;
+    public TextMeshProUGUI applianceNameText;
+    public SimpleButton button;
 
     private Appliance _currentAppliance;
 
-    void InitializeWithAppliance(Appliance appliance)
+    public void InitializeWithAppliance(Appliance appliance)
     {
         gameObject.SetActive(false);
         _currentAppliance = appliance;
-        applianceName.text = _currentAppliance.GetApplianceName();
-        //transform.GetChild(0).gameObject;
-    }
+        applianceNameText.text = _currentAppliance.GetApplianceName();
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        /*
+        foreach(Appliance appliance in appliance.applianceSO)
+        {
+            SimpleButton newButton = Instantiate(applianceButtonPrefab, transform);
+            newButton.SetButtonText(appliance.GetApplianceName());
+            newButton.button.onClick.AddListener(() => UIManager.Instance.ShowApplianceContextPanel(appliance, transform.position));
+        }
+        */
     }
 }

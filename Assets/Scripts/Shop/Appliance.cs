@@ -15,4 +15,11 @@ public class Appliance
     {
         return _applianceSO.applianceName;
     }
+    
+    /*
+    public ApplianceFunctionSO[] GetApplianceFunctions()
+    {
+        return _applianceSO.functions;
+    }
+    */
 }

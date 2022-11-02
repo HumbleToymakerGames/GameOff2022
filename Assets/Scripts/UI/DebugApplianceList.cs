@@ -7,7 +7,6 @@ public class DebugApplianceList : MonoBehaviour
 {
     public SimpleButton applianceButtonPrefab;
 
-    // Start is called before the first frame update
     void Start()
     {
         InitializeListOfButtons();

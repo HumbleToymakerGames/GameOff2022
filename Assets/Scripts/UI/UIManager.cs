@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject uiParent;
+    public ApplianceContextActionUI applianceContextActionUiPrefab;
+
     private static UIManager _instance;
 
     public static UIManager Instance
@@ -28,6 +32,10 @@ public class UIManager : MonoBehaviour
 
     public void ShowApplianceContextPanel(Appliance appliance, Vector2 position)
     {
-        Debug.Log("Show Appliance Context Panel for: " + appliance.GetApplianceName());
+        ApplianceContextActionUI contextUi = Instantiate(applianceContextActionUiPrefab, uiParent.transform);
+        contextUi.InitializeWithAppliance(appliance);
+        contextUi.transform.position = position;
+        contextUi.gameObject.SetActive(true);
+        // TODO: set position to clicked position
     }
 }
