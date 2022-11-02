@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   applianceName: Dumpy Mixer
   functions:
-  - {fileID: 11400000, guid: cf28c9d089fc1a74482e9846d104db0d, type: 2}
+  - {fileID: 11400000, guid: 758ff20642346d045baacaafb71c5b3f, type: 2}

@@ -6,5 +6,5 @@ using UnityEngine;
 public class ApplianceSO : ScriptableObject
 {
     public string applianceName;
-    public ApplianceFunctionSO[] functions;
+    public List<ApplianceFunctionSO> functions = new List<ApplianceFunctionSO>();
 }

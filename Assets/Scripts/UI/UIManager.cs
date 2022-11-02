@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public GameObject uiParent;
     public ApplianceContextActionUI applianceContextActionUiPrefab;
+    private ApplianceContextActionUI _applianceContextUI;
 
     private static UIManager _instance;
 
@@ -32,10 +33,18 @@ public class UIManager : MonoBehaviour
 
     public void ShowApplianceContextPanel(Appliance appliance, Vector2 position)
     {
-        ApplianceContextActionUI contextUi = Instantiate(applianceContextActionUiPrefab, uiParent.transform);
-        contextUi.InitializeWithAppliance(appliance);
-        contextUi.transform.position = position;
-        contextUi.gameObject.SetActive(true);
+        if (_applianceContextUI == null)
+        {
+            _applianceContextUI = Instantiate(applianceContextActionUiPrefab, uiParent.transform);
+        }
+        _applianceContextUI.InitializeWithAppliance(appliance);
+        _applianceContextUI.transform.position = position;
+        _applianceContextUI.gameObject.SetActive(true);
         // TODO: set position to clicked position
+    }
+
+    public void CloseApplianceContextPanel()
+    {
+        _applianceContextUI.gameObject.SetActive(false);
     }
 }

@@ -6,23 +6,30 @@ using TMPro;
 public class ApplianceContextActionUI : MonoBehaviour
 {
     public TextMeshProUGUI applianceNameText;
-    public SimpleButton button;
+    public SimpleButton buttonPrefab;
 
     private Appliance _currentAppliance;
 
     public void InitializeWithAppliance(Appliance appliance)
     {
         gameObject.SetActive(false);
+
+        foreach(Transform child in transform)
+        {
+            if (child.gameObject.name != "MenuTitleText") Destroy(child.gameObject);
+        }
+
         _currentAppliance = appliance;
         applianceNameText.text = _currentAppliance.GetApplianceName();
 
-        /*
-        foreach(Appliance appliance in appliance.applianceSO)
+        List<ApplianceFunction> functions = _currentAppliance.GetApplianceFunctions();
+        foreach(ApplianceFunction function in functions)
         {
-            SimpleButton newButton = Instantiate(applianceButtonPrefab, transform);
-            newButton.SetButtonText(appliance.GetApplianceName());
-            newButton.button.onClick.AddListener(() => UIManager.Instance.ShowApplianceContextPanel(appliance, transform.position));
+            SimpleButton newButton = Instantiate(buttonPrefab, transform);
+            newButton.SetButtonText(function.GetApplianceFunctionName());
         }
-        */
+        SimpleButton backButton = Instantiate(buttonPrefab, transform);
+        backButton.SetButtonText("Back");
+        backButton.button.onClick.AddListener(() => UIManager.Instance.CloseApplianceContextPanel());
     }
 }
