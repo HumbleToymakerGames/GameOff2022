@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DebugApplianceList : MonoBehaviour
 {
-    public ApplianceButton applianceButton;
+    public SimpleButton applianceButtonPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -12,14 +13,14 @@ public class DebugApplianceList : MonoBehaviour
         InitializeListOfButtons();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void InitializeListOfButtons()
     {
-        applianceButton.applianceName.text = ShopManager.Instance.GetAppliancesInShop()[0].GetApplianceName();
+        List<Appliance> appliances = ShopManager.Instance.GetAppliancesInShop();
+        foreach(Appliance appliance in appliances)
+        {
+            SimpleButton newButton = Instantiate(applianceButtonPrefab, transform);
+            newButton.SetButtonText(appliance.GetApplianceName());
+            newButton.button.onClick.AddListener(() => UIManager.Instance.ShowApplianceContextPanel(appliance, transform.position));
+        }
     }
 }

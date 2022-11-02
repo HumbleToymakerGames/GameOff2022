@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    public ApplianceSO startingAppliance;
+    public List<ApplianceSO> startingAppliances = new List<ApplianceSO>();
     private List<Appliance> _appliances = new List<Appliance>();
 
     private static ShopManager _instance;
@@ -33,8 +33,11 @@ public class ShopManager : MonoBehaviour
     // Start is called before the first frame update
     private void AddStartingAppliance()
     {
-        if (startingAppliance != null) {
-            _appliances.Add(new Appliance(startingAppliance));
+        if (startingAppliances.Count > 0) {
+            foreach(ApplianceSO startingAppliance in startingAppliances)
+            {
+                _appliances.Add(new Appliance(startingAppliance));
+            }
         }
     }
 

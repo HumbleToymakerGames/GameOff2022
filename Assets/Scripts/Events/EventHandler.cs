@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class EventHandler
 {
@@ -12,5 +13,15 @@ public static class EventHandler
         {
             AdvanceGameHourEvent(gameHour);
         }
-    }    
+    }
+
+    public static event Action<Appliance, Vector2> DidClickApplianceEvent;
+
+    public static void CallDidClickApplianceEvent(Appliance clickedAppliance, Vector2 screenPosition)
+    {
+        if (DidClickApplianceEvent != null)
+        {
+            DidClickApplianceEvent(clickedAppliance, screenPosition);
+        }
+    }
 }
