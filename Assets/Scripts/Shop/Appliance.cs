@@ -10,4 +10,9 @@ public class Appliance
     {
         _applianceSO = applianceSO;
     }
+
+    public string GetApplianceName()
+    {
+        return _applianceSO.applianceName;
+    }
 }

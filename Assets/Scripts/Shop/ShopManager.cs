@@ -27,14 +27,20 @@ public class ShopManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        AddStartingAppliance();
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void AddStartingAppliance()
     {
         if (startingAppliance != null) {
             _appliances.Add(new Appliance(startingAppliance));
         }
+    }
+
+    public List<Appliance> GetAppliancesInShop()
+    {
+        return _appliances;
     }
 
 }
