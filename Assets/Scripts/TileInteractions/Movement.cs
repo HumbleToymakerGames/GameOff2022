@@ -5,6 +5,9 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public float speed;
+
+    private float randomTileSelectTimer = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +20,7 @@ public class Movement : MonoBehaviour
         Vector3 tilePos = GetComponent<MouseTileSelect>().GetSelectedTilePosition();
         if (tilePos != null)
         {
-            Debug.Log(((transform.position + new Vector3(0, transform.localScale.y, 0)) - (tilePos + new Vector3(0, transform.localScale.y, 0))));
-            //transform.position = tilePos + new Vector3(0, transform.localScale.y, 0);
-            transform.position -= ((transform.position) - (tilePos + new Vector3(0, transform.localScale.y, 0))) * (speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, (tilePos + new Vector3(0, transform.localScale.y, 0)), speed * Time.deltaTime);
         }
     }
 }

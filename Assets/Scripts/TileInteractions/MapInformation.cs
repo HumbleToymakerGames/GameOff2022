@@ -5,39 +5,57 @@ using UnityEngine.Tilemaps;
 
 public class MapInformation : MonoBehaviour
 {
-    public static MapInformation _instance;
-    public static MapInformation Instance { get { return _instance;  } }
+    public static Vector3Int[,] groundMap;
+    public static BoundsInt groundMapBounds;
 
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
-    }
+    public bool refresh = false;
 
     private void Start()
     {
-        Tilemap tileMap = gameObject.GetComponentInChildren<Tilemap>();
+        RefreshMap();
+    }
 
-        BoundsInt bounds = tileMap.cellBounds;
-
-        for (int z = bounds.max.z; z > bounds.min.z; z--)
+    private void Update()
+    {
+        if (refresh)
         {
-            for (int y = bounds.max.y; y > bounds.min.y; y--)
-            {
-                for (int x = bounds.max.y; x > bounds.min.x; x--)
-                {
-                    Vector3Int tileLocation = new Vector3Int(x, y, z);
+            RefreshMap();
+            refresh = false;
+        }
+    }
 
-                    if (tileMap.HasTile(tileLocation))
+    public void RefreshMap()
+    {
+        Tilemap groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
+        Tilemap objectTileMap = GameObject.FindGameObjectWithTag("ObjectTileMap").GetComponent<Tilemap>();
+
+        groundMapBounds = groundTileMap.cellBounds;
+        groundMap = new Vector3Int[groundMapBounds.max.x - groundMapBounds.min.x + 2, groundMapBounds.max.y - groundMapBounds.min.y + 2];
+
+        for (int y = groundMapBounds.max.y; y > groundMapBounds.min.y; y--)
+        {
+            for (int x = groundMapBounds.max.y; x > groundMapBounds.min.x; x--)
+            {
+                Vector3Int tileLocation = new Vector3Int(x - 1, y - 1, 0);
+
+                //Create an array of all floor tiles that don't have objects on them
+                Debug.Log(tileLocation.z);
+                Debug.Log(groundTileMap.GetTile(tileLocation));
+                if (groundTileMap.HasTile(tileLocation))
+                {
+                    Debug.Log(objectTileMap.GetTile(tileLocation));
+                    if (!objectTileMap.HasTile(tileLocation))
                     {
-                        
+                        groundMap[((x - 1) + (-groundMapBounds.min.x)), ((y - 1) + (-groundMapBounds.min.y))] = tileLocation;
                     }
+                    else
+                    {
+                        groundMap[((x - 1) + (-groundMapBounds.min.x)), ((y - 1) + (-groundMapBounds.min.y))] = new Vector3Int(-99999, -99999, -99999);
+                    }
+                }
+                else
+                {
+                    groundMap[((x - 1) + (-groundMapBounds.min.x)), ((y - 1) + (-groundMapBounds.min.y))] = new Vector3Int(-99999, -99999, -99999);
                 }
             }
         }

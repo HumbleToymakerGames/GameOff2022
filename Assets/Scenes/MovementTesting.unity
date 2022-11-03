@@ -135,6 +135,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1765666729, guid: f049040a3739555418e83e58197f9e27, type: 3}
+      propertyPath: m_TagString
+      value: ObjectTileMap
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765666729, guid: f049040a3739555418e83e58197f9e27, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1765666730, guid: f049040a3739555418e83e58197f9e27, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -158,6 +166,14 @@ PrefabInstance:
     - target: {fileID: 134708850527841111, guid: f049040a3739555418e83e58197f9e27, type: 3}
       propertyPath: m_SortingOrder
       value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 134708850527841113, guid: f049040a3739555418e83e58197f9e27, type: 3}
+      propertyPath: m_TagString
+      value: GroundTileMap
+      objectReference: {fileID: 0}
+    - target: {fileID: 134708850527841113, guid: f049040a3739555418e83e58197f9e27, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 134708850897526222, guid: f049040a3739555418e83e58197f9e27, type: 3}
       propertyPath: m_RootOrder
@@ -207,9 +223,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid
       objectReference: {fileID: 0}
+    - target: {fileID: 134708850897526224, guid: f049040a3739555418e83e58197f9e27, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 134708850897526225, guid: f049040a3739555418e83e58197f9e27, type: 3}
       propertyPath: m_CellLayout
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 134708850897526225, guid: f049040a3739555418e83e58197f9e27, type: 3}
+      propertyPath: m_CellSize.y
+      value: 0.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f049040a3739555418e83e58197f9e27, type: 3}
@@ -324,7 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d65b8aac18cad742986351c3e45e1ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 2
 --- !u!1 &1972140950
 GameObject:
   m_ObjectHideFlags: 0
