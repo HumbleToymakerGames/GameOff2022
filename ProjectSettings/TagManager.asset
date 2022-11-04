@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GroundTileMap
   - ObjectTileMap
+  - OverlayTileMap
   layers:
   - Default
   - TransparentFX

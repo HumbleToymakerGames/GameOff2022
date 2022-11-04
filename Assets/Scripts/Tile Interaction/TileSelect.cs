@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 public class TileSelect : MonoBehaviour
 {
     public static Tilemap tileMap;
+    private static TileBase highlightTile;
 
     private static Vector3Int selectedTilePosition;
     private static Vector3Int oldTileMapPosition;
@@ -22,15 +23,6 @@ public class TileSelect : MonoBehaviour
         Vector3Int tileMapPosition = MapInformation.groundTileMap.WorldToCell(mousePos);
         if (MapInformation.groundTileMap.HasTile(tileMapPosition) && MapInformation.groundMap[tileMapPosition.x - (int)MapInformation.groundMapBounds.min.x, tileMapPosition.y - (int)MapInformation.groundMapBounds.min.y] != new Vector3Int(-99999, -99999, -99999))
         {
-            //if (oldTileMapPosition != null)
-            //{
-            //    MapInformation.groundTileMap.SetColor(oldTileMapPosition, Color.white);
-            //}
-            //MapInformation.groundTileMap.SetTileFlags(MapInformation.groundTileMap.WorldToCell(mousePos), TileFlags.None);
-            //MapInformation.groundTileMap.SetColor(tileMapPosition, Color.red);
-
-            //oldTileMapPosition = tileMapPosition;
-
             selectedTilePosition = tileMapPosition;
         }
 
@@ -60,21 +52,31 @@ public class TileSelect : MonoBehaviour
 
     public static void HighlightTile(Vector3Int tileMapPosition)
     {
-        if (oldTileMapPosition != null)
-        {
-            MapInformation.groundTileMap.SetColor(oldTileMapPosition, Color.white);
-        }
-        MapInformation.groundTileMap.SetTileFlags(tileMapPosition, TileFlags.None);
-        MapInformation.groundTileMap.SetColor(tileMapPosition, Color.gray);
+        //if (oldTileMapPosition != null)
+        //{
+        //    //MapInformation.groundTileMap.SetColor(oldTileMapPosition, Color.white);
 
-        oldTileMapPosition = tileMapPosition;
+
+        //}
+        //MapInformation.groundTileMap.SetTileFlags(tileMapPosition, TileFlags.None);
+        //MapInformation.groundTileMap.SetColor(tileMapPosition, Color.gray);
+
+        //oldTileMapPosition = tileMapPosition;
+
+        if (highlightTile == null)
+        {
+            highlightTile = Resources.Load<TileBase>("Tilesets/Assets/Highlight");
+        }
+
+        MapInformation.overlayTileMap.ClearAllTiles();
+        MapInformation.overlayTileMap.SetTileFlags(tileMapPosition, TileFlags.None);
+        MapInformation.overlayTileMap.SetTile(tileMapPosition, highlightTile);
+        Debug.Log(highlightTile.ToString());
+        
     }
 
     public static void ClearHighlight()
     {
-        if (oldTileMapPosition != null)
-        {
-            MapInformation.groundTileMap.SetColor(oldTileMapPosition, Color.white);
-        }
+        MapInformation.overlayTileMap.ClearAllTiles();
     }
 }
