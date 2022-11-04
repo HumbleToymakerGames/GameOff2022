@@ -44,8 +44,20 @@ public class MouseTileSelect : MonoBehaviour
     }
 
     //TODO
-    public Vector3 SelectRandomTilePosition()
+    public Vector3Int SelectRandomTile(Vector3 currentPosition)
     {
-        return new Vector3(0,0,0);
+        Vector3Int randomTile = new Vector3Int(-9999, -9999, -9999);
+        //Really inefficient but it works
+        bool pathFound = false;
+        while (!pathFound)
+        {
+            randomTile = new Vector3Int((int)Random.Range(MapInformation.groundMapBounds.xMin, MapInformation.groundMapBounds.xMax), (int)Random.Range(MapInformation.groundMapBounds.yMin, MapInformation.groundMapBounds.yMax), 0);
+            if (Pathfinder.FindPath(currentPosition - new Vector3(0, transform.localScale.y, 0), tileMap.CellToWorld(randomTile)).Count > 0)
+            {
+                pathFound = true;
+            }
+        }
+
+        return randomTile;
     }
 }
