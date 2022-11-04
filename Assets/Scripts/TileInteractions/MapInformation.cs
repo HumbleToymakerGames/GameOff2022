@@ -30,7 +30,7 @@ public class MapInformation : MonoBehaviour
         Tilemap objectTileMap = GameObject.FindGameObjectWithTag("ObjectTileMap").GetComponent<Tilemap>();
 
         groundMapBounds = groundTileMap.cellBounds;
-        groundMap = new Vector3Int[groundMapBounds.max.x - groundMapBounds.min.x + 2, groundMapBounds.max.y - groundMapBounds.min.y + 2];
+        groundMap = new Vector3Int[groundMapBounds.max.x - groundMapBounds.min.x * 2, groundMapBounds.max.y - groundMapBounds.min.y * 2];
 
         for (int y = groundMapBounds.max.y; y > groundMapBounds.min.y; y--)
         {
@@ -38,9 +38,6 @@ public class MapInformation : MonoBehaviour
             {
                 Vector3Int tileLocation = new Vector3Int(x - 1, y - 1, 0);
 
-                //Create an array of all floor tiles that don't have objects on them
-                Debug.Log(tileLocation.z);
-                Debug.Log(groundTileMap.GetTile(tileLocation));
                 if (groundTileMap.HasTile(tileLocation))
                 {
                     Debug.Log(objectTileMap.GetTile(tileLocation));
@@ -59,5 +56,14 @@ public class MapInformation : MonoBehaviour
                 }
             }
         }
+    }
+
+    public static Vector3Int GetTileIndex(Vector3 worldPosition)
+    {
+        Tilemap groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
+
+        Vector3Int tilePos = groundTileMap.WorldToCell(worldPosition);
+
+        return new Vector3Int(((tilePos.x) + (-groundMapBounds.min.x)), ((tilePos.y) + (-groundMapBounds.min.y)), 0);
     }
 }

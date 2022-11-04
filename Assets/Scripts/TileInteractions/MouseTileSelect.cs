@@ -10,6 +10,11 @@ public class MouseTileSelect : MonoBehaviour
     private Vector3Int selectedTilePosition;
     private Vector3Int oldTileMapPosition;
 
+    private void Start()
+    {
+        tileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
