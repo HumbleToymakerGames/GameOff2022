@@ -5,8 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class NpcMovement : MonoBehaviour
 {
-    public float speed;
-    public float currentTile;
+    public float speed = 2;
 
     private Tilemap tileMap;
     private IList<Vector3Int> path = new List<Vector3Int>();
@@ -34,7 +33,7 @@ public class NpcMovement : MonoBehaviour
         {
             pathStarted = false;
             //Vector3 tilePos = GetComponent<MouseTileSelect>().GetSelectedTilePosition();
-            Vector3 tilePos = tileMap.CellToWorld(GetComponent<MouseTileSelect>().SelectRandomTile(transform.position));
+            Vector3 tilePos = tileMap.CellToWorld(TileSelect.SelectRandomTile(transform.position));
 
             if (!pathStarted)
             {

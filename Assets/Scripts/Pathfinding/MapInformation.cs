@@ -8,6 +8,9 @@ public class MapInformation : MonoBehaviour
     public static Vector3Int[,] groundMap;
     public static BoundsInt groundMapBounds;
 
+    public static  Tilemap groundTileMap;
+    public static  Tilemap objectTileMap;
+
     public bool refresh = false;
 
     private void Start()
@@ -26,8 +29,8 @@ public class MapInformation : MonoBehaviour
 
     public void RefreshMap()
     {
-        Tilemap groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
-        Tilemap objectTileMap = GameObject.FindGameObjectWithTag("ObjectTileMap").GetComponent<Tilemap>();
+        groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
+        objectTileMap = GameObject.FindGameObjectWithTag("ObjectTileMap").GetComponent<Tilemap>();
 
         groundMapBounds = groundTileMap.cellBounds;
         groundMap = new Vector3Int[groundMapBounds.max.x - groundMapBounds.min.x * 2, groundMapBounds.max.y - groundMapBounds.min.y * 2];
@@ -40,7 +43,6 @@ public class MapInformation : MonoBehaviour
 
                 if (groundTileMap.HasTile(tileLocation))
                 {
-                    Debug.Log(objectTileMap.GetTile(tileLocation));
                     if (!objectTileMap.HasTile(tileLocation))
                     {
                         groundMap[((x - 1) + (-groundMapBounds.min.x)), ((y - 1) + (-groundMapBounds.min.y))] = tileLocation;

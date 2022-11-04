@@ -5,11 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class Movement : MonoBehaviour
 {
-    public float speed;
-
-    private float randomTileSelectTimer = 0;
-
-    public float currentTile;
+    public float speed = 2;
 
     private Tilemap tileMap;
 
@@ -17,22 +13,18 @@ public class Movement : MonoBehaviour
     private bool pathStarted = false;
 
     private int step = 0;
-    private float timer = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         tileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             pathStarted = false;
-            //Vector3 tilePos = GetComponent<MouseTileSelect>().GetSelectedTilePosition();
-            Vector3 tilePos = tileMap.CellToWorld(GetComponent<MouseTileSelect>().SelectRandomTile(transform.position));
+            Vector3 tilePos = tileMap.CellToWorld(TileSelect.GetTileUnderMouse());
 
             if (!pathStarted)
             {
@@ -41,6 +33,8 @@ public class Movement : MonoBehaviour
                 step = path.Count - 1;
                 pathStarted = true;
             }
+
+            TileSelect.HighlightTile(TileSelect.GetTileUnderMouse());
         }
         if (pathStarted)
         {
@@ -54,6 +48,7 @@ public class Movement : MonoBehaviour
             }
             else
             {
+                TileSelect.ClearHighlight();
                 pathStarted = false;
             }
         }

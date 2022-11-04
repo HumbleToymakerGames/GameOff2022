@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class Pathfinder : MonoBehaviour
 {
-    private static Tilemap tileMap;
     private static Vector3Int goalGridPos;
 
     private static IList<Node> open = new List<Node>();
@@ -37,7 +36,6 @@ public class Pathfinder : MonoBehaviour
 
         if (open.Count <= 0)
         {
-            Debug.Log("No path");
             shortestPath.Clear();
         }
         if (closed.Contains(nodes[goalGridPos.x, goalGridPos.y]))
@@ -48,6 +46,52 @@ public class Pathfinder : MonoBehaviour
             {
                 shortestPath.Add(nodeTracing.worldPosition);
                 nodeTracing = nodeTracing.parent;
+            }
+        }
+        return shortestPath;
+    }
+
+    public static IList<Vector3Int> FindRandomPath(Vector3 start)
+    {
+        bool pathFound = false;
+        IList<Vector3Int> shortestPath = new List<Vector3Int>();
+        while (!pathFound)
+        {
+            open.Clear();
+            closed.Clear();
+            
+            Node[,] nodes = CreateGrid();
+
+            Vector3Int startGridPos = MapInformation.GetTileIndex(start);
+            goalGridPos = TileSelect.SelectRandomTile(start);
+
+            nodes[startGridPos.x, startGridPos.y].CalculateCosts(goalGridPos);
+            open.Add(nodes[startGridPos.x, startGridPos.y]);
+
+            //Will switch to a while loop but don't want to freeze game
+            while (open.Count > 0 && !closed.Contains(nodes[goalGridPos.x, goalGridPos.y]))
+            {
+                Node currentNode = open[0];
+                closed.Add(open[0]);
+                open.RemoveAt(0);
+
+                CheckNeighbors(nodes, currentNode);
+            }
+
+            if (open.Count <= 0)
+            {
+                shortestPath.Clear();
+            }
+            if (closed.Contains(nodes[goalGridPos.x, goalGridPos.y]))
+            {
+                shortestPath.Add(nodes[goalGridPos.x, goalGridPos.y].worldPosition);
+                Node nodeTracing = nodes[goalGridPos.x, goalGridPos.y];
+                while (nodeTracing != null)
+                {
+                    shortestPath.Add(nodeTracing.worldPosition);
+                    nodeTracing = nodeTracing.parent;
+                }
+                pathFound = true;
             }
         }
         return shortestPath;
