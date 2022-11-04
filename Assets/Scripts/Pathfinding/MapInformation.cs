@@ -8,8 +8,9 @@ public class MapInformation : MonoBehaviour
     public static Vector3Int[,] groundMap;
     public static BoundsInt groundMapBounds;
 
-    public static  Tilemap groundTileMap;
-    public static  Tilemap objectTileMap;
+    public static Tilemap groundTileMap;
+    public static Tilemap objectTileMap;
+    public static Tilemap overlayTileMap;
 
     public bool refresh = false;
 
@@ -31,6 +32,7 @@ public class MapInformation : MonoBehaviour
     {
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
         objectTileMap = GameObject.FindGameObjectWithTag("ObjectTileMap").GetComponent<Tilemap>();
+        overlayTileMap = GameObject.FindGameObjectWithTag("OverlayTileMap").GetComponent<Tilemap>();
 
         groundMapBounds = groundTileMap.cellBounds;
         groundMap = new Vector3Int[groundMapBounds.max.x - groundMapBounds.min.x * 2, groundMapBounds.max.y - groundMapBounds.min.y * 2];
