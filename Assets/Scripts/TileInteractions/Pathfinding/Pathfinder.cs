@@ -38,6 +38,7 @@ public class Pathfinder : MonoBehaviour
         if (open.Count <= 0)
         {
             Debug.Log("No path");
+            shortestPath.Clear();
         }
         if (closed.Contains(nodes[goalGridPos.x, goalGridPos.y]))
         {
