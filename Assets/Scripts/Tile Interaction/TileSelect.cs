@@ -5,8 +5,9 @@ using UnityEngine.Tilemaps;
 
 public class TileSelect : MonoBehaviour
 {
-    public static Tilemap tileMap;
+    private static Tilemap tileMap;
     private static TileBase highlightTile;
+    private static TileBase tileSearch;
 
     private static Vector3Int selectedTilePosition;
     private static Vector3Int oldTileMapPosition;
@@ -52,17 +53,6 @@ public class TileSelect : MonoBehaviour
 
     public static void HighlightTile(Vector3Int tileMapPosition)
     {
-        //if (oldTileMapPosition != null)
-        //{
-        //    //MapInformation.groundTileMap.SetColor(oldTileMapPosition, Color.white);
-
-
-        //}
-        //MapInformation.groundTileMap.SetTileFlags(tileMapPosition, TileFlags.None);
-        //MapInformation.groundTileMap.SetColor(tileMapPosition, Color.gray);
-
-        //oldTileMapPosition = tileMapPosition;
-
         if (highlightTile == null)
         {
             highlightTile = Resources.Load<TileBase>("Tilesets/Assets/Highlight");
@@ -71,8 +61,6 @@ public class TileSelect : MonoBehaviour
         MapInformation.overlayTileMap.ClearAllTiles();
         MapInformation.overlayTileMap.SetTileFlags(tileMapPosition, TileFlags.None);
         MapInformation.overlayTileMap.SetTile(tileMapPosition, highlightTile);
-        Debug.Log(highlightTile.ToString());
-        
     }
 
     public static void ClearHighlight()
