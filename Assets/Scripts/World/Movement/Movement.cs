@@ -21,21 +21,10 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            pathStarted = false;
-            Vector3 tilePos = tileMap.CellToWorld(TileSelect.GetTileUnderMouse());
-
-            if (!pathStarted)
-            {
-                //Subtract the player y scale to offset the position to feet of player
-                path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos);
-                step = path.Count - 1;
-                pathStarted = true;
-            }
-
-            TileSelect.HighlightTile(TileSelect.GetTileUnderMouse());
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    PathTo(TileSelect.GetTileUnderMouse());
+        //}
         if (pathStarted)
         {
             if (step > 0)
@@ -52,5 +41,21 @@ public class Movement : MonoBehaviour
                 pathStarted = false;
             }
         }
+    }
+
+    public void PathTo(Vector3Int tilePos)
+    {
+        pathStarted = false;
+
+        if (!pathStarted)
+        {
+            //Subtract the player y scale to offset the position to feet of player
+            path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos);
+            step = path.Count - 1;
+            pathStarted = true;
+        }
+
+        TileSelect.HighlightTile(tilePos);
+        
     }
 }
