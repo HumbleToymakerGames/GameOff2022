@@ -68,4 +68,63 @@ public class TimeManager: MonoBehaviour
     {
         EventHandler.CallAdvanceGameHourEvent(_gameHour);
     }
+
+    public static int GetGameHour()
+    {
+        return _instance._gameHour;
+    }
+
+    public static float GetGameSeconds()
+    {
+        return _instance._gameHour * _instance.secondsPerGameHour + _instance._gameTick;
+    }
+
+    public static float GetSecondsPerHour()
+    {
+        return _instance.secondsPerGameHour;
+    }
+
+    public static int HoursBetween(int startTime, int endTime)
+    {
+        if (startTime <= endTime)
+        { 
+            return endTime - startTime;
+        }
+        else
+        {
+            return endTime + (24 - startTime);
+        }
+    }
+
+    public static float SecondsBetween(float startTime, float endTime)
+    {
+        if (startTime <= endTime)
+        {
+            return endTime - startTime;
+        }
+        else
+        {
+            return endTime + ((24 * _instance.secondsPerGameHour) - startTime);
+        }
+    }
+
+    public static int AddHours(int time1, int time2)
+    {
+        time1 += time2;
+        if (time1 >= 24)
+        {
+            time1 -= 24;
+        }
+        return time1;
+    }
+
+    public static float AddSeconds(float time1, float time2)
+    {
+        time1 += time2;
+        if (time1 >= (24 * _instance.secondsPerGameHour))
+        {
+            time1 -= (24 * _instance.secondsPerGameHour);
+        }
+        return time1;
+    }
 }
