@@ -16,6 +16,8 @@ public class InventoryButton : MonoBehaviour
 
     }
 
+
+    //sets item in slot
     public void Set(ItemSlot slot)
     {
         icon.sprite = slot.item.itemIcon;
@@ -31,6 +33,8 @@ public class InventoryButton : MonoBehaviour
         }
     }
 
+
+    //removes sprite and hides icon and text
     public void Clean()
     {
         icon.sprite = null;

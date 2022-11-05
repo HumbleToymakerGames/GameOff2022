@@ -6,14 +6,57 @@ using UnityEngine;
 [Serializable]
 public class ItemSlot
 {
+    //item slot information
     public Item item;
     public int count;
 }
 
 [CreateAssetMenu(menuName = "Data/Item Container")]
+
+
 public class ItemContainer : ScriptableObject
 {
-    public List<ItemSlot> item;
+    public List<ItemSlot> slots;
 
+    public void AddItemToInventory(Item item, int count = 1)
+    {
+        if(item.stackable == true)
+        {
+            //add stackable item
+            ItemSlot itemSlot = slots.Find(x => x.item == item);
+            if(itemSlot != null)
+            {
+                itemSlot.count += count;
+            }
+            else
+            {
+                itemSlot = slots.Find(x => x.item == null);
+                if(itemSlot != null)
+                {
+                    itemSlot.item = item;
+                    itemSlot.count = count;
+                }
+            }
+
+
+
+
+
+        }
+        else
+        {
+            //add nonstackable item to inventory
+            ItemSlot itemSlot = slots.Find(x => x.item == null);
+            if(itemSlot != null)
+            {
+                itemSlot.item = item;
+            }
+        }
+
+
+
+
+
+    }
 
 }

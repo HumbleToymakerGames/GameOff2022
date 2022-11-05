@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Item : ScriptableObject
 {
-
+    //Inventory item attributes
     public string itemName;
     public bool stackable;
     public Sprite itemIcon;
