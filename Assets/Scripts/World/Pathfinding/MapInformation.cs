@@ -16,6 +16,9 @@ public class MapInformation : MonoBehaviour
 
     private void Start()
     {
+        groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
+        objectTileMap = GameObject.FindGameObjectWithTag("ObjectTileMap").GetComponent<Tilemap>();
+        overlayTileMap = GameObject.FindGameObjectWithTag("OverlayTileMap").GetComponent<Tilemap>();
         RefreshMap();
     }
 
@@ -28,7 +31,7 @@ public class MapInformation : MonoBehaviour
         }
     }
 
-    public void RefreshMap()
+    public static void RefreshMap()
     {
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
         objectTileMap = GameObject.FindGameObjectWithTag("ObjectTileMap").GetComponent<Tilemap>();
@@ -74,5 +77,11 @@ public class MapInformation : MonoBehaviour
         Vector3Int tilePos = cellPosition;
 
         return new Vector3Int(((tilePos.x) + (-groundMapBounds.min.x)), ((tilePos.y) + (-groundMapBounds.min.y)), 0);
+    }
+
+    public static void SetTileWalkability(Vector3Int tilePos, bool walkable)
+    {
+        Vector3Int tileIndex = GetTileIndex(tilePos);
+        groundMap[tileIndex.x, tileIndex.y] = walkable ? tilePos : new Vector3Int(-99999, -99999, -99999);
     }
 }
