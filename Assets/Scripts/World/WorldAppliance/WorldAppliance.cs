@@ -28,6 +28,12 @@ public class WorldAppliance : MonoBehaviour
             MapInformation.SetTileWalkability(MapInformation.groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y/2, 0)), false);
             markedUnWalkable = true;
         }
+
+        //Appliance working
+        if(appliance.anyFunctionRunning)
+        {
+            appliance.UpdateFunction();
+        }
     }
 
     private void OnMouseDown()
@@ -49,5 +55,7 @@ public class WorldAppliance : MonoBehaviour
     public void AtAppliance()
     {
         appliance.StartFunction();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<PlayerCurrentAppliance>().currentAppliance = null;
     }
 }

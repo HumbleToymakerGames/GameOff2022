@@ -10,6 +10,8 @@ public class Appliance
     public WorldAppliance worldAppliance;
     private ApplianceFunction currentFunction;
 
+    public bool anyFunctionRunning;
+
     public Appliance(ApplianceSO applianceSO)
     {
         _applianceSO = applianceSO;
@@ -40,7 +42,7 @@ public class Appliance
     public void StartFunction()
     {
         //Check other functions to see if they are running
-        bool anyFunctionRunning = false;
+        anyFunctionRunning = false;
         foreach (ApplianceFunction f in _applianceFunctions)
         {
             if (f.working)
@@ -48,7 +50,24 @@ public class Appliance
         }
 
         //If there are no functions running on this appliance start
-        if(!anyFunctionRunning)
-            currentFunction.StartFunction();
+        if (!anyFunctionRunning)
+        {
+            currentFunction.StartFunction(UIManager.Instance.SpawnProgressBar(worldAppliance.transform.position + new Vector3(0, 0.25f, 0)));
+            anyFunctionRunning = true;
+            currentFunction = null;
+        }
+    }
+
+    public void UpdateFunction()
+    {
+        anyFunctionRunning = false;
+        foreach (ApplianceFunction f in _applianceFunctions)
+        {
+            if (f.working)
+            {
+                anyFunctionRunning = true;
+                f.UpdateFunction();
+            }
+        }
     }
 }

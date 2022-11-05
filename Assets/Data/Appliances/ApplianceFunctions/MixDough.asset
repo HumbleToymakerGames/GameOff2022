@@ -19,4 +19,4 @@ MonoBehaviour:
   outputs:
   - itemName: dough
     itemQuantity: 1
-  hoursToMake: 0.5
+  hoursToMake: 1
