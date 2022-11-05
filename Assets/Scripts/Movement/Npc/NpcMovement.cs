@@ -34,8 +34,8 @@ public class NpcMovement : MonoBehaviour
         {
             pathStarted = false;
             //Vector3 tilePos = GetComponent<MouseTileSelect>().GetSelectedTilePosition();
-            //Vector3 tilePos = tileMap.CellToWorld(TileSelect.SelectRandomTile(transform.position));
-            Vector3Int tilePos = tileMap.WorldToCell(orderCounter.transform.position) + new Vector3Int(-1, 0, 0);
+            Vector3 tilePos = tileMap.CellToWorld(TileSelect.SelectRandomTile(transform.position));
+            //Vector3Int tilePos = tileMap.WorldToCell(orderCounter.transform.position) + new Vector3Int(-1, 0, 0);
 
             if (!pathStarted)
             {
