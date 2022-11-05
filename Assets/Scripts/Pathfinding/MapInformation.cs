@@ -64,9 +64,14 @@ public class MapInformation : MonoBehaviour
 
     public static Vector3Int GetTileIndex(Vector3 worldPosition)
     {
-        Tilemap groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
-
         Vector3Int tilePos = groundTileMap.WorldToCell(worldPosition);
+
+        return new Vector3Int(((tilePos.x) + (-groundMapBounds.min.x)), ((tilePos.y) + (-groundMapBounds.min.y)), 0);
+    }
+
+    public static Vector3Int GetTileIndex(Vector3Int cellPosition)
+    {
+        Vector3Int tilePos = cellPosition;
 
         return new Vector3Int(((tilePos.x) + (-groundMapBounds.min.x)), ((tilePos.y) + (-groundMapBounds.min.y)), 0);
     }

@@ -386,7 +386,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 48
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -1495,9 +1495,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Room_31: 21300062
       Room_17: 21300034
       Room_WallC: 21300216
+      Door_Purple: 21300080
       Room_10: 21300020
       Room_22: 21300044
       Room_35: 21300070
@@ -1515,15 +1515,15 @@ TextureImporter:
       Room_14: 21300028
       Room_WallB: 21300214
       Room_34: 21300068
-      Room_36: 21300072
       Room_WallA: 21300076
+      Room_36: 21300072
       Room_28: 21300056
       Room_15: 21300030
       Room_25: 21300050
       Room_13: 21300026
-      Room_26: 21300052
       Room_30: 21300060
       Room_WallD: 21300218
+      Room_26: 21300052
       TileFloor_4: 21300008
       Room_12: 21300024
       TileFloor_6: 21300012
@@ -1542,7 +1542,7 @@ TextureImporter:
       Room_WallF: 21300222
       Room_9: 21300018
       Room_18: 21300036
-      Door_Purple: 21300080
+      Room_31: 21300062
       Room_33: 21300066
   spritePackingTag: 
   pSDRemoveMatte: 1

@@ -51,6 +51,47 @@ public class Pathfinder : MonoBehaviour
         return shortestPath;
     }
 
+    public static IList<Vector3Int> FindPath(Vector3 start, Vector3Int goal)
+    {
+        open.Clear();
+        closed.Clear();
+        IList<Vector3Int> shortestPath = new List<Vector3Int>();
+
+        Node[,] nodes = CreateGrid();
+
+        Vector3Int startGridPos = MapInformation.GetTileIndex(start);
+        goalGridPos = MapInformation.GetTileIndex(goal);
+
+        nodes[startGridPos.x, startGridPos.y].CalculateCosts(goalGridPos);
+        open.Add(nodes[startGridPos.x, startGridPos.y]);
+
+        //Will switch to a while loop but don't want to freeze game
+        while (open.Count > 0 && !closed.Contains(nodes[goalGridPos.x, goalGridPos.y]))
+        {
+            Node currentNode = open[0];
+            closed.Add(open[0]);
+            open.RemoveAt(0);
+
+            CheckNeighbors(nodes, currentNode);
+        }
+
+        if (open.Count <= 0)
+        {
+            shortestPath.Clear();
+        }
+        if (closed.Contains(nodes[goalGridPos.x, goalGridPos.y]))
+        {
+            shortestPath.Add(nodes[goalGridPos.x, goalGridPos.y].worldPosition);
+            Node nodeTracing = nodes[goalGridPos.x, goalGridPos.y];
+            while (nodeTracing != null)
+            {
+                shortestPath.Add(nodeTracing.worldPosition);
+                nodeTracing = nodeTracing.parent;
+            }
+        }
+        return shortestPath;
+    }
+
     public static IList<Vector3Int> FindRandomPath(Vector3 start)
     {
         bool pathFound = false;

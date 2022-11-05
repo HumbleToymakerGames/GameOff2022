@@ -15,6 +15,8 @@ public class NpcMovement : MonoBehaviour
     public float timeBetweenRandomMove = 5f;
     private float moveTimer = 0;
 
+    public GameObject orderCounter;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +26,6 @@ public class NpcMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         //Count down timer if not currently moving
         if(!pathStarted) 
             moveTimer -= Time.deltaTime;
@@ -34,6 +35,7 @@ public class NpcMovement : MonoBehaviour
             pathStarted = false;
             //Vector3 tilePos = GetComponent<MouseTileSelect>().GetSelectedTilePosition();
             Vector3 tilePos = tileMap.CellToWorld(TileSelect.SelectRandomTile(transform.position));
+            //Vector3Int tilePos = tileMap.WorldToCell(orderCounter.transform.position) + new Vector3Int(-1, 0, 0);
 
             if (!pathStarted)
             {
