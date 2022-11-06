@@ -20,7 +20,7 @@ public class UIStatusBar : MonoBehaviour
     private void UpdateGameTimeUI(int gameMinute, int gameHour)
     {
         // Parameters passed in through EventHandler.AdvanceGameMinuteEvent event
-        string timeString = gameHour.ToString() + ":" + gameMinute.ToString("D2");
+        string timeString = TimeManager.GetGameHour() + ":" + gameMinute.ToString("D2");
         timeText.text = timeString;
     }
 
