@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : SingletonMonoBehaviour<UIManager>
@@ -8,6 +9,8 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
 
     public GameObject worldUiParent;
     public GameObject progressBarPrefab;
+
+    private List<GameObject> _progressBarObjectPool = new List<GameObject>();
 
     public void ShowApplianceContextPanel(Appliance appliance, Vector2 position)
     {
@@ -26,10 +29,30 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         _applianceContextUI.gameObject.SetActive(false);
     }
 
-    public GameObject SpawnProgressBar(Vector2 position)
+    public GameObject PlaceProgressBarForApplianceFunction(ApplianceFunction applianceFunction, Vector2 position)
     {
-        GameObject progressBar = Instantiate(progressBarPrefab, worldUiParent.transform);
+        
+        GameObject progressBar = GetUnusedProgressBarOrInstantiate();
         progressBar.transform.position = position;
+        // Populate progressbar sprite with appliancefunction output sprite
+        progressBar.SetActive(true);
         return progressBar;
+
+    }
+
+    private GameObject GetUnusedProgressBarOrInstantiate()
+    {
+        if (_progressBarObjectPool.Count > 0)
+        {
+            foreach (GameObject bar in _progressBarObjectPool)
+            {
+                if (bar.activeInHierarchy == false) return bar;
+            }
+        }
+
+        GameObject newBar = Instantiate(progressBarPrefab, worldUiParent.transform);
+        _progressBarObjectPool.Add(newBar);
+        newBar.SetActive(false);
+        return newBar;
     }
 }

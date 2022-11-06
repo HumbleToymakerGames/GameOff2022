@@ -51,7 +51,7 @@ public class ApplianceFunction
 
     public void FinishFunction()
     {
-        GameObject.Destroy(progressBar.gameObject);
+        progressBar.SetActive(false);
         Debug.Log("Finished function " + GetApplianceFunctionName());
         working = false;
     }
