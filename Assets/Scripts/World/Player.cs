@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             if(controlState != ControlState.Game)
                 controlState = ControlState.Game;

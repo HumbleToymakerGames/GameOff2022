@@ -6,17 +6,50 @@ public class PlayerEditMode : MonoBehaviour
 {
     public GameObject ovenPrefab;
     private GameObject heldObject;
+
+    private bool loadedObjects = false;
+
+    private int selectedObject = 0;
+
+    private IList<GameObject> placeableObjects = new List<GameObject>();
     public void UpdateCall()
     {
-        if (heldObject == null && Input.GetKeyDown(KeyCode.B))
+        if (!loadedObjects)
         {
-            heldObject = Instantiate(ovenPrefab);
+            placeableObjects = Resources.LoadAll<GameObject>("Prefabs/PlaceableObjects");
         }
-        else if (heldObject != null && Input.GetKeyDown(KeyCode.B))
+
+        //Object selection
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            Destroy(heldObject);
+            selectedObject++;
+            if (heldObject != null)
+                Destroy(heldObject);
             heldObject = null;
         }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (heldObject != null)
+                Destroy(heldObject);
+            heldObject = null;
+            selectedObject--;
+        }
+
+        if (selectedObject >= placeableObjects.Count)
+            selectedObject = 0;
+        else if (selectedObject < 0)
+            selectedObject = placeableObjects.Count - 1;
+
+
+        if (heldObject == null)
+        {
+            heldObject = Instantiate(placeableObjects[selectedObject]);
+        }
+        //else if (heldObject != null && Input.GetKeyDown(KeyCode.B))
+        //{
+        //    Destroy(heldObject);
+        //    heldObject = null;
+        //}
         else if (heldObject != null)
         {
             heldObject.transform.position = MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse() + new Vector3Int(1, 1, 0));
