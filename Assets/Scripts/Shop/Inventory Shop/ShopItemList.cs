@@ -6,12 +6,10 @@ using UnityEngine;
 
 public class ShopItemList : ScriptableObject
 {
-    [SerializeField] private List<ShopInventoryItem> item;
-    [SerializeField] private int maxAllowedGold;
-    [SerializeField] private float sellMarkUp;
-    [SerializeField] private float buyMarkUp;
+    [SerializeField] private List<ShopInventoryItem> items;
+    
 
-
+    public List<ShopInventoryItem> Items => items;
 }
 
 [System.Serializable]
