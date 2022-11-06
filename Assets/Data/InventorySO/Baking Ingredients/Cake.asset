@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Cake
   stackable: 1
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 02a1ece5d35ac234b849b7502cba7749, type: 3}

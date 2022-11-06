@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   applianceName: Bad Oven
   functions:
-  - {fileID: 11400000, guid: cf28c9d089fc1a74482e9846d104db0d, type: 2}
-  - {fileID: 11400000, guid: 13864326b591b3542a349bbf3678e282, type: 2}
+  - {fileID: 11400000, guid: 543e5985f3c154ff7a0a3c4996a69aac, type: 2}
+  - {fileID: 11400000, guid: 88c674115f5b5496e93a635584397eec, type: 2}
+  - {fileID: 11400000, guid: 5a1974a68ebf74d8eb67a4bc9858b2cd, type: 2}

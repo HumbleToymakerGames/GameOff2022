@@ -21,10 +21,4 @@ public class ApplianceFunctionProgressBar : MonoBehaviour
         }
     }
 
-    public bool activeInHierarchy { get; internal set; }
-
-    internal void SetActive(bool v)
-    {
-        this.SetActive(v);
-    }
 }

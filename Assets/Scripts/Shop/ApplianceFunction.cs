@@ -50,7 +50,7 @@ public class ApplianceFunction
         int minutesToCompleteFunction = (int)Math.Floor(_applianceFunctionSO.hoursToMake * 60);
         progress = (float)(TimeManager.GetAbsoluteGameMinutes() - _startTime) / minutesToCompleteFunction;
 
-        progressBar.GetComponent<Slider>().value = progress;
+        progressBar.GetComponent<ApplianceFunctionProgressBar>().progress = progress;
 
         if (progress >= 1)
         {
@@ -69,5 +69,12 @@ public class ApplianceFunction
         {
             playerMovement.movementLocked = false;
         }
+    }
+
+    public Sprite SpriteForOutputProduct()
+    {
+        if (_applianceFunctionSO.outputs.Length == 0) return null;
+        if (_applianceFunctionSO.outputs[0].item == null) return null;
+        return _applianceFunctionSO.outputs[0].item.itemIcon;
     }
 }
