@@ -9,18 +9,18 @@ public class UIStatusBar : MonoBehaviour
 
     private void OnEnable()
     {
-        EventHandler.AdvanceGameHourEvent += UpdateGameTimeUI;
+        EventHandler.AdvanceGameMinuteEvent += UpdateGameTimeUI;
     }
 
     private void OnDisable()
     {
-        EventHandler.AdvanceGameHourEvent -= UpdateGameTimeUI;
+        EventHandler.AdvanceGameMinuteEvent -= UpdateGameTimeUI;
     }
 
-    private void UpdateGameTimeUI(int gameHour)
+    private void UpdateGameTimeUI(int gameMinute, int gameHour)
     {
-        // Parameters passed in through EventHandler.AdvanceGameHourEvent event
-        string timeString = gameHour.ToString() + ":00";
+        // Parameters passed in through EventHandler.AdvanceGameMinuteEvent event
+        string timeString = gameHour.ToString() + ":" + gameMinute.ToString("D2");
         timeText.text = timeString;
     }
 

@@ -5,7 +5,7 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
     public List<ApplianceSO> startingAppliances = new List<ApplianceSO>();
     private List<Appliance> _appliances = new List<Appliance>();
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
         AddStartingAppliance();
