@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public struct ItemQuantity
 {
-    public string itemName; // TODO: link to Item entity when Inventory system is created
+    public Item item;
     public int itemQuantity;
 }
 
