@@ -36,6 +36,7 @@ public class Appliance
     public void FunctionClicked(ApplianceFunction function)
     {
         currentFunction = function;
+        UIManager.Instance.CloseApplianceContextPanel();
         worldAppliance.MovePlayerToAppliance();
     }
 
