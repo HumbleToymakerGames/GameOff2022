@@ -19,12 +19,8 @@ public class Movement : MonoBehaviour
         tileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
     }
 
-    void Update()
+    public void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    PathTo(TileSelect.GetTileUnderMouse());
-        //}
         if (pathStarted)
         {
             if (step > 0)
@@ -43,19 +39,27 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public void UpdateCall()
+    {
+        
+    }
+
     public void PathTo(Vector3Int tilePos)
     {
-        pathStarted = false;
-
-        if (!pathStarted)
+        if (Player.controlState == ControlState.Game)
         {
-            //Subtract the player y scale to offset the position to feet of player
-            path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos);
-            step = path.Count - 1;
-            pathStarted = true;
-        }
+            pathStarted = false;
 
-        TileSelect.HighlightTile(tilePos);
+            if (!pathStarted)
+            {
+                //Subtract the player y scale to offset the position to feet of player
+                path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos);
+                step = path.Count - 1;
+                pathStarted = true;
+            }
+
+            TileSelect.HighlightTile(tilePos);
+        }
         
     }
 }

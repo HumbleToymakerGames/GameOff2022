@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1912924274095981675}
   - component: {fileID: 1912924274095981678}
   - component: {fileID: 6416345935908466016}
+  - component: {fileID: 44916423607166935}
   m_Layer: 0
   m_Name: Mixer
   m_TagString: Untagged
@@ -113,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usePositionOffset: {x: -1, y: 0, z: 0}
-  appliance: {fileID: 11400000, guid: 620de75729fd5b3478ce715345f331a8, type: 2}
+  applianceSO: {fileID: 11400000, guid: 620de75729fd5b3478ce715345f331a8, type: 2}
 --- !u!58 &6416345935908466016
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -130,3 +131,16 @@ CircleCollider2D:
   m_Offset: {x: -0.03, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &44916423607166935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912924274095981674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b7a2c17e1443e4ba76e54418dad1a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placed: 0

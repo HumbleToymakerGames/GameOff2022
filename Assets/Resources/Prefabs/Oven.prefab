@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6416345937157440039}
   - component: {fileID: 833225454}
   - component: {fileID: 833225453}
+  - component: {fileID: -1621939349219016829}
   m_Layer: 0
   m_Name: Oven
   m_TagString: Untagged
@@ -114,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usePositionOffset: {x: 0, y: -1, z: 0}
-  appliance: {fileID: 11400000, guid: c66c3432f5b89f749b41e5c8a6ac37d7, type: 2}
+  applianceSO: {fileID: 11400000, guid: c66c3432f5b89f749b41e5c8a6ac37d7, type: 2}
 --- !u!50 &833225454
 Rigidbody2D:
   serializedVersion: 4
@@ -152,3 +153,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.41
+--- !u!114 &-1621939349219016829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6416345937157440035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b7a2c17e1443e4ba76e54418dad1a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placed: 0
