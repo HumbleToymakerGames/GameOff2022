@@ -14,6 +14,8 @@ public class Movement : MonoBehaviour
 
     private int step = 0;
 
+    public bool movementLocked = false;
+
     void Start()
     {
         tileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
@@ -46,7 +48,7 @@ public class Movement : MonoBehaviour
 
     public void PathTo(Vector3Int tilePos)
     {
-        if (Player.controlState == ControlState.Game)
+        if (Player.controlState == ControlState.Game && !movementLocked)
         {
             pathStarted = false;
 
@@ -60,6 +62,5 @@ public class Movement : MonoBehaviour
 
             TileSelect.HighlightTile(tilePos);
         }
-        
     }
 }
