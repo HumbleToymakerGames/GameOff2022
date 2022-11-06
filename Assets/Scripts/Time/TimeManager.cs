@@ -41,11 +41,6 @@ public class TimeManager: SingletonMonoBehaviour<TimeManager>
             {
                 _gameMinute = 0;
                 _gameHour++;
-
-                if (_gameHour >= 24)
-                {
-                    _gameHour = 0;
-                }
             }
 
             UpdateGameMinute();
