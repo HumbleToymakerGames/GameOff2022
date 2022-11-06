@@ -83,5 +83,7 @@ public class MapInformation : MonoBehaviour
     {
         Vector3Int tileIndex = GetTileIndex(tilePos);
         groundMap[tileIndex.x, tileIndex.y] = walkable ? tilePos : new Vector3Int(-99999, -99999, -99999);
+        TileSelect.HighlightTile(tilePos);
+        Debug.Log(tilePos);
     }
 }
