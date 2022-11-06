@@ -12,10 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc3f633f4dbdba4baf0c36f963e8471, type: 3}
   m_Name: Inventory
   m_EditorClassIdentifier: 
-  item:
+  slots:
+  - item: {fileID: 11400000, guid: 0e9ae7c0b05abf344abb012cda47461b, type: 2}
+    count: 5
   - item: {fileID: 11400000, guid: bd8b7c10939c71948968660ec2459886, type: 2}
     count: 12
-  - item: {fileID: 11400000, guid: 0e9ae7c0b05abf344abb012cda47461b, type: 2}
-    count: 2
   - item: {fileID: 11400000, guid: ec72519fc35cd554da6a0df63cb4c470, type: 2}
-    count: 1
+    count: 2
+  - item: {fileID: 0}
+    count: 0
+  - item: {fileID: 0}
+    count: 0
+  - item: {fileID: 0}
+    count: 0

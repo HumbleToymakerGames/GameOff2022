@@ -1,17 +1,15 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class EventHandler
 {
-    public static event Action<int> AdvanceGameHourEvent;
+    public static event Action<int, int> AdvanceGameMinuteEvent;
 
-    public static void CallAdvanceGameHourEvent(int gameHour)
+    public static void CallAdvanceGameMinuteEvent(int gameMinute, int gameHour)
     {
-        if (AdvanceGameHourEvent != null)
+        if (AdvanceGameMinuteEvent != null)
         {
-            AdvanceGameHourEvent(gameHour);
+            AdvanceGameMinuteEvent(gameMinute, gameHour);
         }
     }
 
