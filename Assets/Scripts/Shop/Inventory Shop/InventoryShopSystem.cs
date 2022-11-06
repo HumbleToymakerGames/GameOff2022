@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryShopSystem : MonoBehaviour
+public class InventoryShopSystem
 {
     private List<ShopSlot> shopInventory;
 
@@ -13,7 +13,21 @@ public class InventoryShopSystem : MonoBehaviour
 
     private void SetShopSize(int size)
     {
+        shopInventory = new List<ShopSlot>(size);
+
+        for (int i = 0; i < size; i++)
+        {
+            shopInventory.Add(item: new ShopSlot());
+        }
+    }
+
+    public void AddToShop(Item data, int amount)
+    {
+
+
 
     }
+
+
 
 }

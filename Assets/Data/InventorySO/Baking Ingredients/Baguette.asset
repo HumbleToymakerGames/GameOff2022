@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Baguette
   stackable: 1
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300072, guid: a686ecd845234064f945285464b93c53, type: 3}

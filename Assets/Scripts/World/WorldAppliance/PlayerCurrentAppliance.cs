@@ -9,8 +9,13 @@ public class PlayerCurrentAppliance : MonoBehaviour
 
     private void Update()
     {
-        if (currentAppliance != null && 
-            MapInformation.groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)) == MapInformation.groundTileMap.WorldToCell(currentAppliance.gameObject.transform.position - new Vector3(0, currentAppliance.gameObject.transform.localScale.y / 2, 0)) + currentAppliance.usePositionOffset)
+        if (currentAppliance == null) return;
+
+        Vector3Int currentPosition = MapInformation.groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0));
+        Vector3Int currentAppliancePosition = MapInformation.groundTileMap.WorldToCell(currentAppliance.gameObject.transform.position - new Vector3(0, currentAppliance.gameObject.transform.localScale.y / 2, 0));
+        Vector3Int currentApplianceUsePosition = currentAppliancePosition + currentAppliance.usePositionOffset;
+
+        if (currentPosition == currentApplianceUsePosition)
         {
             currentAppliance.AtAppliance();
         }
