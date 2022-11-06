@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ApplianceFunction
 {
-    private ApplianceFunctionSO _applianceFunctionSO;
     public bool working = false;
-    private float startTime;
-    private float endTime;
-
     public float progress = 0;
     public GameObject progressBar;
+
+    private ApplianceFunctionSO _applianceFunctionSO;
+    private int _startTime;
+    private int _endTime;
 
     public ApplianceFunction(ApplianceFunctionSO so)
     {
@@ -29,8 +28,8 @@ public class ApplianceFunction
         this.progressBar = progressBar;
         working = true;
 
-        startTime = TimeManager.GetGameSeconds();
-        progress = 0;
+        _startTime = TimeManager.GetAbsoluteGameMinutes();
+        progress = 0f;
 
         // We should remove the input items from the inventory and begin the function
         // After the amount of hours passes, the function should complete, the appliance becomes available
@@ -39,10 +38,11 @@ public class ApplianceFunction
 
     public void UpdateFunction()
     {
-        endTime = TimeManager.AddSeconds(startTime, _applianceFunctionSO.hoursToMake * TimeManager.GetSecondsPerHour());
-        progress = TimeManager.SecondsBetween(startTime, TimeManager.GetGameSeconds()) / TimeManager.SecondsBetween(startTime, endTime);
+        int minutesToCompleteFunction = (int)Math.Floor(_applianceFunctionSO.hoursToMake * 60);
+        progress = (float)(TimeManager.GetAbsoluteGameMinutes() - _startTime) / minutesToCompleteFunction;
 
         progressBar.GetComponent<Slider>().value = progress;
+
         if (progress >= 1)
         {
             FinishFunction();

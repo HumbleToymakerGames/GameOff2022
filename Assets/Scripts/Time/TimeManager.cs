@@ -1,38 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
-public class TimeManager: MonoBehaviour
+
+
+
+public class TimeManager: SingletonMonoBehaviour<TimeManager>
+
 {
     public float secondsPerGameHour = 8f;
 
     private int _gameHour = 6;
+    private int _gameMinute = 0;
+
     private bool _gameClockPaused = false;
     private float _gameTick = 0f;
 
-    // Singleton pattern
-    // TODO?: Make abstract Singleton class?
-    private static TimeManager _instance;
-
-    public static TimeManager Instance
+    private void Start()
     {
-        get
-        {
-            return _instance;
-        }
-    }
-
-    void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        EventHandler.CallAdvanceGameMinuteEvent(_gameMinute, _gameHour);
     }
 
     private void Update()
@@ -47,54 +32,54 @@ public class TimeManager: MonoBehaviour
     {
         _gameTick += Time.deltaTime;
 
-        if (_gameTick >= secondsPerGameHour)
+        if (_gameTick >= (secondsPerGameHour / 60))
         {
-            _gameTick -= secondsPerGameHour;
-            _gameHour++;
-            if (_gameHour >= 24)
+            _gameTick -= (secondsPerGameHour / 60);
+            _gameMinute++;
+
+            if (_gameMinute >= 60)
             {
-                _gameHour = 0;
+                _gameMinute = 0;
+                _gameHour++;
+
+                if (_gameHour >= 24)
+                {
+                    _gameHour = 0;
+                }
             }
 
-            UpdateGameHour();
+            UpdateGameMinute();
         }
     }
 
-    private void UpdateGameHour()
-    {
-        EventHandler.CallAdvanceGameHourEvent(_gameHour);
-    }
+    private void UpdateGameMinute() => EventHandler.CallAdvanceGameMinuteEvent(_gameMinute, _gameHour);
 
-    private void Start()
-    {
-        EventHandler.CallAdvanceGameHourEvent(_gameHour);
-    }
+    public static int GetGameHour() => Instance._gameHour % 24;
 
-    public static int GetGameHour()
-    {
-        return _instance._gameHour;
-    }
+    public static int GetAbsoluteGameHour() => Instance._gameHour;
 
+    public static int MinutesBetween(int startTime, int endTime) => endTime - startTime;
+
+    public static int AddMinutes(int time1, int time2) => time1 += time2;
+
+    public static int GetAbsoluteGameMinutes() => (Instance._gameHour * 60) + Instance._gameMinute;
+
+
+
+    /* 
+     * There shouldn't be a need to use GameSeconds because GameMinutes is the 
+     * smallest unit we care about.
+     * At 8 seconds per game hour, a game minute takes 
+     * about 0.133 real life seconds.
+     * 
     public static float GetGameSeconds()
     {
-        return _instance._gameHour * _instance.secondsPerGameHour + _instance._gameTick;
+        return Instance._gameHour * Instance.secondsPerGameHour + Instance._gameTick;
     }
 
     public static float GetSecondsPerHour()
     {
-        return _instance.secondsPerGameHour;
-    }
-
-    public static int HoursBetween(int startTime, int endTime)
-    {
-        if (startTime <= endTime)
-        { 
-            return endTime - startTime;
-        }
-        else
-        {
-            return endTime + (24 - startTime);
-        }
+        return Instance.secondsPerGameHour;
     }
 
     public static float SecondsBetween(float startTime, float endTime)
@@ -105,27 +90,20 @@ public class TimeManager: MonoBehaviour
         }
         else
         {
-            return endTime + ((24 * _instance.secondsPerGameHour) - startTime);
+            return endTime + ((24 * Instance.secondsPerGameHour) - startTime);
         }
-    }
-
-    public static int AddHours(int time1, int time2)
-    {
-        time1 += time2;
-        if (time1 >= 24)
-        {
-            time1 -= 24;
-        }
-        return time1;
     }
 
     public static float AddSeconds(float time1, float time2)
     {
         time1 += time2;
-        if (time1 >= (24 * _instance.secondsPerGameHour))
+        if (time1 >= (24 * Instance.secondsPerGameHour))
         {
-            time1 -= (24 * _instance.secondsPerGameHour);
+            time1 -= (24 * Instance.secondsPerGameHour);
         }
         return time1;
     }
+
+    */
+
 }
