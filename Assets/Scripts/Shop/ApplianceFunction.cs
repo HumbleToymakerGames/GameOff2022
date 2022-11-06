@@ -12,6 +12,8 @@ public class ApplianceFunction
     private int _startTime;
     private int _endTime;
 
+    private Movement playerMovement;
+
     public ApplianceFunction(ApplianceFunctionSO so)
     {
         _applianceFunctionSO = so;
@@ -30,6 +32,13 @@ public class ApplianceFunction
 
         _startTime = TimeManager.GetAbsoluteGameMinutes();
         progress = 0f;
+
+        //Grab player movement and lock movement if manual task
+        if(_applianceFunctionSO.manual)
+        {
+            playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<Movement>();
+            playerMovement.movementLocked = true;
+        }
 
         // We should remove the input items from the inventory and begin the function
         // After the amount of hours passes, the function should complete, the appliance becomes available
@@ -54,5 +63,11 @@ public class ApplianceFunction
         GameObject.Destroy(progressBar.gameObject);
         Debug.Log("Finished function " + GetApplianceFunctionName());
         working = false;
+
+        //If manual unlock player movement
+        if (_applianceFunctionSO.manual)
+        {
+            playerMovement.movementLocked = false;
+        }
     }
 }

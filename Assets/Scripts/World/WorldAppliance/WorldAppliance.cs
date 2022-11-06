@@ -24,7 +24,6 @@ public class WorldAppliance : MonoBehaviour
             {
                 appliance = new Appliance(applianceSO);
                 appliance.worldAppliance = this;
-                //MapInformation.SetTileWalkability(MapInformation.groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), false);
                 initialized = true;
             }
 
