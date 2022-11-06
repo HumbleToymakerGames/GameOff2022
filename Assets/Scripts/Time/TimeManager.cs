@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeManager: MonoBehaviour
+public class TimeManager: SingletonMonoBehaviour<TimeManager>
 {
     public float secondsPerGameHour = 8f;
 
@@ -10,28 +8,9 @@ public class TimeManager: MonoBehaviour
     private bool _gameClockPaused = false;
     private float _gameTick = 0f;
 
-    // Singleton pattern
-    // TODO?: Make abstract Singleton class?
-    private static TimeManager _instance;
-
-    public static TimeManager Instance
+    private void Start()
     {
-        get
-        {
-            return _instance;
-        }
-    }
-
-    void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        EventHandler.CallAdvanceGameHourEvent(_gameHour);
     }
 
     private void Update()
@@ -64,24 +43,19 @@ public class TimeManager: MonoBehaviour
         EventHandler.CallAdvanceGameHourEvent(_gameHour);
     }
 
-    private void Start()
-    {
-        EventHandler.CallAdvanceGameHourEvent(_gameHour);
-    }
-
     public static int GetGameHour()
     {
-        return _instance._gameHour;
+        return Instance._gameHour;
     }
 
     public static float GetGameSeconds()
     {
-        return _instance._gameHour * _instance.secondsPerGameHour + _instance._gameTick;
+        return Instance._gameHour * Instance.secondsPerGameHour + Instance._gameTick;
     }
 
     public static float GetSecondsPerHour()
     {
-        return _instance.secondsPerGameHour;
+        return Instance.secondsPerGameHour;
     }
 
     public static int HoursBetween(int startTime, int endTime)
@@ -104,7 +78,7 @@ public class TimeManager: MonoBehaviour
         }
         else
         {
-            return endTime + ((24 * _instance.secondsPerGameHour) - startTime);
+            return endTime + ((24 * Instance.secondsPerGameHour) - startTime);
         }
     }
 
@@ -121,9 +95,9 @@ public class TimeManager: MonoBehaviour
     public static float AddSeconds(float time1, float time2)
     {
         time1 += time2;
-        if (time1 >= (24 * _instance.secondsPerGameHour))
+        if (time1 >= (24 * Instance.secondsPerGameHour))
         {
-            time1 -= (24 * _instance.secondsPerGameHour);
+            time1 -= (24 * Instance.secondsPerGameHour);
         }
         return time1;
     }
