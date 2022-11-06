@@ -16,4 +16,5 @@ public class ApplianceFunctionSO : ScriptableObject
     public ItemQuantity[] inputs;
     public ItemQuantity[] outputs;
     public float hoursToMake;
+    public bool manual;
 }
