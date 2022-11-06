@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class WorldAppliance : MonoBehaviour
 {
@@ -38,6 +39,12 @@ public class WorldAppliance : MonoBehaviour
 
     private void OnMouseDown()
     {
+        //Check if over ui when clicking if so skip selection
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
         screenPosition += new Vector3(screenPosition.x <= Screen.width / 2 ? Screen.width / 4 : -Screen.width / 4, 0, 0);
         screenPosition.y = Screen.height / 2;
