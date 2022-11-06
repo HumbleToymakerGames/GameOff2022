@@ -10,6 +10,8 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     public GameObject worldUiParent;
     public GameObject progressBarPrefab;
 
+    public float inWorldUIPositionYOffset = 0.5f;
+
     private List<GameObject> _progressBarObjectPool = new List<GameObject>();
 
     public void ShowApplianceContextPanel(Appliance appliance, Vector2 position)
@@ -31,10 +33,16 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
 
     public GameObject PlaceProgressBarForApplianceFunction(ApplianceFunction applianceFunction, Vector2 position)
     {
-        
+
         GameObject progressBar = GetUnusedProgressBarOrInstantiate();
-        progressBar.transform.position = position;
-        // Populate progressbar sprite with appliancefunction output sprite
+        progressBar.transform.position = new Vector2(position.x, position.y + inWorldUIPositionYOffset);
+        Sprite sprite = applianceFunction.SpriteForOutputProduct();
+
+        if (sprite != null)
+        {
+            progressBar.GetComponent<ApplianceFunctionProgressBar>().image.sprite = sprite;
+        }
+
         progressBar.SetActive(true);
         return progressBar;
 
@@ -50,9 +58,9 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
             }
         }
 
-        GameObject newBar = Instantiate(progressBarPrefab, worldUiParent.transform);
-        _progressBarObjectPool.Add(newBar);
-        newBar.SetActive(false);
-        return newBar;
+        GameObject newBarGO = Instantiate(progressBarPrefab, worldUiParent.transform);
+        _progressBarObjectPool.Add(newBarGO);
+        newBarGO.SetActive(false);
+        return newBarGO;
     }
 }

@@ -22,7 +22,7 @@ public class TileSelect : MonoBehaviour
 
         //Get tile clicked
         Vector3Int tileMapPosition = MapInformation.groundTileMap.WorldToCell(mousePos);
-        if (MapInformation.groundTileMap.HasTile(tileMapPosition) && MapInformation.groundMap[tileMapPosition.x - (int)MapInformation.groundMapBounds.min.x, tileMapPosition.y - (int)MapInformation.groundMapBounds.min.y] != new Vector3Int(-99999, -99999, -99999))
+        if (MapInformation.groundTileMap.HasTile(tileMapPosition) && MapInformation.groundMap[tileMapPosition.x - (int)MapInformation.groundMapBounds.min.x, tileMapPosition.y - (int)MapInformation.groundMapBounds.min.y].walkable)
         {
             selectedTilePosition = tileMapPosition;
         }
@@ -33,22 +33,31 @@ public class TileSelect : MonoBehaviour
     /// <summary>
     /// Gets a random tiles position on the map that can be pathed to
     /// </summary>
-    /// <param name="startPosition"></param>
     /// <returns>The tiles position on the tilemap</returns>
-    public static Vector3Int SelectRandomTile(Vector3 startPosition)
+    public static TileInfo SelectRandomTile()
     {
-        Vector3Int randomTile = new Vector3Int(-99999, -99999, -99999);
+        TileInfo randomTile = new TileInfo(new Vector3Int(-99999, -99999, -99999), true);
         bool validTile = false;
         while (!validTile)
         {
-            randomTile = new Vector3Int((int)Random.Range(MapInformation.groundMapBounds.xMin, MapInformation.groundMapBounds.xMax), (int)Random.Range(MapInformation.groundMapBounds.yMin, MapInformation.groundMapBounds.yMax), 0);
-            if (MapInformation.groundTileMap.HasTile(randomTile) && MapInformation.groundTileMap.CellToWorld(randomTile) != new Vector3Int(-99999, -99999, -99999))
+            randomTile = new TileInfo(new Vector3Int((int)Random.Range(MapInformation.groundMapBounds.xMin, MapInformation.groundMapBounds.xMax), (int)Random.Range(MapInformation.groundMapBounds.yMin, MapInformation.groundMapBounds.yMax), 0), true);
+            if (MapInformation.groundTileMap.HasTile(randomTile.position) && randomTile.walkable)
             {
                 validTile = true;
             }    
         }
 
         return randomTile;
+    }
+
+    public static TileInfo FindTileOfType(TileType tileType)
+    {
+        TileInfo tile = new TileInfo(new Vector3Int(-99999, -99999, -99999), true);
+        IList<TileInfo> tileList = MapInformation.GetTileTypeList(tileType);
+        if(tileList.Count > 0)
+            tile = tileList[Random.Range(0, tileList.Count)];
+
+        return tile;
     }
 
     public static void HighlightTile(Vector3Int tileMapPosition)

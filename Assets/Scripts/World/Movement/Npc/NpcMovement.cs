@@ -17,6 +17,8 @@ public class NpcMovement : MonoBehaviour
 
     public GameObject orderCounter;
 
+    private Vector3 oldPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,13 +36,20 @@ public class NpcMovement : MonoBehaviour
         {
             pathStarted = false;
             //Vector3 tilePos = GetComponent<MouseTileSelect>().GetSelectedTilePosition();
-            Vector3 tilePos = tileMap.CellToWorld(TileSelect.SelectRandomTile(transform.position));
+            //Vector3 tilePos = tileMap.CellToWorld(TileSelect.SelectRandomTile().position);
+            Vector3 tilePos = tileMap.CellToWorld(TileSelect.FindTileOfType(TileType.Seat).position);
             //Vector3Int tilePos = tileMap.WorldToCell(orderCounter.transform.position) + new Vector3Int(-1, 0, 0);
 
             if (!pathStarted)
             {
+                //Set old position to be walkable again
+                MapInformation.SetTileWalkability(tileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y, 0)), true);
+
                 //Subtract the player y scale to offset the position to feet of player
                 path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos);
+
+                //Set targeted position to not be walkable
+                MapInformation.SetTileWalkability(tileMap.WorldToCell(tilePos), false);
                 step = path.Count - 1;
                 pathStarted = true;
             }

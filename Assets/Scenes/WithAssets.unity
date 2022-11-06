@@ -257,7 +257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6424665870011470045, guid: aa21960956c89d540989617f34ab09c6, type: 3}
       propertyPath: secondsPerGameHour
-      value: 1
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa21960956c89d540989617f34ab09c6, type: 3}
@@ -1316,6 +1316,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1662584510796930006, guid: 8da4132e7a3a3364baa6ee094aee2487, type: 3}
+      propertyPath: progressBarPrefab
+      value: 
+      objectReference: {fileID: 2240744734379126892, guid: 96be9424c652f46d48d50aeae687ffcf, type: 3}
     - target: {fileID: 1662584510796930007, guid: 8da4132e7a3a3364baa6ee094aee2487, type: 3}
       propertyPath: m_RootOrder
       value: 8

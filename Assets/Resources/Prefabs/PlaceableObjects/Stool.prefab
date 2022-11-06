@@ -99,3 +99,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placed: 0
   placeOnStart: 0
+  tileType: 2
