@@ -10,7 +10,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     public GameObject worldUiParent;
     public GameObject progressBarPrefab;
 
-    private List<GameObject> _progressBarObjectPool = new List<GameObject>();
+    private List<ApplianceFunctionProgressBar> _progressBarObjectPool = new List<ApplianceFunctionProgressBar>();
 
     public void ShowApplianceContextPanel(Appliance appliance, Vector2 position)
     {
@@ -29,28 +29,29 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         _applianceContextUI.gameObject.SetActive(false);
     }
 
-    public GameObject PlaceProgressBarForApplianceFunction(ApplianceFunction applianceFunction, Vector2 position)
+    public ApplianceFunctionProgressBar PlaceProgressBarForApplianceFunction(ApplianceFunction applianceFunction, Vector2 position)
     {
-        
-        GameObject progressBar = GetUnusedProgressBarOrInstantiate();
+
+        ApplianceFunctionProgressBar progressBar = GetUnusedProgressBarOrInstantiate();
         progressBar.transform.position = position;
-        // Populate progressbar sprite with appliancefunction output sprite
+        progressBar.image.sprite = applianceFunction.ImageForOutputProduct();
         progressBar.SetActive(true);
         return progressBar;
 
     }
 
-    private GameObject GetUnusedProgressBarOrInstantiate()
+    private ApplianceFunctionProgressBar GetUnusedProgressBarOrInstantiate()
     {
         if (_progressBarObjectPool.Count > 0)
         {
-            foreach (GameObject bar in _progressBarObjectPool)
+            foreach (ApplianceFunctionProgressBar bar in _progressBarObjectPool)
             {
                 if (bar.activeInHierarchy == false) return bar;
             }
         }
 
-        GameObject newBar = Instantiate(progressBarPrefab, worldUiParent.transform);
+        GameObject newBarGO = Instantiate(progressBarPrefab, worldUiParent.transform);
+        ApplianceFunctionProgressBar newBar = newBarGO.GetComponent<ApplianceFunctionProgressBar>();
         _progressBarObjectPool.Add(newBar);
         newBar.SetActive(false);
         return newBar;
