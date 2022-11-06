@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b8fb5eb3bcc7d24c9d459bafbefed16, type: 3}
-  m_Name: Eggs
+  m_Name: CinnamonRoll
   m_EditorClassIdentifier: 
-  itemName: Egg
+  itemName: Cinnamon Roll
   stackable: 1
-  itemIcon: {fileID: 21300000, guid: 1ba08b5f08c63644598a173765c76dd4, type: 3}
+  itemIcon: {fileID: 0}

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e266f5795713ed4984d97322ea3745e, type: 3}
+  m_Name: BakeCupcake
+  m_EditorClassIdentifier: 
+  functionName: Bake Cupcake
+  inputs:
+  - item: {fileID: 11400000, guid: 0a8cc9497e42444978893966b303e47a, type: 2}
+    itemQuantity: 1
+  - item: {fileID: 11400000, guid: 6842e367dd17e431bb069179f397015b, type: 2}
+    itemQuantity: 1
+  outputs:
+  - item: {fileID: 11400000, guid: 211862da7d8d345a7ab5736ca510c76e, type: 2}
+    itemQuantity: 1
+  hoursToMake: 2
