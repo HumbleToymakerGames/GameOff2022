@@ -24,3 +24,4 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: a8aab45613a9d4a3288ef80586e2239c, type: 2}
     itemQuantity: 1
   hoursToMake: 0.5
+  manual: 1
