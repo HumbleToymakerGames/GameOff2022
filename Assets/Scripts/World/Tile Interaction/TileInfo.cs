@@ -9,7 +9,8 @@ public class TileInfo
 {
     public Vector3Int position;
     public bool walkable = true;
-    public TileType tileType = TileType.Furniture;
+    public TileType tileType = TileType.Empty;
+    public bool taken = false;
 
     public TileInfo(Vector3Int position, bool walkable)
     {

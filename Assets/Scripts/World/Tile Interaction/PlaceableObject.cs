@@ -52,4 +52,4 @@ public class PlaceableObject : MonoBehaviour
     }
 }
 
-public enum TileType { Furniture, Interactable, Seat }
+public enum TileType { Furniture, Interactable, Seat, Empty }

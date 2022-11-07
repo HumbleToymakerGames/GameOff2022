@@ -16,6 +16,8 @@ public class Movement : MonoBehaviour
 
     public bool movementLocked = false;
 
+    private Vector3Int oldGoal = new Vector3Int(-99999, -99999, -99999);
+
     void Start()
     {
         tileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
@@ -55,7 +57,10 @@ public class Movement : MonoBehaviour
             if (!pathStarted)
             {
                 //Subtract the player y scale to offset the position to feet of player
-                path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos);
+                path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos, oldGoal);
+
+                oldGoal = tilePos;
+
                 step = path.Count - 1;
                 pathStarted = true;
             }

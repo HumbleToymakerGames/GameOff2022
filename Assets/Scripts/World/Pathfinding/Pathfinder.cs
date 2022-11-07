@@ -6,11 +6,12 @@ using UnityEngine.Tilemaps;
 public class Pathfinder : MonoBehaviour
 {
     private static Vector3Int goalGridPos;
+    private static Vector3Int oldGoalGridPos;
 
     private static IList<Node> open = new List<Node>();
     private static IList<Node> closed = new List<Node>();
 
-    public static IList<Vector3Int> FindPath(Vector3 start, Vector3 goal)
+    public static IList<Vector3Int> FindPath(Vector3 start, Vector3 goal, Vector3 oldGoal)
     {
         open.Clear();
         closed.Clear();
@@ -18,13 +19,29 @@ public class Pathfinder : MonoBehaviour
 
         Node[,] nodes = CreateGrid();
 
-
         Vector3Int startGridPos = MapInformation.GetTileIndex(start);
         goalGridPos = MapInformation.GetTileIndex(goal);
+        oldGoalGridPos = MapInformation.GetTileIndex(oldGoal);
 
         if (goalGridPos.x >= MapInformation.groundMapBounds.max.x - MapInformation.groundMapBounds.min.x + 2 || goalGridPos.y >= MapInformation.groundMapBounds.max.y - MapInformation.groundMapBounds.min.y + 2
             || goalGridPos.x < 0 || goalGridPos.y < 0)
             return shortestPath;
+
+        if (MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken || !MapInformation.groundMap[goalGridPos.x, goalGridPos.y].walkable)
+            return shortestPath;
+        else
+        {
+            if (oldGoalGridPos.x >= MapInformation.groundMapBounds.max.x - MapInformation.groundMapBounds.min.x + 2 || oldGoalGridPos.y >= MapInformation.groundMapBounds.max.y - MapInformation.groundMapBounds.min.y + 2
+            || oldGoalGridPos.x < 0 || oldGoalGridPos.y < 0)
+            {
+
+            }
+            else
+            {
+                MapInformation.groundMap[oldGoalGridPos.x, oldGoalGridPos.y].taken = false;
+            }
+            MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken = true;
+        }
 
         nodes[startGridPos.x, startGridPos.y].CalculateCosts(goalGridPos);
         open.Add(nodes[startGridPos.x, startGridPos.y]);
@@ -56,7 +73,7 @@ public class Pathfinder : MonoBehaviour
         return shortestPath;
     }
 
-    public static IList<Vector3Int> FindPath(Vector3 start, Vector3Int goal)
+    public static IList<Vector3Int> FindPath(Vector3 start, Vector3Int goal, Vector3Int oldGoal)
     {
         open.Clear();
         closed.Clear();
@@ -66,11 +83,31 @@ public class Pathfinder : MonoBehaviour
 
         Vector3Int startGridPos = MapInformation.GetTileIndex(start);
         goalGridPos = MapInformation.GetTileIndex(goal);
+        oldGoalGridPos = MapInformation.GetTileIndex(oldGoal);
+
+        if (goalGridPos.x >= MapInformation.groundMapBounds.max.x - MapInformation.groundMapBounds.min.x + 2 || goalGridPos.y >= MapInformation.groundMapBounds.max.y - MapInformation.groundMapBounds.min.y + 2
+            || goalGridPos.x < 0 || goalGridPos.y < 0)
+            return shortestPath;
+
+        if (MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken || !MapInformation.groundMap[goalGridPos.x, goalGridPos.y].walkable)
+            return shortestPath;
+        else
+        {
+            if (oldGoalGridPos.x >= MapInformation.groundMapBounds.max.x - MapInformation.groundMapBounds.min.x + 2 || oldGoalGridPos.y >= MapInformation.groundMapBounds.max.y - MapInformation.groundMapBounds.min.y + 2
+            || oldGoalGridPos.x < 0 || oldGoalGridPos.y < 0)
+            {
+
+            }
+            else
+            {
+                MapInformation.groundMap[oldGoalGridPos.x, oldGoalGridPos.y].taken = false;
+            }
+            MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken = true;
+        }
 
         nodes[startGridPos.x, startGridPos.y].CalculateCosts(goalGridPos);
         open.Add(nodes[startGridPos.x, startGridPos.y]);
 
-        //Will switch to a while loop but don't want to freeze game
         while (open.Count > 0 && !closed.Contains(nodes[goalGridPos.x, goalGridPos.y]))
         {
             Node currentNode = open[0];

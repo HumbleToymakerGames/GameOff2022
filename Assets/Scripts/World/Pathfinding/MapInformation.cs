@@ -89,6 +89,10 @@ public class MapInformation : MonoBehaviour
             && tileIndex.y > 0 && tileIndex.y < groundMapBounds.max.y - groundMapBounds.min.y * 2)
         {
             groundMap[tileIndex.x, tileIndex.y].walkable = walkable;
+            if (!walkable)
+            {
+                TileSelect.HighlightTile(tilePos);
+            }
         }
     }
 
@@ -99,10 +103,13 @@ public class MapInformation : MonoBehaviour
         if (tileIndex.x > 0 && tileIndex.x < groundMapBounds.max.x - groundMapBounds.min.x * 2
             && tileIndex.y > 0 && tileIndex.y < groundMapBounds.max.y - groundMapBounds.min.y * 2)
         {
-            groundMap[tileIndex.x, tileIndex.y].tileType = tileType;
+            if (tileType != groundMap[tileIndex.x, tileIndex.y].tileType)
+            {
+                RemoveTileFromInfoList(groundMap[tileIndex.x, tileIndex.y]);
+                groundMap[tileIndex.x, tileIndex.y].tileType = tileType;
+                AddTileToInfoList(groundMap[tileIndex.x, tileIndex.y]);
+            }
         }
-
-        UpdateTileInfoLists();
     }
 
     public static IList<TileInfo> GetTileTypeList(TileType tileType)
@@ -122,34 +129,67 @@ public class MapInformation : MonoBehaviour
 
     private static void UpdateTileInfoLists()
     {
-        chairs.Clear();
-        furniture.Clear();
-        interactables.Clear();
-        for (int y = groundMapBounds.max.y; y > groundMapBounds.min.y; y--)
-        {
-            for (int x = groundMapBounds.max.y; x > groundMapBounds.min.x; x--)
-            {
-                Vector3Int tileLocation = new Vector3Int(x - 1, y - 1, 0);
-                TileInfo tileInfo = groundMap[((x - 1) + (-groundMapBounds.min.x)), ((y - 1) + (-groundMapBounds.min.y))];
-                groundMap[((x - 1) + (-groundMapBounds.min.x)), ((y - 1) + (-groundMapBounds.min.y))] = new TileInfo(tileLocation, true);
-                if (groundTileMap.HasTile(tileLocation))
-                {
-                    switch (tileInfo.tileType)
-                    {
-                        case TileType.Seat:
-                            chairs.Add(tileInfo);
-                            break;
-                        case TileType.Furniture:
-                            furniture.Add(tileInfo);
-                            break;
-                        case TileType.Interactable:
-                            interactables.Add(tileInfo);
-                            break;
-                    }
-                }
-            }
-        }
+        //for (int y = groundMapBounds.max.y; y > groundMapBounds.min.y; y--)
+        //{
+        //    for (int x = groundMapBounds.max.y; x > groundMapBounds.min.x; x--)
+        //    {
+        //        Vector3Int tileLocation = new Vector3Int(x - 1, y - 1, 0);
+        //        TileInfo tileInfo = groundMap[((x - 1) + (-groundMapBounds.min.x)), ((y - 1) + (-groundMapBounds.min.y))];
+        //        groundMap[((x - 1) + (-groundMapBounds.min.x)), ((y - 1) + (-groundMapBounds.min.y))] = new TileInfo(tileLocation, true);
+        //        if (groundTileMap.HasTile(tileLocation))
+        //        {
+        //            //switch (tileInfo.tileType)
+        //            //{
+        //            //    case TileType.Seat:
+        //            //        chairs.Add(tileInfo);
+        //            //        break;
+        //            //    case TileType.Furniture:
+        //            //        furniture.Add(tileInfo);
+        //            //        break;
+        //            //    case TileType.Interactable:
+        //            //        interactables.Add(tileInfo);
+        //            //        break;
+        //            //}
+        //            if(tileInfo.tileType == TileType.Seat)
+        //                chairs.Add(tileInfo);
+        //            else if (tileInfo.tileType == TileType.Furniture)
+        //                furniture.Add(tileInfo);
+        //            else if (tileInfo.tileType == TileType.Interactable)
+        //                interactables.Add(tileInfo);
+        //        }
+        //    }
+        //}
+    }
 
-        Debug.Log(chairs.Count);
+    private static void AddTileToInfoList(TileInfo tile)
+    {
+        switch (tile.tileType)
+        {
+            case TileType.Seat:
+                chairs.Add(tile);
+                break;
+            case TileType.Furniture:
+                furniture.Add(tile);
+                break;
+            case TileType.Interactable:
+                interactables.Add(tile);
+                break;
+        }
+    }
+
+    private static void RemoveTileFromInfoList(TileInfo tile)
+    {
+        switch (tile.tileType)
+        {
+            case TileType.Seat:
+                chairs.Remove(tile);
+                break;
+            case TileType.Furniture:
+                furniture.Remove(tile);
+                break;
+            case TileType.Interactable:
+                interactables.Remove(tile);
+                break;
+        }
     }
 }
