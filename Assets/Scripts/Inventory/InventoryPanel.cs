@@ -21,7 +21,7 @@ public class InventoryPanel : MonoBehaviour
     //sets the amount of slots that need to be filled
     private void SetIndex()
     {
-        for(int i = 0; i < inventory.slots.Count; i++)
+        for (int i = 0; i < inventory.slots.Count; i++)
         {
             buttons[i].SetIndex(i);
         }
@@ -29,9 +29,9 @@ public class InventoryPanel : MonoBehaviour
     //shows whats being filled in the inventory slots
     private void Show()
     {
-        for(int i = 0; i < inventory.slots.Count; i++)
+        for (int i = 0; i < inventory.slots.Count; i++)
         {
-            if(inventory.slots[i].item == null)
+            if (inventory.slots[i].item == null)
             {
                 buttons[i].Clean();
 
