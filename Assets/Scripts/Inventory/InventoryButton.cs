@@ -10,6 +10,12 @@ public class InventoryButton : MonoBehaviour
     [SerializeField] TMP_Text text;
 
     int myIndex;
+    ItemPanel itemPanel;
+
+    public void SetItemPanel(ItemPanel source)
+    {
+        itemPanel = source;
+    }
 
     public void SetIndex(int index)
     {
@@ -34,13 +40,14 @@ public class InventoryButton : MonoBehaviour
         }
     }
 
+    
 
     //removes sprite and hides icon and text
     public void Clean()
     {
         icon.sprite = null;
-        icon.gameObject.SetActive(false);
+        icon.gameObject.SetActive(true);
 
-        text.gameObject.SetActive(false);
+        text.gameObject.SetActive(true);
     }
 }

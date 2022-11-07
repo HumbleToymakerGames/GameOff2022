@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryPanel : MonoBehaviour
+public class ItemPanel : MonoBehaviour
 {
     [SerializeField] ItemContainer inventory;
     [SerializeField] List<InventoryButton> buttons;
@@ -10,12 +10,27 @@ public class InventoryPanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetIndex();
-        Show();
+        Init();
     }
 
+    public void Init()
+    {
+        SetSourcePanel();
+        SetIndex();
+        Show();
+
+    }
+
+    private void SetSourcePanel()
+    {
+        for(int i = 0; i < buttons.Count; i++)
+        {
+            buttons[i].SetItemPanel(this);
+        }
+    }
     private void OnEnable()
     {
+        Clear();
         Show();
     }
     //sets the amount of slots that need to be filled
@@ -27,7 +42,7 @@ public class InventoryPanel : MonoBehaviour
         }
     }
     //shows whats being filled in the inventory slots
-    private void Show()
+    public void Show()
     {
         for (int i = 0; i < inventory.slots.Count; i++)
         {
@@ -41,5 +56,22 @@ public class InventoryPanel : MonoBehaviour
                 buttons[i].Set(inventory.slots[i]);
             }
         }
+    }
+
+    public void Clear()
+    {
+        for(int i= 0; i < buttons.Count; i++)
+        {
+            buttons[i].Clean();
+        }
+    }
+
+    public void SetInventory(ItemContainer newInventory)
+    {
+        inventory = newInventory;
+    }
+    public virtual void OnClick(int id)
+    {
+
     }
 }
