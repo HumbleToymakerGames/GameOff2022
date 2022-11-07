@@ -17,7 +17,9 @@ public class NpcMovement : MonoBehaviour
 
     public GameObject orderCounter;
 
-    private Vector3 oldPosition;
+    private Vector3 oldGoal = new Vector3(-99999, -99999, -99999);
+
+    public MovementState movementState = MovementState.Random;
 
     // Start is called before the first frame update
     void Start()
@@ -35,21 +37,30 @@ public class NpcMovement : MonoBehaviour
         if (moveTimer <= 0)
         {
             pathStarted = false;
-            //Vector3 tilePos = GetComponent<MouseTileSelect>().GetSelectedTilePosition();
-            //Vector3 tilePos = tileMap.CellToWorld(TileSelect.SelectRandomTile().position);
-            Vector3 tilePos = tileMap.CellToWorld(TileSelect.FindTileOfType(TileType.Seat).position);
-            //Vector3Int tilePos = tileMap.WorldToCell(orderCounter.transform.position) + new Vector3Int(-1, 0, 0);
+
+            Vector3 tilePos = new Vector3(0,0,0);
+
+            switch (movementState)
+            {
+                case MovementState.Random:
+                    tilePos = tileMap.CellToWorld(TileSelect.SelectRandomTile().position);
+                    break;
+                case MovementState.Seat:
+                    tilePos = tileMap.CellToWorld(TileSelect.FindTileOfType(TileType.Seat).position);
+                    break;
+                case MovementState.Order:
+                    //TODO
+                    tilePos = tileMap.CellToWorld(TileSelect.SelectRandomTile().position);
+                    break;
+            }
 
             if (!pathStarted)
             {
-                //Set old position to be walkable again
-                MapInformation.SetTileWalkability(tileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y, 0)), true);
-
                 //Subtract the player y scale to offset the position to feet of player
-                path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos);
+                path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos, oldGoal);
 
-                //Set targeted position to not be walkable
-                MapInformation.SetTileWalkability(tileMap.WorldToCell(tilePos), false);
+                oldGoal = tilePos;
+
                 step = path.Count - 1;
                 pathStarted = true;
             }
@@ -81,3 +92,5 @@ public class NpcMovement : MonoBehaviour
         }
     }
 }
+
+public enum MovementState { Random, Seat, Order}
