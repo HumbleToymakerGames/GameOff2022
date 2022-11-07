@@ -1,11 +1,34 @@
+using System;
 using UnityEngine;
 
+public struct GameTime
+{
+    public int hour;
+    public int minute;
 
+    public static bool operator <(GameTime gt1, GameTime gt2)
+    {
+        return ((gt1.hour * 60) + gt1.minute) < ((gt2.hour * 60) + gt2.minute);
+    }
 
+    public static bool operator >(GameTime gt1, GameTime gt2)
+    {
+        return ((gt1.hour * 60) + gt1.minute) > ((gt2.hour * 60) + gt2.minute);
+    }
 
+    public static bool operator ==(GameTime gt1, GameTime gt2)
+    {
+        return gt1.hour == gt2.hour && gt1.minute == gt2.minute;
+    }
 
-public class TimeManager: SingletonMonoBehaviour<TimeManager>
+    public static bool operator !=(GameTime gt1, GameTime gt2)
+    {
+        return gt1.hour != gt2.hour || gt1.minute != gt2.minute;
+    }
 
+}
+
+public class TimeManager : SingletonMonoBehaviour<TimeManager>
 {
     public float secondsPerGameHour = 8f;
 
@@ -59,46 +82,45 @@ public class TimeManager: SingletonMonoBehaviour<TimeManager>
 
     public static int GetAbsoluteGameMinutes() => (Instance._gameHour * 60) + Instance._gameMinute;
 
-
-
-    /* 
-     * There shouldn't be a need to use GameSeconds because GameMinutes is the 
-     * smallest unit we care about.
-     * At 8 seconds per game hour, a game minute takes 
-     * about 0.133 real life seconds.
-     * 
-    public static float GetGameSeconds()
+    public static GameTime GetCurrentGameTime()
     {
-        return Instance._gameHour * Instance.secondsPerGameHour + Instance._gameTick;
+        GameTime resultGT;
+        resultGT.hour = Instance._gameHour;
+        resultGT.minute = Instance._gameMinute;
+        return resultGT;
     }
 
-    public static float GetSecondsPerHour()
+    public static GameTime AddGameTimes(GameTime gt1, GameTime gt2)
     {
-        return Instance.secondsPerGameHour;
-    }
-
-    public static float SecondsBetween(float startTime, float endTime)
-    {
-        if (startTime <= endTime)
+        GameTime resultGT = gt1;
+        resultGT.hour += gt2.hour;
+        resultGT.minute += gt2.minute;
+        if (resultGT.minute >= 60)
         {
-            return endTime - startTime;
+            resultGT.hour += resultGT.minute / 60;
+            resultGT.minute = resultGT.minute % 60;
         }
-        else
-        {
-            return endTime + ((24 * Instance.secondsPerGameHour) - startTime);
-        }
+        return resultGT;
     }
 
-    public static float AddSeconds(float time1, float time2)
+    public static GameTime AddMinutesToGameTime(GameTime gt, int minutes)
     {
-        time1 += time2;
-        if (time1 >= (24 * Instance.secondsPerGameHour))
+        GameTime resultGT = gt;
+        resultGT.minute += minutes;
+        if (resultGT.minute >= 60)
         {
-            time1 -= (24 * Instance.secondsPerGameHour);
+            resultGT.hour += resultGT.minute / 60;
+            resultGT.minute = resultGT.minute % 60;
         }
-        return time1;
+        return resultGT;
     }
 
-    */
+    public static GameTime ConvertMinutesToGameTime(int minutes)
+    {
+        GameTime resultGT;
+        resultGT.hour = minutes / 60;
+        resultGT.minute = minutes % 60;
+        return resultGT;
+    }
 
 }
