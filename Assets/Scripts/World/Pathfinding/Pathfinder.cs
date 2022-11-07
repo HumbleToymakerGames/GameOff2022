@@ -18,8 +18,13 @@ public class Pathfinder : MonoBehaviour
 
         Node[,] nodes = CreateGrid();
 
+
         Vector3Int startGridPos = MapInformation.GetTileIndex(start);
         goalGridPos = MapInformation.GetTileIndex(goal);
+
+        if (goalGridPos.x >= MapInformation.groundMapBounds.max.x - MapInformation.groundMapBounds.min.x + 2 || goalGridPos.y >= MapInformation.groundMapBounds.max.y - MapInformation.groundMapBounds.min.y + 2
+            || goalGridPos.x < 0 || goalGridPos.y < 0)
+            return shortestPath;
 
         nodes[startGridPos.x, startGridPos.y].CalculateCosts(goalGridPos);
         open.Add(nodes[startGridPos.x, startGridPos.y]);
@@ -104,12 +109,11 @@ public class Pathfinder : MonoBehaviour
             Node[,] nodes = CreateGrid();
 
             Vector3Int startGridPos = MapInformation.GetTileIndex(start);
-            goalGridPos = TileSelect.SelectRandomTile(start);
+            goalGridPos = TileSelect.SelectRandomTile().position;
 
             nodes[startGridPos.x, startGridPos.y].CalculateCosts(goalGridPos);
             open.Add(nodes[startGridPos.x, startGridPos.y]);
 
-            //Will switch to a while loop but don't want to freeze game
             while (open.Count > 0 && !closed.Contains(nodes[goalGridPos.x, goalGridPos.y]))
             {
                 Node currentNode = open[0];
@@ -211,13 +215,19 @@ public class Pathfinder : MonoBehaviour
 
     private static Node[,] CreateGrid()
     {
+        TileInfo tile;
         Node[,] nodes = new Node[MapInformation.groundMapBounds.max.x - MapInformation.groundMapBounds.min.x + 2, MapInformation.groundMapBounds.max.y - MapInformation.groundMapBounds.min.y + 2];
 
         for (int x = 0; x < MapInformation.groundMapBounds.max.x - MapInformation.groundMapBounds.min.x + 2; x++)
         {
             for (int y = 0; y < MapInformation.groundMapBounds.max.y - MapInformation.groundMapBounds.min.y + 2; y++)
             {
-                nodes[x, y] = new Node(MapInformation.groundMap[x, y]);
+                tile = MapInformation.groundMap[x, y];
+                if (tile == null)
+                {
+                    tile = new TileInfo(new Vector3Int(-9999, -9999, -9999), false);
+                }
+                nodes[x, y] = new Node(tile.position, tile.walkable);
                 nodes[x, y].gridPosition = new Vector3Int(x, y, 0);
             }
         }
@@ -239,9 +249,9 @@ class Node
     public float gCost = 0;
     public float hCost;
 
-    public Node(Vector3Int worldPosition)
+    public Node(Vector3Int worldPosition, bool walkable)
     {
-        walkable = worldPosition != new Vector3Int(-99999, -99999, -99999);
+        this.walkable = walkable;
         this.worldPosition = worldPosition;
     }
 
