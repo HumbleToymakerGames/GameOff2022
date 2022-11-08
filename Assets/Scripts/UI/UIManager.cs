@@ -21,7 +21,6 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
             _applianceContextUI = Instantiate(applianceContextActionUiPrefab, uiParent.transform);
         }
         _applianceContextUI.InitializeWithAppliance(appliance);
-        _applianceContextUI.transform.position = position;
         _applianceContextUI.gameObject.SetActive(true);
         // TODO: set position to clicked position
     }

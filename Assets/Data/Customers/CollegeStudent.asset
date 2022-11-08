@@ -17,6 +17,8 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: fae1cadf00d674442b767be6c5a8dcee, type: 2}
     weight: 3
   - item: {fileID: 11400000, guid: c0f473ce5385c4966998fe9221032502, type: 2}
+    weight: 2
+  - item: {fileID: 11400000, guid: 3e245c19f4cd84db08332c897d043a04, type: 2}
     weight: 1
   fallbackItemPool:
   - item: {fileID: 11400000, guid: 001d179b24551488dafdf1239e39ad36, type: 2}

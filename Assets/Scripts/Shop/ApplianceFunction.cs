@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,8 +74,25 @@ public class ApplianceFunction
 
     public Sprite SpriteForOutputProduct()
     {
-        if (_applianceFunctionSO.outputs.Length == 0) return null;
+        if (_applianceFunctionSO.outputs.Count == 0) return null;
         if (_applianceFunctionSO.outputs[0].item == null) return null;
         return _applianceFunctionSO.outputs[0].item.itemIcon;
+    }
+
+    public List<ItemQuantity> GetItemQuantitiesForInputs()
+    {
+        return _applianceFunctionSO.inputs;
+    }
+
+    public ItemQuantity GetItemQuantityForOutput()
+    {
+        return _applianceFunctionSO.outputs[0];
+    }
+
+    public String GetDurationString()
+    {
+        int hours = (int)Math.Floor(_applianceFunctionSO.hoursToMake);
+        int mins = (int)_applianceFunctionSO.hoursToMake % 1;
+        return hours.ToString() + "h " + mins.ToString() + "m"; 
     }
 }

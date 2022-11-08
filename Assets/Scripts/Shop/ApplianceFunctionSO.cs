@@ -13,8 +13,8 @@ public struct ItemQuantity
 public class ApplianceFunctionSO : ScriptableObject
 {
     public string functionName;
-    public ItemQuantity[] inputs;
-    public ItemQuantity[] outputs;
+    public List<ItemQuantity> inputs = new List<ItemQuantity>();
+    public List<ItemQuantity> outputs = new List<ItemQuantity>();
     public float hoursToMake;
     public bool manual;
 }

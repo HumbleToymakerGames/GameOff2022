@@ -7,6 +7,7 @@ public class ApplianceContextActionUI : MonoBehaviour
 {
     public TextMeshProUGUI applianceNameText;
     public SimpleButton buttonPrefab;
+    public GameObject applianceFunctionElPrefab;
 
     private Appliance _currentAppliance;
 
@@ -25,10 +26,12 @@ public class ApplianceContextActionUI : MonoBehaviour
         List<ApplianceFunction> functions = _currentAppliance.GetApplianceFunctions();
         foreach(ApplianceFunction function in functions)
         {
-            SimpleButton newButton = Instantiate(buttonPrefab, transform);
-            newButton.SetButtonText(function.GetApplianceFunctionName());
-            //newButton.button.onClick.AddListener(() => function.StartFunction());
-            newButton.button.onClick.AddListener(() => appliance.FunctionClicked(function));
+            GameObject newFunctionEl = Instantiate(applianceFunctionElPrefab, transform);
+            ApplianceFunctionUIElement newFunctionScript = newFunctionEl.GetComponent<ApplianceFunctionUIElement>();
+            newFunctionScript.SetToApplianceFunction(function);
+            newFunctionScript.GetStartFunctionButton().onClick.AddListener(() => appliance.FunctionClicked(function));
+
+            // newButton.button.onClick.AddListener(() => appliance.FunctionClicked(function));
         }
         SimpleButton backButton = Instantiate(buttonPrefab, transform);
         backButton.SetButtonText("Back");
