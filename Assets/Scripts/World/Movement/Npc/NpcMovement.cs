@@ -16,15 +16,19 @@ public class NpcMovement : MonoBehaviour
     private float moveTimer = 0;
 
     public GameObject orderCounter;
+    private WorldCustomer worldCustomerScript;
 
     private Vector3 oldGoal = new Vector3(-99999, -99999, -99999);
 
     public MovementState movementState = MovementState.Random;
 
+    private bool exitStarted = false;
+
     // Start is called before the first frame update
     void Start()
     {
         tileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
+        worldCustomerScript = GetComponent<WorldCustomer>();
     }
 
     // Update is called once per frame
@@ -34,7 +38,39 @@ public class NpcMovement : MonoBehaviour
         if(!pathStarted) 
             moveTimer -= Time.deltaTime;
 
-        if (moveTimer <= 0)
+        if (worldCustomerScript.exiting)
+        {
+            Vector3 tilePos = new Vector3(0, 0, 0);
+            tilePos = GameObject.FindGameObjectWithTag("Entrance").transform.position;
+
+            if (!exitStarted)
+            {
+                pathStarted = false;
+            }
+
+            if (!pathStarted)
+            {
+                //Subtract the player y scale to offset the position to feet of player
+                path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos, oldGoal, false);
+
+                oldGoal = tilePos;
+
+                step = path.Count - 1;
+
+                if (step > 0)
+                {
+                    exitStarted = true;
+                }
+                pathStarted = true;
+            }
+
+            //Check if customer has made it to the door
+            if (tileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y, 0)) == tileMap.WorldToCell(GameObject.FindGameObjectWithTag("Entrance").transform.position))
+            {
+                Destroy(gameObject);
+            }
+        }
+        else if (moveTimer <= 0)
         {
             pathStarted = false;
 
@@ -68,6 +104,7 @@ public class NpcMovement : MonoBehaviour
             //Randomize the time by a bit
             moveTimer = Random.Range(timeBetweenRandomMove - 1f, timeBetweenRandomMove + 1f);
         }
+
         if (pathStarted)
         {
             if (step > 0)

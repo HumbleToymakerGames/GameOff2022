@@ -16,7 +16,7 @@ public class PlaceableObject : MonoBehaviour
     {
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
         placed = true;
-        if (tileType == TileType.Seat)
+        if (tileType == TileType.Seat || tileType == TileType.Empty)
             MapInformation.SetTileWalkability(groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), true);
         else
             MapInformation.SetTileWalkability(groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), false);
@@ -28,9 +28,9 @@ public class PlaceableObject : MonoBehaviour
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
         transform.position = groundTileMap.CellToWorld(gridPos) - new Vector3(0, transform.localScale.y / 2, 0);
         placed = true;
-        
 
-        if(tileType == TileType.Seat)
+
+        if (tileType == TileType.Seat || tileType == TileType.Empty)
             MapInformation.SetTileWalkability(groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), true);
         else
             MapInformation.SetTileWalkability(groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), false);

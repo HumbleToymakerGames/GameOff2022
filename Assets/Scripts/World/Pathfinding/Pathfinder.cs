@@ -11,7 +11,7 @@ public class Pathfinder : MonoBehaviour
     private static IList<Node> open = new List<Node>();
     private static IList<Node> closed = new List<Node>();
 
-    public static IList<Vector3Int> FindPath(Vector3 start, Vector3 goal, Vector3 oldGoal)
+    public static IList<Vector3Int> FindPath(Vector3 start, Vector3 goal, Vector3 oldGoal, bool setAsTaken = true)
     {
         open.Clear();
         closed.Clear();
@@ -40,7 +40,8 @@ public class Pathfinder : MonoBehaviour
             {
                 MapInformation.groundMap[oldGoalGridPos.x, oldGoalGridPos.y].taken = false;
             }
-            MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken = true;
+            if(setAsTaken)
+                MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken = true;
         }
 
         nodes[startGridPos.x, startGridPos.y].CalculateCosts(goalGridPos);
@@ -73,7 +74,7 @@ public class Pathfinder : MonoBehaviour
         return shortestPath;
     }
 
-    public static IList<Vector3Int> FindPath(Vector3 start, Vector3Int goal, Vector3Int oldGoal)
+    public static IList<Vector3Int> FindPath(Vector3 start, Vector3Int goal, Vector3Int oldGoal, bool setAsTaken = true)
     {
         open.Clear();
         closed.Clear();
@@ -102,7 +103,8 @@ public class Pathfinder : MonoBehaviour
             {
                 MapInformation.groundMap[oldGoalGridPos.x, oldGoalGridPos.y].taken = false;
             }
-            MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken = true;
+            if (setAsTaken)
+                MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken = true;
         }
 
         nodes[startGridPos.x, startGridPos.y].CalculateCosts(goalGridPos);
