@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Frosting
   stackable: 1
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 5c87ebe96a11c8c498c073a4da60a611, type: 3}
