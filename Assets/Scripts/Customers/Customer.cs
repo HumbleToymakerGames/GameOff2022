@@ -2,12 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Customer
+public class Customer : MonoBehaviour
 {
     private CustomerArchetypeSO _archetype;
     private Item _preferredItem;
     private Item _fallbackItem;
     private GameTime _timeWillLeave;
+
+    //Reference to world customer script for removal/gameobject interactions
+    public WorldCustomer worldCustomer;
 
     public Customer(CustomerArchetypeSO archetype)
     {

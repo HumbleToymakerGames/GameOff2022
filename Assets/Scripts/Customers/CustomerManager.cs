@@ -8,6 +8,15 @@ public class CustomerManager : SingletonMonoBehaviour<CustomerManager>
 
     private List<Customer> _customersInShop = new List<Customer>();
 
+    private GameObject customerPrefab;
+    private Transform entrance;
+
+    private void Start()
+    {
+        customerPrefab = Resources.Load<GameObject>("Prefabs/NPC");
+        entrance = GameObject.FindGameObjectWithTag("Entrance").transform;
+    }
+
     // every minute, there is a chance that a customer will enter your shop
     // the chance a customer will arrive is a factor of your popularity
     // each customer will have a craved food based on their archetype
@@ -38,11 +47,15 @@ public class CustomerManager : SingletonMonoBehaviour<CustomerManager>
     private void SpawnCustomer(CustomerArchetypeSO archetype)
     {
         Customer newCustomer = new Customer(archetype);
+        GameObject customerObject = Instantiate(customerPrefab, entrance.position, Quaternion.identity);
+        customerObject.GetComponent<WorldCustomer>().customer = newCustomer;
         _customersInShop.Add(newCustomer);
     }
 
     public void RemoveCustomer(Customer customerToRemove)
     {
         _customersInShop.Remove(customerToRemove);
+
+        customerToRemove.worldCustomer.exiting = true;
     }
 }
