@@ -8,9 +8,12 @@ public class PlaceableObject : MonoBehaviour
     public bool placed = false;
     public bool placeOnStart = false;
 
-    public TileType tileType = TileType.Furniture;
+    public PlaceableObjectSO placeableObjectSO;
+
+    private TileType tileType = TileType.Furniture;
 
     private Tilemap groundTileMap;
+
 
     public void PlaceObject()
     {
