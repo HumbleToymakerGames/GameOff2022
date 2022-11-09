@@ -36,7 +36,9 @@ public class TileSelect : MonoBehaviour
     /// <returns>The tiles position on the tilemap</returns>
     public static TileInfo SelectRandomTile()
     {
-        TileInfo randomTile = new TileInfo(new Vector3Int(-99999, -99999, -99999), true);
+        /* This needs to be refactored to pick a random tile in the cafe portion of the map
+
+        TileInfo randomTile = new TileInfo(new Vector3Int(2, -0, 2), true);
         bool validTile = false;
         while (!validTile)
         {
@@ -46,8 +48,9 @@ public class TileSelect : MonoBehaviour
                 validTile = true;
             }    
         }
+        */
 
-        return randomTile;
+        return new TileInfo(new Vector3Int(Random.Range(4, -6), Random.Range(1, 5), 0), true); ;
     }
 
     public static TileInfo FindTileOfType(TileType tileType)

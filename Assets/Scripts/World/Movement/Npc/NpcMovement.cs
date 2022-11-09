@@ -35,30 +35,24 @@ public class NpcMovement : Movement
 
         if (timeUntilRandomMovement <= 0)
         {
-            path = PathForNPCMovementState(movementState);
+            SetPathTo(DestinationForNPCMovementState(movementState));
             timeUntilRandomMovement = Random.Range(timeBetweenRandomMove - 1f, timeBetweenRandomMove + 1f);
         }
         
     }
 
-    private IList<Vector3Int> PathForNPCMovementState(NPCMovementState movementState)
+    private Vector3Int DestinationForNPCMovementState(NPCMovementState movementState)
     {
         switch (movementState)
         {
             case NPCMovementState.Random:
-                IList<Vector3Int> candidatePath = PathToTile(TileSelect.SelectRandomTile().position);
-                while (candidatePath.Count == 0)
-                {
-                    // If destination is unreachable, PathToTile will return an empty path
-                    candidatePath = PathToTile(TileSelect.SelectRandomTile().position);
-                }
-                return candidatePath;
+                return TileSelect.SelectRandomTile().position;
             case NPCMovementState.Seat:
-                return PathToTile(TileSelect.FindTileOfType(TileType.Seat).position);
+                return TileSelect.FindTileOfType(TileType.Seat).position;
             case NPCMovementState.Exiting:
-                return PathToTile(tileMap.WorldToCell(GameObject.FindGameObjectWithTag("Entrance").transform.position));
+                return doorTile;
             default:
-                return PathToTile(TileSelect.SelectRandomTile().position);
+                return TileSelect.SelectRandomTile().position;
         }
     }
 

@@ -13,6 +13,7 @@ public class Pathfinder : MonoBehaviour
 
     public static IList<Vector3Int> FindPath(Vector3 start, Vector3 goal, Vector3 oldGoal, bool setAsTaken = true)
     {
+        // TODO: Return list with first cell in 0 position (inverted from currnet implementation)
         open.Clear();
         closed.Clear();
         IList<Vector3Int> shortestPath = new List<Vector3Int>();

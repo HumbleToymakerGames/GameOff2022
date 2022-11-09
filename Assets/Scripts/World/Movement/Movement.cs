@@ -46,6 +46,7 @@ public class Movement : MonoBehaviour
 
     protected void MoveTowardNextPathStep()
     {
+        if (path.Count == 0) return;
         Vector3 worldSpaceTarget = tileMap.CellToWorld(path[stepsRemainingInPath]) + characterTileOffset;
         transform.position = Vector3.MoveTowards(transform.position, worldSpaceTarget, speed * Time.deltaTime);
         if (transform.position == worldSpaceTarget) path.RemoveAt(stepsRemainingInPath);
@@ -56,13 +57,16 @@ public class Movement : MonoBehaviour
         // Why is this here?
     }
 
-    public void SetPathTo(Vector3Int destinationTile)
+    public void SetPlayerPathTo(Vector3Int destinationTile)
     {
         if (Player.controlState != ControlState.Game || movementLocked) return;
-        // TODO  this can only be used by player, extract to get a generic SetPathTo method
-
-        path = PathToTile(destinationTile);
+        SetPathTo(destinationTile);
         TileSelect.HighlightTile(destinationTile);
+    }
+
+    protected void SetPathTo(Vector3Int destinationTile)
+    {
+        path = PathToTile(destinationTile);
         previousGoal = destinationTile;
         if (path.Count > 0) pathStarted = true;
     }

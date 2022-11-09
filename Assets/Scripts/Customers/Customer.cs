@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Customer : MonoBehaviour
+public class Customer
 {
     private CustomerArchetypeSO _archetype;
     private Item _preferredItem;
