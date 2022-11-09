@@ -63,6 +63,7 @@ public class ApplianceFunction
     {
         progressBar.SetActive(false);
         Debug.Log("Finished function " + GetApplianceFunctionName());
+        EventHandler.CallApplianceFunctionDidCompleteEvent(this, _applianceFunctionSO.outputs[0]);
         working = false;
 
         //If manual unlock player movement
