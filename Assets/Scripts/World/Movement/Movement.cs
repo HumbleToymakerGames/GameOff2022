@@ -11,7 +11,15 @@ public class Movement : MonoBehaviour
     protected Tilemap tileMap;
     protected IList<Vector3Int> path = new List<Vector3Int>();
     protected bool pathStarted = false;
-    protected int stepsRemainingInPath = 0;
+    protected int stepsRemainingInPath
+    {
+        get 
+        {
+            if (path.Count == 0) return 0;
+            return path.Count - 1;
+        }
+    }
+
     protected Vector3Int previousGoal = new Vector3Int(-99999, -99999, -99999);
     protected Vector3 characterTileOffset;
 
@@ -40,7 +48,7 @@ public class Movement : MonoBehaviour
     {
         Vector3 worldSpaceTarget = tileMap.CellToWorld(path[stepsRemainingInPath]) + characterTileOffset;
         transform.position = Vector3.MoveTowards(transform.position, worldSpaceTarget, speed * Time.deltaTime);
-        if (transform.position == worldSpaceTarget) stepsRemainingInPath--;
+        if (transform.position == worldSpaceTarget) path.RemoveAt(stepsRemainingInPath);
     }
 
     public void UpdateCall()
@@ -56,30 +64,12 @@ public class Movement : MonoBehaviour
         path = PathToTile(destinationTile);
         TileSelect.HighlightTile(destinationTile);
         previousGoal = destinationTile;
-        if (path.Count > 0)
-        {
-            stepsRemainingInPath = path.Count - 1;
-            pathStarted = true;
-        }        
+        if (path.Count > 0) pathStarted = true;
     }
 
     protected IList<Vector3Int> PathToTile(Vector3Int destinationTile)
     {
-        // This previously took in
-        // 0: World position
-        // 1: Tile position
-        // 2: Tile Position
-        // 
-        // Now I am trying to make it take in all tile positions
-
-
-        IList<Vector3Int> path = Pathfinder.FindPath(tileMap.WorldToCell(transform.position - characterTileOffset), destinationTile, previousGoal);
-        Debug.Log("Shortest Path is of length " + path.Count);
-        foreach(Vector3Int point in path)
-        {
-            Debug.Log(point.ToString());
-        }
-        
-        return path;
+        return Pathfinder.FindPath(tileMap.WorldToCell(transform.position - characterTileOffset), destinationTile, previousGoal);
     }
+
 }
