@@ -24,6 +24,8 @@ public class NpcMovement : MonoBehaviour
 
     private bool exitStarted = false;
 
+    private float timeBeforeForceRemove = 7f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,11 +63,20 @@ public class NpcMovement : MonoBehaviour
                 {
                     exitStarted = true;
                 }
+                else
+                {
+                    exitStarted = true;
+                }
                 pathStarted = true;
+            }
+            else if(step <= 0)
+            {
+                moveTimer -= Time.deltaTime;
             }
 
             //Check if customer has made it to the door
-            if (tileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y, 0)) == tileMap.WorldToCell(GameObject.FindGameObjectWithTag("Entrance").transform.position))
+            if (tileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y, 0)) == tileMap.WorldToCell(GameObject.FindGameObjectWithTag("Entrance").transform.position)
+                || moveTimer <= -timeBeforeForceRemove)
             {
                 Destroy(gameObject);
             }
