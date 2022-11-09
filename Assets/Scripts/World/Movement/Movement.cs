@@ -52,11 +52,6 @@ public class Movement : MonoBehaviour
         if (transform.position == worldSpaceTarget) path.RemoveAt(stepsRemainingInPath);
     }
 
-    public void UpdateCall()
-    {
-        // Why is this here?
-    }
-
     public void SetPlayerPathTo(Vector3Int destinationTile)
     {
         if (Player.controlState != ControlState.Game || movementLocked) return;
