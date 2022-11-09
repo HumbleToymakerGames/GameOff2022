@@ -92,10 +92,6 @@ public class MapInformation : MonoBehaviour
             && tileIndex.y > 0 && tileIndex.y < groundMapBounds.max.y - groundMapBounds.min.y * 2)
         {
             groundMap[tileIndex.x, tileIndex.y].walkable = walkable;
-            if (!walkable)
-            {
-                TileSelect.HighlightTile(tilePos);
-            }
         }
     }
 

@@ -28,9 +28,6 @@ public class Player : MonoBehaviour
 
         switch (controlState)
         {
-            case ControlState.Game:
-                movement.UpdateCall();
-                break;
             case ControlState.Edit:
                 edit.UpdateCall();
                 break;

@@ -99,8 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  timeBetweenRandomMove: 1
+  movementLocked: 0
   orderCounter: {fileID: 0}
+  timeBetweenRandomMove: 5
   movementState: 0
 --- !u!114 &930240354596112751
 MonoBehaviour:
@@ -114,4 +115,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef57e8ee0954f7441bc4c61d6d1ef31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customer: {fileID: 0}
+  self: {fileID: 0}
+  exiting: 0
