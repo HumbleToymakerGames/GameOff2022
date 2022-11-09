@@ -13,13 +13,12 @@ public class NpcMovement : Movement
 
     private float timeUntilRandomMovement = 0;
     private WorldCustomer worldCustomerScript;
-    private Vector3Int doorTile;
+    private Vector3Int doorTile = new Vector3Int(-3, 5, 0); // hardcoded to the tile in front of the door
 
     protected override void Start()
     {
         base.Start();
         worldCustomerScript = GetComponent<WorldCustomer>();
-        doorTile = tileMap.WorldToCell(GameObject.FindGameObjectWithTag("Entrance").transform.position);
     }
 
     protected override void Update()
@@ -59,9 +58,16 @@ public class NpcMovement : Movement
     private void DestroyIfAtExit()
     {
         Vector3Int currentPositionTile = tileMap.WorldToCell(transform.position - characterTileOffset);
-        if (currentPositionTile == doorTile) Destroy(gameObject);
+        if (currentPositionTile == doorTile) gameObject.SetActive(false);
     }
-   
+
+    public void StartNPCMoveToExit()
+    {
+        movementState = NPCMovementState.Exiting;
+        SetPathTo(DestinationForNPCMovementState(movementState));
+    }
+
+
 }
 
 
