@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -14,6 +12,10 @@ public class NpcMovement : Movement
     private float timeUntilRandomMovement = 0;
     private WorldCustomer worldCustomerScript;
     private Vector3Int doorTile = new Vector3Int(-3, 5, 0); // hardcoded to the tile in front of the door
+
+    private Vector3 oldGoal = new Vector3(-99999, -99999, -99999);
+
+    private bool exitStarted = false;
 
     protected override void Start()
     {
