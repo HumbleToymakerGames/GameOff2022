@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField] private List<CraftingRecipe> craftingRecipes = new List<CraftingRecipe>();
+
     [SerializeField] private GameObject itemCursor;
 
     [SerializeField] private GameObject slotHolder;
@@ -82,6 +84,13 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
+        //Handles Crafting
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Craft(craftingRecipes[0]);
+        }
+
+
         itemCursor.SetActive(isMovingItem);
         itemCursor.transform.position = Input.mousePosition;
         if (isMovingItem)
@@ -211,6 +220,7 @@ public class InventoryManager : MonoBehaviour
         return true;
     }
 
+
     public bool Remove(ItemClass item)
     {
 
@@ -220,6 +230,48 @@ public class InventoryManager : MonoBehaviour
             if (temp.GetQuantity() > 1)
             {
                 temp.SubtractQuantity(1);
+            }
+            else
+            {
+
+                int slotToRemoveIndex = 0;
+
+                for (int i = 0; i < items.Length; i++)
+                {
+                    if (items[i].GetItem() == item)
+                    {
+                        slotToRemoveIndex = i;
+                        break;
+                    }
+                }
+
+
+                items[slotToRemoveIndex].Clear();
+            }
+
+        }
+        else
+        {
+            return false;
+        }
+
+
+
+
+        RefreshUI();
+        return true;
+    }
+
+    //Remove for crafting
+    public bool Remove(ItemClass item, int quantity)
+    {
+
+        SlotClass temp = Contains(item);
+        if (temp != null)
+        {
+            if (temp.GetQuantity() > 1)
+            {
+                temp.SubtractQuantity(quantity);
             }
             else
             {
@@ -263,6 +315,33 @@ public class InventoryManager : MonoBehaviour
 
         return null;
     }
+
+    //Checks items for crafting
+    public bool Contains(ItemClass item, int quantity)
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i].GetItem() == item && items[i].GetQuantity() >= quantity)
+                return true;
+        }
+
+        return false;
+    }
+
+
+    private void Craft(CraftingRecipe recipe)
+    {
+        if (recipe.CanCraft(this))
+        {
+            recipe.Craft(this);
+
+        }
+        else
+        {
+            Debug.Log("Can't craft that item");
+        }
+    }
+
 
 
     private bool BeginItemMove()

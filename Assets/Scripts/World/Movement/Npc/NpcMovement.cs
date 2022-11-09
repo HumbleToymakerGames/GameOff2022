@@ -3,131 +3,75 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class NpcMovement : MonoBehaviour
+public class NpcMovement : Movement
 {
-    public float speed = 2;
-
-    private Tilemap tileMap;
-    private IList<Vector3Int> path = new List<Vector3Int>();
-    private bool pathStarted = false;
-
-    private int step = 0;
-    public float timeBetweenRandomMove = 5f;
-    private float moveTimer = 0;
-
     public GameObject orderCounter;
+    public float timeBetweenRandomMove = 5f;
+    public NPCMovementState movementState = NPCMovementState.Random;
+
+    private float timeUntilRandomMovement = 0;
     private WorldCustomer worldCustomerScript;
+    private Vector3Int doorTile = new Vector3Int(-3, 5, 0); // hardcoded to the tile in front of the door
 
     private Vector3 oldGoal = new Vector3(-99999, -99999, -99999);
 
-    public MovementState movementState = MovementState.Random;
-
     private bool exitStarted = false;
 
-    // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        tileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
+        base.Start();
         worldCustomerScript = GetComponent<WorldCustomer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        //Count down timer if not currently moving
-        if(!pathStarted) 
-            moveTimer -= Time.deltaTime;
+        if (movementState == NPCMovementState.Random) RandomMovementTick();
+        if (movementState == NPCMovementState.Exiting) DestroyIfAtExit();
+        MoveTowardNextPathStep();
+    }
 
-        if (worldCustomerScript.exiting)
+    private void RandomMovementTick()
+    {
+        timeUntilRandomMovement -= Time.deltaTime;
+
+        if (timeUntilRandomMovement <= 0)
         {
-            Vector3 tilePos = new Vector3(0, 0, 0);
-            tilePos = GameObject.FindGameObjectWithTag("Entrance").transform.position;
-
-            if (!exitStarted)
-            {
-                pathStarted = false;
-            }
-
-            if (!pathStarted)
-            {
-                //Subtract the player y scale to offset the position to feet of player
-                path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos, oldGoal, false);
-
-                oldGoal = tilePos;
-
-                step = path.Count - 1;
-
-                if (step > 0)
-                {
-                    exitStarted = true;
-                }
-                pathStarted = true;
-            }
-
-            //Check if customer has made it to the door
-            if (tileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y, 0)) == tileMap.WorldToCell(GameObject.FindGameObjectWithTag("Entrance").transform.position))
-            {
-                Destroy(gameObject);
-            }
+            SetPathTo(DestinationForNPCMovementState(movementState));
+            timeUntilRandomMovement = Random.Range(timeBetweenRandomMove - 1f, timeBetweenRandomMove + 1f);
         }
-        else if (moveTimer <= 0)
+        
+    }
+
+    private Vector3Int DestinationForNPCMovementState(NPCMovementState movementState)
+    {
+        switch (movementState)
         {
-            pathStarted = false;
-
-            Vector3 tilePos = new Vector3(0,0,0);
-
-            switch (movementState)
-            {
-                case MovementState.Random:
-                    tilePos = tileMap.CellToWorld(TileSelect.SelectRandomTile().position);
-                    break;
-                case MovementState.Seat:
-                    tilePos = tileMap.CellToWorld(TileSelect.FindTileOfType(TileType.Seat).position);
-                    break;
-                case MovementState.Order:
-                    //TODO
-                    tilePos = tileMap.CellToWorld(TileSelect.SelectRandomTile().position);
-                    break;
-            }
-
-            if (!pathStarted)
-            {
-                //Subtract the player y scale to offset the position to feet of player
-                path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos, oldGoal);
-
-                oldGoal = tilePos;
-
-                step = path.Count - 1;
-                pathStarted = true;
-            }
-
-            //Randomize the time by a bit
-            moveTimer = Random.Range(timeBetweenRandomMove - 1f, timeBetweenRandomMove + 1f);
-        }
-
-        if (pathStarted)
-        {
-            if (step > 0)
-            {
-                //Fixes bug where sometimes they go flying back to (0,0)
-                if (Vector3.Distance(transform.position, (tileMap.CellToWorld(path[step])) + new Vector3(0, transform.localScale.y, 0)) < 3f)
-                    transform.position = Vector3.MoveTowards(transform.position, (tileMap.CellToWorld(path[step])) + new Vector3(0, transform.localScale.y, 0), speed * Time.deltaTime);
-                else
-                {
-                    //If bug is encountered skip the step
-                    step--;
-                }
-                if (transform.position == (tileMap.CellToWorld(path[step])) + new Vector3(0, transform.localScale.y, 0))
-                {
-                    step--;
-                }
-            }
-            else
-            {
-                pathStarted = false;
-            }
+            case NPCMovementState.Random:
+                return TileSelect.SelectRandomTile().position;
+            case NPCMovementState.Seat:
+                return TileSelect.FindTileOfType(TileType.Seat).position;
+            case NPCMovementState.Exiting:
+                return doorTile;
+            default:
+                return TileSelect.SelectRandomTile().position;
         }
     }
+
+    private void DestroyIfAtExit()
+    {
+        Vector3Int currentPositionTile = tileMap.WorldToCell(transform.position - characterTileOffset);
+        if (currentPositionTile == doorTile) gameObject.SetActive(false);
+    }
+
+    public void StartNPCMoveToExit()
+    {
+        movementState = NPCMovementState.Exiting;
+        SetPathTo(DestinationForNPCMovementState(movementState));
+    }
+
+
 }
 
-public enum MovementState { Random, Seat, Order}
+
+
+public enum NPCMovementState { Random, Seat, Order, Exiting }

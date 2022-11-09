@@ -6,66 +6,69 @@ using UnityEngine.Tilemaps;
 public class Movement : MonoBehaviour
 {
     public float speed = 2;
-
-    private Tilemap tileMap;
-
-    private IList<Vector3Int> path = new List<Vector3Int>();
-    private bool pathStarted = false;
-
-    private int step = 0;
-
     public bool movementLocked = false;
 
-    private Vector3Int oldGoal = new Vector3Int(-99999, -99999, -99999);
+    protected Tilemap tileMap;
+    protected IList<Vector3Int> path = new List<Vector3Int>();
+    protected bool pathStarted = false;
+    protected int stepsRemainingInPath
+    {
+        get 
+        {
+            if (path.Count == 0) return 0;
+            return path.Count - 1;
+        }
+    }
 
-    void Start()
+    protected Vector3Int previousGoal = new Vector3Int(-99999, -99999, -99999);
+    protected Vector3 characterTileOffset;
+
+
+    protected virtual void Start()
     {
         tileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
+        characterTileOffset = new Vector3(0, transform.localScale.y, 0); 
     }
 
-    public void Update()
+    protected virtual void Update()
     {
-        if (pathStarted)
-        {
-            if (step > 0)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, (tileMap.CellToWorld(path[step])) + new Vector3(0, transform.localScale.y, 0), speed * Time.deltaTime);
-                if (transform.position == (tileMap.CellToWorld(path[step])) + new Vector3(0, transform.localScale.y, 0))
-                {
-                    step--;
-                }
-            }
-            else
-            {
-                TileSelect.ClearHighlight();
-                pathStarted = false;
-            }
-        }
+        if (!pathStarted) return;
+
+        if (stepsRemainingInPath > 0) MoveTowardNextPathStep();
+        else FinishFollowingPath();
     }
 
-    public void UpdateCall()
+    private void FinishFollowingPath()
     {
-        
+        TileSelect.ClearHighlight();
+        pathStarted = false;
     }
 
-    public void PathTo(Vector3Int tilePos)
+    protected void MoveTowardNextPathStep()
     {
-        if (Player.controlState == ControlState.Game && !movementLocked)
-        {
-            pathStarted = false;
-
-            if (!pathStarted)
-            {
-                //Subtract the player y scale to offset the position to feet of player
-                path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos, oldGoal);
-
-                oldGoal = tilePos;
-
-                step = path.Count - 1;
-                pathStarted = true;
-            }
-
-            TileSelect.HighlightTile(tilePos);
-        }
+        if (path.Count == 0) return;
+        Vector3 worldSpaceTarget = tileMap.CellToWorld(path[stepsRemainingInPath]) + characterTileOffset;
+        transform.position = Vector3.MoveTowards(transform.position, worldSpaceTarget, speed * Time.deltaTime);
+        if (transform.position == worldSpaceTarget) path.RemoveAt(stepsRemainingInPath);
     }
+
+    public void SetPlayerPathTo(Vector3Int destinationTile)
+    {
+        if (Player.controlState != ControlState.Game || movementLocked) return;
+        SetPathTo(destinationTile);
+        TileSelect.HighlightTile(destinationTile);
+    }
+
+    protected void SetPathTo(Vector3Int destinationTile)
+    {
+        path = PathToTile(destinationTile);
+        previousGoal = destinationTile;
+        if (path.Count > 0) pathStarted = true;
+    }
+
+    protected IList<Vector3Int> PathToTile(Vector3Int destinationTile)
+    {
+        return Pathfinder.FindPath(tileMap.WorldToCell(transform.position - characterTileOffset), destinationTile, previousGoal);
+    }
+
 }

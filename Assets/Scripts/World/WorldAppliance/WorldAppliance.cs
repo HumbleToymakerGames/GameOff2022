@@ -56,7 +56,7 @@ public class WorldAppliance : MonoBehaviour
     public void MovePlayerToAppliance()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<Movement>().PathTo(MapInformation.groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)) + usePositionOffset);
+        player.GetComponent<Movement>().SetPlayerPathTo(MapInformation.groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)) + usePositionOffset);
         player.GetComponent<PlayerCurrentAppliance>().currentAppliance = this;
     }
 
