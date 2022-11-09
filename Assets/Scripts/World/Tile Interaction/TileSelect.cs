@@ -16,15 +16,18 @@ public class TileSelect : MonoBehaviour
     /// Gets the floor tile that is currently under the cursor
     /// </summary>
     /// <returns>The tiles tilemap position</returns>
-    public static Vector3Int GetTileUnderMouse()
+    public static Vector3Int GetTileUnderMouse(bool requiredWalkable)
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         //Get tile clicked
         Vector3Int tileMapPosition = MapInformation.groundTileMap.WorldToCell(mousePos);
-        if (MapInformation.groundTileMap.HasTile(tileMapPosition) && MapInformation.groundMap[tileMapPosition.x - (int)MapInformation.groundMapBounds.min.x, tileMapPosition.y - (int)MapInformation.groundMapBounds.min.y].walkable)
+        if (MapInformation.groundTileMap.HasTile(tileMapPosition))
         {
-            selectedTilePosition = tileMapPosition;
+            if (requiredWalkable && MapInformation.groundMap[tileMapPosition.x - (int)MapInformation.groundMapBounds.min.x, tileMapPosition.y - (int)MapInformation.groundMapBounds.min.y].walkable)
+                selectedTilePosition = tileMapPosition;
+            else if (!requiredWalkable)
+                selectedTilePosition = tileMapPosition;
         }
 
         return selectedTilePosition;

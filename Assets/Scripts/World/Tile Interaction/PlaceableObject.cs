@@ -15,17 +15,34 @@ public class PlaceableObject : MonoBehaviour
     private Tilemap groundTileMap;
 
 
-    public void PlaceObject()
+    /// <summary>
+    /// Places an object where it is at currently
+    /// </summary>
+    /// <returns>Whether the placement was successful </returns>
+    public bool PlaceObject()
     {
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
-        placed = true;
-        if (tileType == TileType.Seat || tileType == TileType.Empty)
-            MapInformation.SetTileWalkability(groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), true);
-        else
-            MapInformation.SetTileWalkability(groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), false);
 
-        MapInformation.SetTileType(groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), tileType);
+        Vector3Int gridPosition = groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0));
+        Vector3Int indexPosition = MapInformation.GetTileIndex(gridPosition);
+        if (MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable)
+        {
+            placed = true;
+            if (tileType == TileType.Seat || tileType == TileType.Empty)
+                MapInformation.SetTileWalkability(gridPosition, true);
+            else
+                MapInformation.SetTileWalkability(gridPosition, false);
+
+            MapInformation.SetTileType(gridPosition, tileType);
+        }
+
+        return placed;
     }
+
+    /// <summary>
+    /// For placing an object at a specific grid position
+    /// </summary>
+    /// <param name="gridPos"></param>
     public void PlaceObject(Vector3Int gridPos)
     {
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();

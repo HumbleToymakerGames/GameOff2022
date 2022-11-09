@@ -12,6 +12,8 @@ public class TileInfo
     public TileType tileType = TileType.Empty;
     public bool taken = false;
 
+    public GameObject gameObjectOnTile;
+
     public TileInfo(Vector3Int position, bool walkable)
     {
         this.position = position;
