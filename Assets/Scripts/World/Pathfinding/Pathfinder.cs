@@ -74,8 +74,11 @@ public class Pathfinder : MonoBehaviour
         return shortestPath;
     }
 
-    public static IList<Vector3Int> FindPath(Vector3 start, Vector3Int goal, Vector3Int oldGoal, bool setAsTaken = true)
+    public static IList<Vector3Int> FindPath(Vector3Int start, Vector3Int goal, Vector3Int oldGoal, bool setAsTaken = true)
     {
+        Debug.Log("Call to Pathfinder.FindPath");
+        Debug.Log("Start: " + start.ToString() + ", Goal: " + goal.ToString() + ", Old Goal: " + oldGoal.ToString() + ", setAsTaken: " + setAsTaken.ToString());
+
         open.Clear();
         closed.Clear();
         IList<Vector3Int> shortestPath = new List<Vector3Int>();
@@ -133,6 +136,7 @@ public class Pathfinder : MonoBehaviour
                 nodeTracing = nodeTracing.parent;
             }
         }
+
         return shortestPath;
     }
 

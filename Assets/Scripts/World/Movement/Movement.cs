@@ -6,66 +6,80 @@ using UnityEngine.Tilemaps;
 public class Movement : MonoBehaviour
 {
     public float speed = 2;
-
-    private Tilemap tileMap;
-
-    private IList<Vector3Int> path = new List<Vector3Int>();
-    private bool pathStarted = false;
-
-    private int step = 0;
-
     public bool movementLocked = false;
 
-    private Vector3Int oldGoal = new Vector3Int(-99999, -99999, -99999);
+    protected Tilemap tileMap;
+    protected IList<Vector3Int> path = new List<Vector3Int>();
+    protected bool pathStarted = false;
+    protected int stepsRemainingInPath = 0;
+    protected Vector3Int previousGoal = new Vector3Int(-99999, -99999, -99999);
+    protected Vector3 characterTileOffset;
 
-    void Start()
+
+    protected virtual void Start()
     {
         tileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
+        characterTileOffset = new Vector3(0, transform.localScale.y, 0); 
     }
 
-    public void Update()
+    protected virtual void Update()
     {
-        if (pathStarted)
-        {
-            if (step > 0)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, (tileMap.CellToWorld(path[step])) + new Vector3(0, transform.localScale.y, 0), speed * Time.deltaTime);
-                if (transform.position == (tileMap.CellToWorld(path[step])) + new Vector3(0, transform.localScale.y, 0))
-                {
-                    step--;
-                }
-            }
-            else
-            {
-                TileSelect.ClearHighlight();
-                pathStarted = false;
-            }
-        }
+        if (!pathStarted) return;
+
+        if (stepsRemainingInPath > 0) MoveTowardNextPathStep();
+        else FinishFollowingPath();
+    }
+
+    private void FinishFollowingPath()
+    {
+        TileSelect.ClearHighlight();
+        pathStarted = false;
+    }
+
+    protected void MoveTowardNextPathStep()
+    {
+        Vector3 worldSpaceTarget = tileMap.CellToWorld(path[stepsRemainingInPath]) + characterTileOffset;
+        transform.position = Vector3.MoveTowards(transform.position, worldSpaceTarget, speed * Time.deltaTime);
+        if (transform.position == worldSpaceTarget) stepsRemainingInPath--;
     }
 
     public void UpdateCall()
     {
-        
+        // Why is this here?
     }
 
-    public void PathTo(Vector3Int tilePos)
+    public void SetPathTo(Vector3Int destinationTile)
     {
-        if (Player.controlState == ControlState.Game && !movementLocked)
+        if (Player.controlState != ControlState.Game || movementLocked) return;
+        // TODO  this can only be used by player, extract to get a generic SetPathTo method
+
+        path = PathToTile(destinationTile);
+        TileSelect.HighlightTile(destinationTile);
+        previousGoal = destinationTile;
+        if (path.Count > 0)
         {
-            pathStarted = false;
+            stepsRemainingInPath = path.Count - 1;
+            pathStarted = true;
+        }        
+    }
 
-            if (!pathStarted)
-            {
-                //Subtract the player y scale to offset the position to feet of player
-                path = Pathfinder.FindPath(transform.position - new Vector3(0, transform.localScale.y, 0), tilePos, oldGoal);
+    protected IList<Vector3Int> PathToTile(Vector3Int destinationTile)
+    {
+        // This previously took in
+        // 0: World position
+        // 1: Tile position
+        // 2: Tile Position
+        // 
+        // Now I am trying to make it take in all tile positions
 
-                oldGoal = tilePos;
 
-                step = path.Count - 1;
-                pathStarted = true;
-            }
-
-            TileSelect.HighlightTile(tilePos);
+        IList<Vector3Int> path = Pathfinder.FindPath(tileMap.WorldToCell(transform.position - characterTileOffset), destinationTile, previousGoal);
+        Debug.Log("Shortest Path is of length " + path.Count);
+        foreach(Vector3Int point in path)
+        {
+            Debug.Log(point.ToString());
         }
+        
+        return path;
     }
 }
