@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0654ab3e8af4a754f9028eed084d27de, type: 3}
   m_Name: Register
   m_EditorClassIdentifier: 
-  name: Counter
-  sprite: {fileID: 21300000, guid: a548108b459827b4aaf3f0417d8f7992, type: 3}
+  name: Register
+  sprite: {fileID: 21300000, guid: 24e09487f13697744932acb9b8bcce88, type: 3}
   type: 0
   applianceSOIfApplicable: {fileID: 0}
   usePositionOffsetIfApplicable: {x: 0, y: 0, z: 0}
