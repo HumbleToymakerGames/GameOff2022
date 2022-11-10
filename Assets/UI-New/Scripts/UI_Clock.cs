@@ -25,10 +25,10 @@ public class UI_Clock : MonoBehaviour
 
     private void ConfigureClockUIForTime(int gameMinute, int gameHour)
     {
-        if (gameMinute == 0 || gameMinute % minutesToRefresh != 0) return;
+        if (gameMinute % minutesToRefresh != 0) return;
 
-        bool isPM = gameHour > 12;
-        string readableHoursString = isPM ? (gameHour - 12).ToString() : gameHour.ToString();
+        bool isPM = gameHour >= 12;
+        string readableHoursString = isPM && gameHour != 12 ? (gameHour - 12).ToString() : gameHour.ToString();
         string readableMinutesString = gameMinute.ToString("D2");
         string readableAMPMString = isPM ? "PM" : "AM";
         _clockText.text = readableHoursString + ":" + readableMinutesString + " " + readableAMPMString;

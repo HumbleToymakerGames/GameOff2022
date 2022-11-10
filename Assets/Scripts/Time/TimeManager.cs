@@ -70,7 +70,7 @@ public class TimeManager : SingletonMonoBehaviour<TimeManager>
         }
     }
 
-    private void UpdateGameMinute() => EventHandler.CallAdvanceGameMinuteEvent(_gameMinute, _gameHour);
+    private void UpdateGameMinute() => EventHandler.CallAdvanceGameMinuteEvent(_gameMinute, GetGameHour());
 
     public static int GetGameHour() => Instance._gameHour % 24;
 
