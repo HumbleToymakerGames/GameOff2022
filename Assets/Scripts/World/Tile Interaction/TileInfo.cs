@@ -14,6 +14,8 @@ public class TileInfo
 
     public GameObject gameObjectOnTile;
 
+    public Mask mask = Mask.Empty;
+
     public TileInfo(Vector3Int position, bool walkable)
     {
         this.position = position;
@@ -25,3 +27,5 @@ public class TileInfo
         return position + ":" + walkable;
     }
 }
+
+public enum Mask { Customer, Kitchen, Empty }

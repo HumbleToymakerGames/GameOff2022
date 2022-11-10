@@ -53,18 +53,32 @@ public class PlayerEditMode : MonoBehaviour
         if (heldObject == null)
         {
             heldObject = Instantiate(placeableObjectPrefab);
+            heldObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
             heldObject.GetComponent<PlaceableObject>().FlipObject(flipped);
             heldObject.GetComponent<PlaceableObject>().SetComponents(placeableObjects[selectedObject]);
         }
         else if (heldObject != null)
         {
             heldObject.transform.position = MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(true) + new Vector3Int(1, 1, 0));
-            Vector3Int indexPosition = MapInformation.GetTileIndex(MapInformation.groundTileMap.WorldToCell(heldObject.transform.position));
+            Vector3Int indexPosition = MapInformation.GetTileIndex(MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(true)));
+
+
+            Color heldObjectColor = Color.white;
+            if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null)
+                heldObjectColor = Color.red;
+            else
+                heldObjectColor = Color.white;
+            heldObjectColor.a = 0.5f;
+
+            heldObject.GetComponent<SpriteRenderer>().color = heldObjectColor;
+
             if (Input.GetMouseButtonDown(0))
             {
                 //try place object
                 if (heldObject.GetComponent<PlaceableObject>().PlaceObject())
                 {
+                    heldObject.GetComponent<SpriteRenderer>().color = Color.white;
+                    heldObject.GetComponent<SpriteRenderer>().sortingOrder = 0;
                     heldObject = null;
                 }
             }
