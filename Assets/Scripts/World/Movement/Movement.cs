@@ -55,20 +55,20 @@ public class Movement : MonoBehaviour
     public void SetPlayerPathTo(Vector3Int destinationTile)
     {
         if (Player.controlState != ControlState.Game || movementLocked) return;
-        SetPathTo(destinationTile);
+        SetPathTo(destinationTile, Mask.Kitchen);
         TileSelect.HighlightTile(destinationTile);
     }
 
-    protected void SetPathTo(Vector3Int destinationTile)
+    protected void SetPathTo(Vector3Int destinationTile, Mask mask)
     {
-        path = PathToTile(destinationTile);
+        path = PathToTile(destinationTile, mask);
         previousGoal = destinationTile;
         if (path.Count > 0) pathStarted = true;
     }
 
-    protected IList<Vector3Int> PathToTile(Vector3Int destinationTile)
+    protected IList<Vector3Int> PathToTile(Vector3Int destinationTile, Mask mask)
     {
-        return Pathfinder.FindPath(tileMap.WorldToCell(transform.position - characterTileOffset), destinationTile, previousGoal);
+        return Pathfinder.FindPath(tileMap.WorldToCell(transform.position - characterTileOffset), destinationTile, previousGoal, false, mask);
     }
 
 }

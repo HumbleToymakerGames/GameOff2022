@@ -11,6 +11,7 @@ public class MapInformation : MonoBehaviour
     public static Tilemap groundTileMap;
     public static Tilemap objectTileMap;
     public static Tilemap overlayTileMap;
+    public static Tilemap maskTileMap;
 
     private static int tilesSet = 0;
 
@@ -25,6 +26,7 @@ public class MapInformation : MonoBehaviour
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
         objectTileMap = GameObject.FindGameObjectWithTag("ObjectTileMap").GetComponent<Tilemap>();
         overlayTileMap = GameObject.FindGameObjectWithTag("OverlayTileMap").GetComponent<Tilemap>();
+        maskTileMap = GameObject.FindGameObjectWithTag("MaskTileMap").GetComponent<Tilemap>();
         RefreshMap();
     }
 
@@ -45,6 +47,7 @@ public class MapInformation : MonoBehaviour
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
         objectTileMap = GameObject.FindGameObjectWithTag("ObjectTileMap").GetComponent<Tilemap>();
         overlayTileMap = GameObject.FindGameObjectWithTag("OverlayTileMap").GetComponent<Tilemap>();
+        maskTileMap = GameObject.FindGameObjectWithTag("MaskTileMap").GetComponent<Tilemap>();
 
         groundMapBounds = groundTileMap.cellBounds;
         groundMap = new TileInfo[groundMapBounds.max.x - groundMapBounds.min.x * 2, groundMapBounds.max.y - groundMapBounds.min.y * 2];
@@ -60,6 +63,20 @@ public class MapInformation : MonoBehaviour
                     if(objectTileMap.HasTile(tileLocation))
                     {
                         groundMap[((x - 1) + (-groundMapBounds.min.x)), ((y - 1) + (-groundMapBounds.min.y))].walkable = false;
+                    }
+                    if (maskTileMap.HasTile(tileLocation))
+                    {
+                        Debug.Log(maskTileMap.GetTile(tileLocation).name);
+                        string tileName = maskTileMap.GetTile(tileLocation).name;
+                        switch (tileName)
+                        {
+                            case "CustomerMask":
+                                groundMap[((x - 1) + (-groundMapBounds.min.x)), ((y - 1) + (-groundMapBounds.min.y))].mask = Mask.Customer;
+                                break;
+                            case "KitchenMask":
+                                groundMap[((x - 1) + (-groundMapBounds.min.x)), ((y - 1) + (-groundMapBounds.min.y))].mask = Mask.Kitchen;
+                                break;
+                        }
                     }
                 }
                 else

@@ -36,7 +36,7 @@ public class NpcMovement : Movement
 
         if (timeUntilRandomMovement <= 0)
         {
-            SetPathTo(DestinationForNPCMovementState(movementState));
+            SetPathTo(DestinationForNPCMovementState(movementState), Mask.Customer);
             timeUntilRandomMovement = Random.Range(timeBetweenRandomMove - 1f, timeBetweenRandomMove + 1f);
         }
         
@@ -66,7 +66,7 @@ public class NpcMovement : Movement
     public void StartNPCMoveToExit()
     {
         movementState = NPCMovementState.Exiting;
-        SetPathTo(DestinationForNPCMovementState(movementState));
+        SetPathTo(DestinationForNPCMovementState(movementState), Mask.Customer);
     }
 
 

@@ -11,7 +11,7 @@ public class Pathfinder : MonoBehaviour
     private static IList<Node> open = new List<Node>();
     private static IList<Node> closed = new List<Node>();
 
-    public static IList<Vector3Int> FindPath(Vector3Int start, Vector3Int goal, Vector3Int oldGoal, bool setAsTaken = true)
+    public static IList<Vector3Int> FindPath(Vector3Int start, Vector3Int goal, Vector3Int oldGoal, bool setAsTaken = true, Mask mask = Mask.Empty)
     {
         open.Clear();
         closed.Clear();
@@ -27,7 +27,7 @@ public class Pathfinder : MonoBehaviour
             || goalGridPos.x < 0 || goalGridPos.y < 0)
             return shortestPath;
 
-        if (MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken || !MapInformation.groundMap[goalGridPos.x, goalGridPos.y].walkable)
+        if (MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken || !MapInformation.groundMap[goalGridPos.x, goalGridPos.y].walkable || MapInformation.groundMap[goalGridPos.x, goalGridPos.y].mask != mask)
             return shortestPath;
         else
         {
