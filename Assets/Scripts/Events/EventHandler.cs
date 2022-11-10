@@ -33,10 +33,10 @@ public static class EventHandler
         }
     }
 
-    public static event Action<int> ShopMoneyDidChangeEvent;
+    public static event Action<int, int> ShopMoneyDidChangeEvent;
 
-    public static void CallShopMoneyDidChangeEvent(int netChange)
+    public static void CallShopMoneyDidChangeEvent(int netChange, int newTotal)
     {
-        if (ShopMoneyDidChangeEvent != null) ShopMoneyDidChangeEvent(netChange);
+        if (ShopMoneyDidChangeEvent != null) ShopMoneyDidChangeEvent(netChange, newTotal);
     }
 }

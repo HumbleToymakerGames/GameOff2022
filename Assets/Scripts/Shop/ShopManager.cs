@@ -37,7 +37,7 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
     public bool AddMoney(int moneyToEarn)
     {
         _shopMoney += moneyToEarn;
-        EventHandler.CallShopMoneyDidChangeEvent(moneyToEarn);
+        EventHandler.CallShopMoneyDidChangeEvent(moneyToEarn, GetCurrentShopMoney());
         return true;
     }
 
