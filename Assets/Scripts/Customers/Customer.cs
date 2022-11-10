@@ -5,8 +5,9 @@ using System.Collections.Generic;
 public class Customer
 {
     private CustomerArchetypeSO _archetype;
-    private Item _preferredItem;
-    private Item _fallbackItem;
+    //Tony canged this from Item to Item Class
+    private ItemClass _preferredItem;
+    private ItemClass _fallbackItem;
     private GameTime _timeWillLeave;
 
     //Reference to world customer script for removal/gameobject interactions
@@ -46,8 +47,8 @@ public class Customer
         Debug.Log("The " + _archetype.archetypeName + " left because the shop did not have a " + _preferredItem.itemName + " or a " + _fallbackItem.itemName + ".");
         CustomerManager.Instance.RemoveCustomer(this);
     }
-
-    private Item ChooseRandomItemFrom(List<WeightedDesiredItem> weightedItemList)
+    //Tony changed this from Item to ItemClass
+    private ItemClass ChooseRandomItemFrom(List<WeightedDesiredItem> weightedItemList)
     {
         int denominator = 0;
         foreach (WeightedDesiredItem weightItem in weightedItemList)
