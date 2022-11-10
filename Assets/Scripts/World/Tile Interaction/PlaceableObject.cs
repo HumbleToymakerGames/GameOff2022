@@ -30,9 +30,15 @@ public class PlaceableObject : MonoBehaviour
         {
             placed = true;
             if (tileType == TileType.Seat || tileType == TileType.Empty)
+            {
                 MapInformation.SetTileWalkability(gridPosition, true);
+                Debug.Log("Walk");
+            }
             else
+            {
                 MapInformation.SetTileWalkability(gridPosition, false);
+                Debug.Log("No walk");
+            }
 
             MapInformation.SetTileType(gridPosition, tileType);
         }
@@ -50,11 +56,16 @@ public class PlaceableObject : MonoBehaviour
         transform.position = groundTileMap.CellToWorld(gridPos) - new Vector3(0, transform.localScale.y / 2, 0);
         placed = true;
 
-
         if (tileType == TileType.Seat || tileType == TileType.Empty)
+        {
             MapInformation.SetTileWalkability(groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), true);
+            Debug.Log("Walk");
+        }
         else
+        {
             MapInformation.SetTileWalkability(groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), false);
+            Debug.Log("No walk");
+        }
 
         MapInformation.SetTileType(groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), tileType);
     }
@@ -63,6 +74,7 @@ public class PlaceableObject : MonoBehaviour
     {
         WorldAppliance worldAppliance;
         this.placeableObjectSO = placeableObjectSO;
+        tileType = placeableObjectSO.type;
 
         gameObject.GetComponent<SpriteRenderer>().sprite = placeableObjectSO.sprite;
 
@@ -99,6 +111,8 @@ public class PlaceableObject : MonoBehaviour
                 worldAppliance.usePositionOffset = new Vector3Int(placeableObjectSO.usePositionOffsetIfApplicable.y, placeableObjectSO.usePositionOffsetIfApplicable.x, placeableObjectSO.usePositionOffsetIfApplicable.z);
                 transform.localScale = new Vector3(-1, 1, 1);
             }
+
+            TileSelect.HighlightTile(MapInformation.groundTileMap.WorldToCell(worldAppliance.transform.position - new Vector3(0, worldAppliance.transform.localScale.y / 2, 0)) + worldAppliance.usePositionOffset);
         }
         else
         {
@@ -133,8 +147,6 @@ public class PlaceableObject : MonoBehaviour
                 worldAppliance.usePositionOffset = new Vector3Int(placeableObjectSO.usePositionOffsetIfApplicable.y, placeableObjectSO.usePositionOffsetIfApplicable.x, placeableObjectSO.usePositionOffsetIfApplicable.z);
             transform.localScale = new Vector3(-1, 1, 1);
         }
-
-        Debug.Log("Flip");
     }
 
     public void Update()
