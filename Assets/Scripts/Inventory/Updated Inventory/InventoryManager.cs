@@ -10,7 +10,6 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private GameObject itemCursor;
 
     [SerializeField] private GameObject slotHolder;
-    // [SerializeField] private GameObject hotBarSlotHolder;
     [SerializeField] private ItemClass itemToAdd;
     [SerializeField] private ItemClass itemToRemove;
 
@@ -20,10 +19,6 @@ public class InventoryManager : MonoBehaviour
 
 
     private GameObject[] slots;
-    //private GameObject[] hotBarSlots;
-
-
-
     private SlotClass movingSlot;
     private SlotClass tempSlot;
     private SlotClass originalSlot;
@@ -46,13 +41,7 @@ public class InventoryManager : MonoBehaviour
         slots = new GameObject[slotHolder.transform.childCount];
         items = new SlotClass[slots.Length];
 
-        //hotBarSlots = new GameObject[hotBarSlotHolder.transform.childCount];
-
-        /* for(int i = 0; i > hotBarSlots.Length; i++)
-         {
-             hotBarSlots[i] = hotBarSlotHolder.transform.GetChild(i).gameObject;
-         }*/
-
+        
 
 
         for (int i = 0; i < items.Length; i++)
@@ -159,38 +148,10 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        //RefreshHotBar();
+        
     }
 
-    /* public void RefreshHotBar()
-     {
-         for (int i = 0 ; i < hotBarSlots.Length; i++)
-         {
-             try
-             {
-                 hotBarSlots[i].transform.GetChild(0).GetComponent<Image>().enabled = true;
-                 hotBarSlots[i].transform.GetChild(0).GetComponent<Image>().sprite = items[i + (hotBarSlots.Length * 3)].GetItem().itemIcon;
-
-                 if (items[i + (hotBarSlots.Length * 3)].GetItem().isStackable)
-                 {
-                     hotBarSlots[i].transform.GetChild(1).GetComponent<Text>().text = items[i + (hotBarSlots.Length * 3)].GetQuantity() + "";
-
-                 }
-                 else
-                 {
-                     hotBarSlots[i].transform.GetChild(1).GetComponent<Text>().text = "";
-                 }
-
-             }
-             catch
-             {
-                 hotBarSlots[i].transform.GetChild(0).GetComponent<Image>().sprite = null;
-                 hotBarSlots[i].transform.GetChild(0).GetComponent<Image>().enabled = false;
-                 hotBarSlots[i].transform.GetChild(1).GetComponent<Text>().text = "";
-
-             }
-         }
-     }*/
+   
 
     public bool Add(ItemClass item, int quantity)
     {

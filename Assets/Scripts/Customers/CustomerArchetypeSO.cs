@@ -5,7 +5,8 @@ using System.Collections.Generic;
 [System.Serializable]
 public struct WeightedDesiredItem
 {
-    public Item item;
+    //Tony changed this
+    public ItemClass item;
     public int weight;
 }
 
