@@ -37,6 +37,7 @@ public class WorldAppliance : MonoBehaviour
 
     private void OnMouseDown()
     {
+        
         if (Player.controlState == ControlState.Game)
         {
             //Check if over ui when clicking if so skip selection
@@ -44,7 +45,7 @@ public class WorldAppliance : MonoBehaviour
             {
                 return;
             }
-
+            Debug.Log("Clicked");
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
             screenPosition += new Vector3(screenPosition.x <= Screen.width / 2 ? Screen.width / 4 : -Screen.width / 4, 0, 0);
             screenPosition.y = Screen.height / 2;

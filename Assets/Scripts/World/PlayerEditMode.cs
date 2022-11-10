@@ -65,7 +65,6 @@ public class PlayerEditMode : MonoBehaviour
                 //try place object
                 if (heldObject.GetComponent<PlaceableObject>().PlaceObject())
                 {
-                    MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile = heldObject;
                     heldObject = null;
                 }
             }
@@ -74,7 +73,7 @@ public class PlayerEditMode : MonoBehaviour
                 //TODO: Placed Object Deletion, getting there
 
                 //Change index position to mouse position instead of objects
-                indexPosition = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false) + new Vector3Int(1, 1, 0));
+                indexPosition = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false));
                 Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile);
                 MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable = true;
             }

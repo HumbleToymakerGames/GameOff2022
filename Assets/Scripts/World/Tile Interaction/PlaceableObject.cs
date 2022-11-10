@@ -16,6 +16,8 @@ public class PlaceableObject : MonoBehaviour
 
     public bool flipped = false;
 
+    public GameObject placeableObjectPrefab;
+
     /// <summary>
     /// Places an object where it is at currently
     /// </summary>
@@ -40,34 +42,12 @@ public class PlaceableObject : MonoBehaviour
                 Debug.Log("No walk");
             }
 
+            MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile = gameObject;
+
             MapInformation.SetTileType(gridPosition, tileType);
         }
 
         return placed;
-    }
-
-    /// <summary>
-    /// For placing an object at a specific grid position
-    /// </summary>
-    /// <param name="gridPos"></param>
-    public void PlaceObject(Vector3Int gridPos)
-    {
-        groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
-        transform.position = groundTileMap.CellToWorld(gridPos) - new Vector3(0, transform.localScale.y / 2, 0);
-        placed = true;
-
-        if (tileType == TileType.Seat || tileType == TileType.Empty)
-        {
-            MapInformation.SetTileWalkability(groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), true);
-            Debug.Log("Walk");
-        }
-        else
-        {
-            MapInformation.SetTileWalkability(groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), false);
-            Debug.Log("No walk");
-        }
-
-        MapInformation.SetTileType(groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0)), tileType);
     }
 
     public void SetComponents(PlaceableObjectSO placeableObjectSO)
