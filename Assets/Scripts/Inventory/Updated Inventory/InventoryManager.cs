@@ -30,6 +30,16 @@ public class InventoryManager : MonoBehaviour
 
     bool isMovingItem;
 
+    private void OnEnable()
+    {
+        EventHandler.ApplianceFunctionDidCompleteEvent += OnApplianceFunctionDidComplete;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.ApplianceFunctionDidCompleteEvent -= OnApplianceFunctionDidComplete;
+    }
+
     public void Start()
     {
 
@@ -106,6 +116,17 @@ public class InventoryManager : MonoBehaviour
 
 
 
+    }
+
+    private void OnApplianceFunctionDidComplete(ApplianceFunction function, ItemQuantity itemQuantity)
+    {
+        Debug.Log("InventoryManager got ApplianceFunctionDidCompleteEvent");
+        // The method run by the EventHandler when any appliancefunction completes
+        // function: the ApplianceFunction SO that just completed
+        // itemQuantity: a struct containing itemQuantity.item (class Item) and itemQuantity.itemQuantity (int)
+
+        // Normally you would just run this method, but it does not work since Add() takes in a different datatype
+        // Add(itemQuantity.item, itemQuantity.itemQuantity);
     }
 
     //looks through all items there and determines if its there

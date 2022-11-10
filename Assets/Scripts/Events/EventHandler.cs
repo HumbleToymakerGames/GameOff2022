@@ -22,4 +22,14 @@ public static class EventHandler
             DidClickApplianceEvent(clickedAppliance, screenPosition);
         }
     }
+
+    public static event Action<ApplianceFunction, ItemQuantity> ApplianceFunctionDidCompleteEvent;
+
+    public static void CallApplianceFunctionDidCompleteEvent(ApplianceFunction completedApplianceFunction, ItemQuantity itemQuantity)
+    {
+        if (ApplianceFunctionDidCompleteEvent != null)
+        {
+            ApplianceFunctionDidCompleteEvent(completedApplianceFunction, itemQuantity);
+        }
+    }
 }
