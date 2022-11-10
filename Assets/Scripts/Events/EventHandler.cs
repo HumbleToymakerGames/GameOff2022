@@ -32,4 +32,11 @@ public static class EventHandler
             ApplianceFunctionDidCompleteEvent(completedApplianceFunction, itemQuantity);
         }
     }
+
+    public static event Action<int> ShopMoneyDidChangeEvent;
+
+    public static void CallShopMoneyDidChangeEvent(int netChange)
+    {
+        if (ShopMoneyDidChangeEvent != null) ShopMoneyDidChangeEvent(netChange);
+    }
 }
