@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4ab10558053e6499f05a734a987bfc, type: 3}
   m_Name: Sugar
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Sugar
   itemIcon: {fileID: 0}
   isStackable: 1
