@@ -14,12 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   archetypeName: Housewife
   preferredItemPool:
-  - item: {fileID: 11400000, guid: b5fb4dd18a66142af867e7fa9ae915a2, type: 2}
+  - item: {fileID: 11400000, guid: c1b32fb7f38a0e549a9fd9533918b0ad, type: 2}
     weight: 3
-  - item: {fileID: 11400000, guid: be7bd5ac30e474ce98472d841fb68de7, type: 2}
-    weight: 1
   fallbackItemPool:
-  - item: {fileID: 11400000, guid: 6db5dc98ed7664e9ab48ca4265595db3, type: 2}
+  - item: {fileID: 11400000, guid: cb19025532912874dbcaba649b8cc147, type: 2}
     weight: 1
   minutesWillWait: 45
   chanceToSpawn: 0.005
