@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   functionName: Bake Roll
   inputs:
-  - item: {fileID: 11400000, guid: a8aab45613a9d4a3288ef80586e2239c, type: 2}
+  - item: {fileID: 11400000, guid: 499ca29d63124954ebfd77e75bd35c95, type: 2}
     itemQuantity: 1
-  - item: {fileID: 11400000, guid: c8355324e3d714db885ebf8e6b850560, type: 2}
+  - item: {fileID: 11400000, guid: 2040612493164f74fa9367d8379292e7, type: 2}
     itemQuantity: 1
   outputs:
-  - item: {fileID: 11400000, guid: b94a0c29403da4badbead0f8a1bb8a78, type: 2}
+  - item: {fileID: 11400000, guid: aa29334a54fffb342a4ddaae9433eb63, type: 2}
     itemQuantity: 1
   hoursToMake: 2
+  manual: 0

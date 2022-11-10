@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   functionName: Bake Muffin
   inputs:
-  - item: {fileID: 11400000, guid: 0a8cc9497e42444978893966b303e47a, type: 2}
+  - item: {fileID: 11400000, guid: 36258489c3f6a6640b00b6db5a52427a, type: 2}
     itemQuantity: 1
   outputs:
-  - item: {fileID: 11400000, guid: 6db5dc98ed7664e9ab48ca4265595db3, type: 2}
+  - item: {fileID: 11400000, guid: 0fbb3b8928420bb4d85dee4f780d29f0, type: 2}
     itemQuantity: 1
   hoursToMake: 2
+  manual: 0

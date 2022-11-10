@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public struct ItemQuantity
 {
-    //Tony changed this
     public ItemClass item;
     public int itemQuantity;
 }
