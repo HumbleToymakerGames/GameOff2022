@@ -21,6 +21,8 @@ public class PlayerEditMode : MonoBehaviour
         {
             placeableObjects = Resources.LoadAll<PlaceableObjectSO>("Data/PlaceableObjects");
         }
+        Vector3Int debug = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false));
+        Debug.Log(debug + " : " + MapInformation.groundMap[debug.x, debug.y].walkable);
 
         //Object selection
         // Controls should be changed later on
@@ -42,6 +44,7 @@ public class PlayerEditMode : MonoBehaviour
 
         if (objectSwap)
         {
+            heldObject.GetComponent<PlaceableObject>().FlipObject(flipped);
             heldObject.GetComponent<PlaceableObject>().SetComponents(placeableObjects[selectedObject]);
             objectSwap = false;
         }
@@ -50,8 +53,8 @@ public class PlayerEditMode : MonoBehaviour
         if (heldObject == null)
         {
             heldObject = Instantiate(placeableObjectPrefab);
-            heldObject.GetComponent<PlaceableObject>().SetComponents(placeableObjects[selectedObject]);
             heldObject.GetComponent<PlaceableObject>().FlipObject(flipped);
+            heldObject.GetComponent<PlaceableObject>().SetComponents(placeableObjects[selectedObject]);
         }
         else if (heldObject != null)
         {
@@ -62,8 +65,6 @@ public class PlayerEditMode : MonoBehaviour
                 //try place object
                 if (heldObject.GetComponent<PlaceableObject>().PlaceObject())
                 {
-                    MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile = heldObject;
-                    MapInformation.RefreshMap();
                     heldObject = null;
                 }
             }
@@ -72,10 +73,9 @@ public class PlayerEditMode : MonoBehaviour
                 //TODO: Placed Object Deletion, getting there
 
                 //Change index position to mouse position instead of objects
-                indexPosition = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false) + new Vector3Int(1, 1, 0));
+                indexPosition = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false));
                 Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile);
                 MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable = true;
-                MapInformation.RefreshMap();
             }
             
             //Flip object
@@ -83,6 +83,7 @@ public class PlayerEditMode : MonoBehaviour
             {
                 flipped = !flipped;
                 heldObject.GetComponent<PlaceableObject>().FlipObject(flipped);
+                heldObject.GetComponent<PlaceableObject>().SetComponents(placeableObjects[selectedObject]);
             }
         }
     }
