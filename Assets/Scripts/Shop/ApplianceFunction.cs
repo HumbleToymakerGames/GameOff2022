@@ -65,6 +65,13 @@ public class ApplianceFunction
 
             return true;
         }*/
+
+
+        /*for (int i = 0; i < inputItems.Length; i++)
+        {
+            inventory.Remove(inputItems[i].GetItem(), inputItems[i].GetQuantity());
+        }*/
+
     }
 
     public void UpdateFunction()
@@ -92,6 +99,8 @@ public class ApplianceFunction
         {
             playerMovement.movementLocked = false;
         }
+
+        //inventory.Add(outputItem.GetItem(), outputItem.GetQuantity());
     }
 
     public Sprite SpriteForOutputProduct()
