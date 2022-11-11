@@ -1186,6 +1186,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1662584510370174772, guid: 63344c5f1a99e45aeb586a8093fcff6d, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1662584510796930000, guid: 63344c5f1a99e45aeb586a8093fcff6d, type: 3}
       propertyPath: m_Name
       value: UIManager
