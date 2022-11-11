@@ -10,7 +10,6 @@ public class ApplianceContextActionUI : MonoBehaviour
     public GameObject applianceFunctionElPrefab;
 
     private Appliance _currentAppliance;
-
     public void InitializeWithAppliance(Appliance appliance)
     {
         gameObject.SetActive(false);

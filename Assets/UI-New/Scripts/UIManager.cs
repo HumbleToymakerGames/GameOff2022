@@ -3,33 +3,42 @@ using UnityEngine;
 
 public class UIManager : SingletonMonoBehaviour<UIManager>
 {
-    public GameObject uiParent;    
-    public ApplianceContextActionUI applianceContextActionUiPrefab;
-    private ApplianceContextActionUI _applianceContextUI;
+    private GameObject _appliancePopupMenuPanel;
+    private UI_AppliancePopupMenuPanel _appliancePopupMenuPanelScript;
 
-    public GameObject worldUiParent;
-    public GameObject progressBarPrefab;
+    // public GameObject uiParent;    
+    // public ApplianceContextActionUI applianceContextActionUiPrefab;
+    // private ApplianceContextActionUI _applianceContextUI;
 
-    public float inWorldUIPositionYOffset = 0.5f;
+    // public GameObject worldUiParent;
+    // public GameObject progressBarPrefab;
 
-    private List<GameObject> _progressBarObjectPool = new List<GameObject>();
+    // public float inWorldUIPositionYOffset = 0.5f;
 
-    public void ShowApplianceContextPanel(Appliance appliance, Vector2 position)
+    // private List<GameObject> _progressBarObjectPool = new List<GameObject>();
+
+    private void Start()
     {
-        if (_applianceContextUI == null)
-        {
-            _applianceContextUI = Instantiate(applianceContextActionUiPrefab, uiParent.transform);
-        }
-        _applianceContextUI.InitializeWithAppliance(appliance);
-        _applianceContextUI.gameObject.SetActive(true);
-        // TODO: set position to clicked position
+        _appliancePopupMenuPanel = GameObject.Find("AppliancePopupMenuPanel");
+        Debug.Log(_appliancePopupMenuPanel);
+        _appliancePopupMenuPanelScript = _appliancePopupMenuPanel.GetComponent<UI_AppliancePopupMenuPanel>();
+        _appliancePopupMenuPanel.SetActive(false);
+    }
+
+    public void ShowApplianceContextPanel(Appliance appliance)
+    {
+        _appliancePopupMenuPanelScript.InitializeWithAppliance(appliance);
+        _appliancePopupMenuPanel.SetActive(true);
     }
 
     public void CloseApplianceContextPanel()
     {
-        _applianceContextUI.gameObject.SetActive(false);
+        _appliancePopupMenuPanel.SetActive(false);
+        _appliancePopupMenuPanelScript.ClearApplianceContext();
     }
 
+
+    /*
     public GameObject PlaceProgressBarForApplianceFunction(ApplianceFunction applianceFunction, Vector2 position)
     {
 
@@ -62,4 +71,5 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         newBarGO.SetActive(false);
         return newBarGO;
     }
+    */
 }

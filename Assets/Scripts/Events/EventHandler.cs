@@ -13,13 +13,13 @@ public static class EventHandler
         }
     }
 
-    public static event Action<Appliance, Vector2> DidClickApplianceEvent;
+    public static event Action<Appliance> DidClickApplianceEvent;
 
-    public static void CallDidClickApplianceEvent(Appliance clickedAppliance, Vector2 screenPosition)
+    public static void CallDidClickApplianceEvent(Appliance clickedAppliance)
     {
         if (DidClickApplianceEvent != null)
         {
-            DidClickApplianceEvent(clickedAppliance, screenPosition);
+            DidClickApplianceEvent(clickedAppliance);
         }
     }
 

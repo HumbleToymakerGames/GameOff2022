@@ -48,8 +48,8 @@ public class WorldAppliance : MonoBehaviour
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
             screenPosition += new Vector3(screenPosition.x <= Screen.width / 2 ? Screen.width / 4 : -Screen.width / 4, 0, 0);
             screenPosition.y = Screen.height / 2;
-            EventHandler.CallDidClickApplianceEvent(appliance, Camera.main.WorldToScreenPoint(transform.position));
-            UIManager.Instance.ShowApplianceContextPanel(appliance, screenPosition);
+            EventHandler.CallDidClickApplianceEvent(appliance);
+            UIManager.Instance.ShowApplianceContextPanel(appliance);
         }
     }
 
