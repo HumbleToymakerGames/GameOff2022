@@ -15,5 +15,6 @@ MonoBehaviour:
   name: Counter
   sprite: {fileID: 21300000, guid: a548108b459827b4aaf3f0417d8f7992, type: 3}
   type: 0
+  placementMask: 1
   applianceSOIfApplicable: {fileID: 0}
   usePositionOffsetIfApplicable: {x: 0, y: 0, z: 0}

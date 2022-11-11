@@ -15,5 +15,6 @@ MonoBehaviour:
   name: Register
   sprite: {fileID: 21300000, guid: 24e09487f13697744932acb9b8bcce88, type: 3}
   type: 0
+  placementMask: 1
   applianceSOIfApplicable: {fileID: 0}
   usePositionOffsetIfApplicable: {x: 0, y: 0, z: 0}
