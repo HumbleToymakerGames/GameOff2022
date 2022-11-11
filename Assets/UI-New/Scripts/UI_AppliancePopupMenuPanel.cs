@@ -23,7 +23,6 @@ public class UI_AppliancePopupMenuPanel : MonoBehaviour
             GameObject newFunctionElement = Instantiate(applianceFunctionListItemPrefab, applianceFunctionParent.transform);
             UI_ApplianceFunctionListItemElement newFunctionScript = newFunctionElement.GetComponent<UI_ApplianceFunctionListItemElement>();
             newFunctionScript.ConfigureForApplianceFunction(function);
-            // Configure button?
         }
     }
 

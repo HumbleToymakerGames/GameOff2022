@@ -8,15 +8,19 @@ public class ApplianceFunction
     public bool working = false;
     public float progress = 0;
     public GameObject progressBar;
+    public Appliance parentAppliance => _parentAppliance;
 
     private ApplianceFunctionSO _applianceFunctionSO;
+    private Appliance _parentAppliance;
     private int _startTime;
     private int _endTime;
 
     private Movement playerMovement;
 
-    public ApplianceFunction(ApplianceFunctionSO so)
+
+    public ApplianceFunction(ApplianceFunctionSO so, Appliance parentAppliance)
     {
+        _parentAppliance = parentAppliance;
         _applianceFunctionSO = so;
     }
 

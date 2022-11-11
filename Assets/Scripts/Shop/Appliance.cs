@@ -18,7 +18,7 @@ public class Appliance
         List<ApplianceFunctionSO> applianceFunctionSOs = _applianceSO.functions;
         foreach(ApplianceFunctionSO functionSO in applianceFunctionSOs)
         {
-            ApplianceFunction newFunction = new ApplianceFunction(functionSO);
+            ApplianceFunction newFunction = new ApplianceFunction(functionSO, this);
             _applianceFunctions.Add(newFunction);
         }
     }
@@ -31,13 +31,6 @@ public class Appliance
     public List<ApplianceFunction> GetApplianceFunctions()
     {
         return _applianceFunctions;
-    }
-
-    public void FunctionClicked(ApplianceFunction function)
-    {
-        currentFunction = function;
-        UIManager.Instance.CloseApplianceContextPanel();
-        worldAppliance.MovePlayerToAppliance();
     }
 
     public void StartFunction()
@@ -58,6 +51,14 @@ public class Appliance
             currentFunction = null;
         }
     }
+
+    public void FunctionClicked(ApplianceFunction function)
+    {
+        currentFunction = function;
+        UIManager.Instance.CloseApplianceContextPanel();
+        worldAppliance.MovePlayerToAppliance();
+    }
+
 
     public void UpdateFunction()
     {
