@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3544306128689534560
 Transform:
   m_ObjectHideFlags: 0
@@ -48,6 +48,8 @@ MonoBehaviour:
   placed: 0
   placeOnStart: 0
   placeableObjectSO: {fileID: 0}
+  flipped: 0
+  placeableObjectPrefab: {fileID: 0}
 --- !u!212 &785687062
 SpriteRenderer:
   m_ObjectHideFlags: 0
