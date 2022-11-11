@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: BakeBaguette
   m_EditorClassIdentifier: 
   functionName: Bake Baguette
-  inputs:
+  inputItems:
   - item: {fileID: 11400000, guid: 2040612493164f74fa9367d8379292e7, type: 2}
-    itemQuantity: 1
-  outputs:
-  - item: {fileID: 11400000, guid: ddb70ac4b06f8a14aae80f7ffbc3b08b, type: 2}
-    itemQuantity: 1
+    quantity: 1
+  outputItem:
+    item: {fileID: 11400000, guid: ddb70ac4b06f8a14aae80f7ffbc3b08b, type: 2}
+    quantity: 4
   hoursToMake: 2
   manual: 0

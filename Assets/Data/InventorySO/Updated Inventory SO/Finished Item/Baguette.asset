@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4ab10558053e6499f05a734a987bfc, type: 3}
   m_Name: Baguette
   m_EditorClassIdentifier: 
-  itemName: 
-  itemIcon: {fileID: 0}
+  itemName: Baguette
+  itemIcon: {fileID: 21300072, guid: a686ecd845234064f945285464b93c53, type: 3}
   isStackable: 1

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4827236c1a05549941a76e984f3251, type: 3}
   m_Name: Oven
   m_EditorClassIdentifier: 
-  applianceName: Bad Oven
+  applianceName: Oven
   functions:
-  - {fileID: 11400000, guid: 543e5985f3c154ff7a0a3c4996a69aac, type: 2}
-  - {fileID: 11400000, guid: 88c674115f5b5496e93a635584397eec, type: 2}
   - {fileID: 11400000, guid: 5a1974a68ebf74d8eb67a4bc9858b2cd, type: 2}
+  - {fileID: 11400000, guid: 51f34b0aeb10d49baa8bb20e1cd5803a, type: 2}

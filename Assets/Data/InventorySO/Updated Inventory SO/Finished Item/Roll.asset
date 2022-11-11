@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Roll
   m_EditorClassIdentifier: 
   itemName: Roll
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 8e7d2414b347bf540a1cb91b374b078d, type: 3}
   isStackable: 1

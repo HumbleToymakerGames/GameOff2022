@@ -10322,6 +10322,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 986291434}
     m_Modifications:
+    - target: {fileID: 190291170481353388, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1047063904}
+    - target: {fileID: 190291170481353388, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseApplianceContextPanel
+      objectReference: {fileID: 0}
     - target: {fileID: 805151223723708050, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -10329,6 +10337,10 @@ PrefabInstance:
     - target: {fileID: 805151223723708050, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 805151223723708050, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 805151223723708050, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -10339,9 +10351,17 @@ PrefabInstance:
       value: AppliancePopupMenuPanel
       objectReference: {fileID: 0}
     - target: {fileID: 4327752822700737026, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0.000120162964
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327752822700737026, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4327752822700737026, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000061035156
+      objectReference: {fileID: 0}
     - target: {fileID: 5105471166791295349, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -10349,6 +10369,10 @@ PrefabInstance:
     - target: {fileID: 5105471166791295349, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5105471166791295349, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 5105471166791295349, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -10367,12 +10391,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5434823142873459497, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434823142873459497, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5434823142873459497, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6428920710495768829, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 7531568078813146426, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_Pivot.x
@@ -10404,7 +10436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7531568078813146426, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1400
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7531568078813146426, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_SizeDelta.y
@@ -10598,7 +10630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingItems:
-  - item: {fileID: 11400000, guid: 5476be705bb40174fb510c5999fc2c3a, type: 2}
+  - item: {fileID: 11400000, guid: 2040612493164f74fa9367d8379292e7, type: 2}
     quantity: 4
   - item: {fileID: 11400000, guid: 499ca29d63124954ebfd77e75bd35c95, type: 2}
     quantity: 2
