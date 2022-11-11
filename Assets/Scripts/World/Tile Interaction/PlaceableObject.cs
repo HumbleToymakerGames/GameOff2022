@@ -28,18 +28,16 @@ public class PlaceableObject : MonoBehaviour
 
         Vector3Int gridPosition = groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0));
         Vector3Int indexPosition = MapInformation.GetTileIndex(gridPosition);
-        if (MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable)
+        if (MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable && MapInformation.groundMap[indexPosition.x, indexPosition.y].mask == placeableObjectSO.placementMask)
         {
             placed = true;
             if (tileType == TileType.Seat || tileType == TileType.Empty)
             {
                 MapInformation.SetTileWalkability(gridPosition, true);
-                Debug.Log("Walk");
             }
             else
             {
                 MapInformation.SetTileWalkability(gridPosition, false);
-                Debug.Log("No walk");
             }
 
             MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile = gameObject;

@@ -73,7 +73,7 @@ public class TileSelect : MonoBehaviour
             highlightTile = Resources.Load<TileBase>("Tilesets/Assets/Highlight");
         }
 
-        MapInformation.overlayTileMap.ClearAllTiles();
+        ClearHighlight();
         MapInformation.overlayTileMap.SetTileFlags(tileMapPosition, TileFlags.None);
         MapInformation.overlayTileMap.SetTile(tileMapPosition, highlightTile);
     }
