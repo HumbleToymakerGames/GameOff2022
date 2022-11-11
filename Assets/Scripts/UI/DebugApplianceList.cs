@@ -19,7 +19,7 @@ public class DebugApplianceList : MonoBehaviour
         {
             SimpleButton newButton = Instantiate(applianceButtonPrefab, transform);
             newButton.SetButtonText(appliance.GetApplianceName());
-            newButton.button.onClick.AddListener(() => UIManager.Instance.ShowApplianceContextPanel(appliance, transform.position));
+            // newButton.button.onClick.AddListener(() => UIManager.Instance.ShowApplianceContextPanel(appliance, transform.position));
         }
     }
 }

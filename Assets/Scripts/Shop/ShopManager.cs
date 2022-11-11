@@ -5,10 +5,18 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
     public List<ApplianceSO> startingAppliances = new List<ApplianceSO>();
     private List<Appliance> _appliances = new List<Appliance>();
 
+    public int shopStartingMoney = 100;
+    private int _shopMoney = 0;
+
     protected override void Awake()
     {
         base.Awake();
         AddStartingAppliance();
+    }
+
+    private void Start()
+    {
+        AddMoney(shopStartingMoney);
     }
 
     private void AddStartingAppliance()
@@ -24,6 +32,18 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
     public List<Appliance> GetAppliancesInShop()
     {
         return _appliances;
+    }
+
+    public bool AddMoney(int moneyToEarn)
+    {
+        _shopMoney += moneyToEarn;
+        EventHandler.CallShopMoneyDidChangeEvent(moneyToEarn, GetCurrentShopMoney());
+        return true;
+    }
+
+    public int GetCurrentShopMoney()
+    {
+        return _shopMoney;
     }
 
 }

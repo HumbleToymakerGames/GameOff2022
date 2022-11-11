@@ -9,7 +9,7 @@ public class ApplianceFunctionUIElement : MonoBehaviour
     public TextMeshProUGUI functionNameText;
     public GameObject functionInputParent;
     public TextMeshProUGUI functionDurationText;
-    public ItemQuantityUIElement functionOutput;
+    public UI_ItemQuantityElement functionOutput;
     public Button startfunctionButton;
 
     public GameObject itemQuantityPrefab;
@@ -24,7 +24,7 @@ public class ApplianceFunctionUIElement : MonoBehaviour
         foreach(ItemQuantity input in inputs)
         {
             GameObject go = Instantiate(itemQuantityPrefab, functionInputParent.transform);
-            go.GetComponent<ItemQuantityUIElement>().SetToItemQuantity(input);
+            go.GetComponent<UI_ItemQuantityElement>().SetToItemQuantity(input);
         }
         ItemQuantity output = applianceFunction.GetItemQuantityForOutput();
         functionOutput.SetToItemQuantity(output);

@@ -13,13 +13,13 @@ public static class EventHandler
         }
     }
 
-    public static event Action<Appliance, Vector2> DidClickApplianceEvent;
+    public static event Action<Appliance> DidClickApplianceEvent;
 
-    public static void CallDidClickApplianceEvent(Appliance clickedAppliance, Vector2 screenPosition)
+    public static void CallDidClickApplianceEvent(Appliance clickedAppliance)
     {
         if (DidClickApplianceEvent != null)
         {
-            DidClickApplianceEvent(clickedAppliance, screenPosition);
+            DidClickApplianceEvent(clickedAppliance);
         }
     }
 
@@ -31,5 +31,12 @@ public static class EventHandler
         {
             ApplianceFunctionDidCompleteEvent(completedApplianceFunction, itemQuantity);
         }
+    }
+
+    public static event Action<int, int> ShopMoneyDidChangeEvent;
+
+    public static void CallShopMoneyDidChangeEvent(int netChange, int newTotal)
+    {
+        if (ShopMoneyDidChangeEvent != null) ShopMoneyDidChangeEvent(netChange, newTotal);
     }
 }

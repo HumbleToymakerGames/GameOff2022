@@ -101,10 +101,6 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-
-
-
-
     }
 
     private void OnApplianceFunctionDidComplete(ApplianceFunction function, ItemQuantity itemQuantity)
