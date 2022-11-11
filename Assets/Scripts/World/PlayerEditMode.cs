@@ -22,7 +22,6 @@ public class PlayerEditMode : MonoBehaviour
             placeableObjects = Resources.LoadAll<PlaceableObjectSO>("Data/PlaceableObjects");
         }
         Vector3Int debug = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false));
-        Debug.Log(debug + " : " + MapInformation.groundMap[debug.x, debug.y].walkable);
 
         //Object selection
         // Controls should be changed later on
@@ -64,7 +63,7 @@ public class PlayerEditMode : MonoBehaviour
 
 
             Color heldObjectColor = Color.white;
-            if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null)
+            if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null || MapInformation.groundMap[indexPosition.x, indexPosition.y].mask != placeableObjects[selectedObject].placementMask)
                 heldObjectColor = Color.red;
             else
                 heldObjectColor = Color.white;

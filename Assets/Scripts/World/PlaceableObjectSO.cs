@@ -8,6 +8,7 @@ public class PlaceableObjectSO : ScriptableObject
     public string name;
     public Sprite sprite;
     public TileType type;
+    public Mask placementMask;
     public ApplianceSO applianceSOIfApplicable;
     public Vector3Int usePositionOffsetIfApplicable;
 }

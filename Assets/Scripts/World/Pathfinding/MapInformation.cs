@@ -66,7 +66,6 @@ public class MapInformation : MonoBehaviour
                     }
                     if (maskTileMap.HasTile(tileLocation))
                     {
-                        Debug.Log(maskTileMap.GetTile(tileLocation).name);
                         string tileName = maskTileMap.GetTile(tileLocation).name;
                         switch (tileName)
                         {
