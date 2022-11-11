@@ -23,9 +23,9 @@ public static class EventHandler
         }
     }
 
-    public static event Action<ApplianceFunction, ItemQuantity> ApplianceFunctionDidCompleteEvent;
+    public static event Action<ApplianceFunction, SlotClass> ApplianceFunctionDidCompleteEvent;
 
-    public static void CallApplianceFunctionDidCompleteEvent(ApplianceFunction completedApplianceFunction, ItemQuantity itemQuantity)
+    public static void CallApplianceFunctionDidCompleteEvent(ApplianceFunction completedApplianceFunction, SlotClass itemQuantity)
     {
         if (ApplianceFunctionDidCompleteEvent != null)
         {

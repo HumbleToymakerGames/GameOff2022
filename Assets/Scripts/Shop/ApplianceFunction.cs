@@ -31,7 +31,6 @@ public class ApplianceFunction
 
     public void StartFunction(GameObject progressBar)
     {
-        Debug.Log("Performing function " + GetApplianceFunctionName());
         this.progressBar = progressBar;
         working = true;
 
@@ -94,34 +93,25 @@ public class ApplianceFunction
     public void FinishFunction()
     {
         progressBar.SetActive(false);
-        Debug.Log("Finished function " + GetApplianceFunctionName());
-        EventHandler.CallApplianceFunctionDidCompleteEvent(this, _applianceFunctionSO.outputs[0]);
+        EventHandler.CallApplianceFunctionDidCompleteEvent(this, GetItemQuantityForOutput());
         working = false;
-
-        //If manual unlock player movement
-        if (_applianceFunctionSO.manual)
-        {
-            playerMovement.movementLocked = false;
-        }
-
-        //inventory.Add(outputItem.GetItem(), outputItem.GetQuantity());
+        if (_applianceFunctionSO.manual) playerMovement.movementLocked = false;
     }
 
     public Sprite SpriteForOutputProduct()
     {
-        if (_applianceFunctionSO.outputs.Count == 0) return null;
-        if (_applianceFunctionSO.outputs[0].item == null) return null;
-        return _applianceFunctionSO.outputs[0].item.itemIcon;
+        if (GetItemQuantityForOutput() == null) return null;
+        return GetItemQuantityForOutput().GetItem().itemIcon;
     }
 
-    public List<ItemQuantity> GetItemQuantitiesForInputs()
+    public List<SlotClass> GetItemQuantitiesForInputs()
     {
-        return _applianceFunctionSO.inputs;
+        return _applianceFunctionSO.inputItems;
     }
 
-    public ItemQuantity GetItemQuantityForOutput()
+    public SlotClass GetItemQuantityForOutput()
     {
-        return _applianceFunctionSO.outputs[0];
+        return _applianceFunctionSO.outputItem;
     }
 
     public String GetDurationString()

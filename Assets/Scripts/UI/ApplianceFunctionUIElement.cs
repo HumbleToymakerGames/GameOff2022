@@ -14,19 +14,19 @@ public class ApplianceFunctionUIElement : MonoBehaviour
 
     public GameObject itemQuantityPrefab;
 
-    public List<ItemQuantity> inputs = new List<ItemQuantity>();
+    public List<SlotClass> inputs = new List<SlotClass>();
 
     public void SetToApplianceFunction(ApplianceFunction applianceFunction)
     {
         functionNameText.text = applianceFunction.GetApplianceFunctionName();
         functionDurationText.text = applianceFunction.GetDurationString();
-        List<ItemQuantity> inputs = applianceFunction.GetItemQuantitiesForInputs();
-        foreach(ItemQuantity input in inputs)
+        List<SlotClass> inputs = applianceFunction.GetItemQuantitiesForInputs();
+        foreach(SlotClass input in inputs)
         {
             GameObject go = Instantiate(itemQuantityPrefab, functionInputParent.transform);
             go.GetComponent<UI_ItemQuantityElement>().SetToItemQuantity(input);
         }
-        ItemQuantity output = applianceFunction.GetItemQuantityForOutput();
+        SlotClass output = applianceFunction.GetItemQuantityForOutput();
         functionOutput.SetToItemQuantity(output);
     }
 

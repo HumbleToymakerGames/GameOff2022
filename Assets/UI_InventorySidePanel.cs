@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class UI_InventorySidePanel : MonoBehaviour
 {
+    public GameObject inventoryItemQuantityElementPrefab;
+    public GameObject itemListParent;
+
     private GameObject _visibleSidebar;
     private bool _isSidebarVisible;
 
@@ -21,6 +24,7 @@ public class UI_InventorySidePanel : MonoBehaviour
 
     public void ShowSidebar()
     {
+        ConfigureInventoryPanel();
         _visibleSidebar.SetActive(true);
         _isSidebarVisible = true;
     }
@@ -34,6 +38,22 @@ public class UI_InventorySidePanel : MonoBehaviour
         } else
         {
             ShowSidebar();
+        }
+    }
+
+    public void ConfigureInventoryPanel()
+    {
+        foreach(Transform el in itemListParent.transform)
+        {
+            Destroy(el.gameObject);
+        }
+
+        List<SlotClass> items = InventoryManager.Instance.GetInventory();
+        foreach(SlotClass item in items)
+        {
+            GameObject go = Instantiate(inventoryItemQuantityElementPrefab, itemListParent.transform);
+            UI_InventoryItemQuantityElement el = go.GetComponent<UI_InventoryItemQuantityElement>();
+            el.ConfigureForItem(item);
         }
     }
 }

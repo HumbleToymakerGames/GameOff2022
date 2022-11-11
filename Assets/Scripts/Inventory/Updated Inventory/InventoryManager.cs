@@ -3,27 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
 {
-    [SerializeField] private List<CraftingRecipe> craftingRecipes = new List<CraftingRecipe>();
+    [SerializeField] public List<SlotClass> startingItems = new List<SlotClass>();
+    private List<SlotClass> _items = new List<SlotClass>();
 
-    [SerializeField] private GameObject itemCursor;
+    //[SerializeField] private List<CraftingRecipe> craftingRecipes = new List<CraftingRecipe>();
+    //[SerializeField] private GameObject itemCursor;
+    //[SerializeField] private GameObject slotHolder;
+    //[SerializeField] private ItemClass itemToAdd;
+    //[SerializeField] private ItemClass itemToRemove;
+    //private GameObject[] slots;
+    //private SlotClass movingSlot;
+    //private SlotClass tempSlot;
+    //private SlotClass originalSlot;
+    //bool isMovingItem;
 
-    [SerializeField] private GameObject slotHolder;
-    [SerializeField] private ItemClass itemToAdd;
-    [SerializeField] private ItemClass itemToRemove;
 
-    [SerializeField] private SlotClass[] startingItems;
-
-    private SlotClass[] items;
-
-
-    private GameObject[] slots;
-    private SlotClass movingSlot;
-    private SlotClass tempSlot;
-    private SlotClass originalSlot;
-
-    bool isMovingItem;
+    public List<SlotClass> GetInventory()
+    {
+        return _items;
+    }
 
     private void OnEnable()
     {
@@ -37,42 +37,84 @@ public class InventoryManager : MonoBehaviour
 
     public void Start()
     {
-
-        slots = new GameObject[slotHolder.transform.childCount];
-        items = new SlotClass[slots.Length];
-
-        
-
-
-        for (int i = 0; i < items.Length; i++)
-        {
-            items[i] = new SlotClass();
-
-        }
-
-        for (int i = 0; i < startingItems.Length; i++)
-        {
-            items[i] = startingItems[i];
-
-        }
-
-        //set all slots
-        for (int i = 0; i < slotHolder.transform.childCount; i++)
-        {
-            slots[i] = slotHolder.transform.GetChild(i).gameObject;
-        }
-
-
-
-        RefreshUI();
-
-        Add(itemToAdd, 1);
-        Remove(itemToRemove);
+        AddStartingItems();
     }
+
+    private void AddStartingItems()
+    {
+        if (startingItems.Count == 0) return;
+
+        foreach(SlotClass slot in startingItems)
+        {
+            Add(slot.GetItem(), slot.GetQuantity());
+        }
+    }
+
+
+    public bool Add(ItemClass item, int quantity)
+    {
+        //check if inventory contains item
+        SlotClass slot = Contains(item);
+        if (slot != null && slot.GetItem().isStackable)
+        {
+            slot.AddQuantity(quantity);
+        }
+        else
+        {
+            _items.Add(new SlotClass(item, quantity));
+        }
+
+        //RefreshUI();
+        return true;
+    }
+
+
+    public bool Remove(ItemClass item, int quantity)
+    {
+
+        SlotClass temp = Contains(item);
+        if (temp != null)
+        {
+            if (temp.GetQuantity() >= quantity)
+            {
+                temp.SubtractQuantity(quantity);
+            }
+            else
+            {
+
+                int slotToRemoveIndex = 0;
+
+                for (int i = 0; i < _items.Count; i++)
+                {
+                    if (_items[i].GetItem() == item)
+                    {
+                        slotToRemoveIndex = i;
+                        break;
+                    }
+                }
+
+
+                _items[slotToRemoveIndex].Clear();
+            }
+
+        }
+        else
+        {
+            return false;
+        }
+
+
+
+
+        //RefreshUI();
+        return true;
+    }
+
 
 
     private void Update()
     {
+        /*
         //Handles Crafting
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -100,21 +142,18 @@ public class InventoryManager : MonoBehaviour
                 BeginItemMove();
             }
         }
+        */
 
     }
 
-    private void OnApplianceFunctionDidComplete(ApplianceFunction function, ItemQuantity itemQuantity)
+    private void OnApplianceFunctionDidComplete(ApplianceFunction function, SlotClass itemQuantity)
     {
-        Debug.Log("InventoryManager got ApplianceFunctionDidCompleteEvent");
-        // The method run by the EventHandler when any appliancefunction completes
-        // function: the ApplianceFunction SO that just completed
-        // itemQuantity: a struct containing itemQuantity.item (class Item) and itemQuantity.itemQuantity (int)
-
-        // Normally you would just run this method, but it does not work since Add() takes in a different datatype
-        // Add(itemQuantity.item, itemQuantity.itemQuantity);
+        Add(itemQuantity.GetItem(), itemQuantity.GetQuantity());
     }
 
     //looks through all items there and determines if its there
+
+    /*
     public void RefreshUI()
     {
         for (int i = 0; i < slots.Length; i++)
@@ -146,79 +185,9 @@ public class InventoryManager : MonoBehaviour
 
         
     }
-
+    */
    
-
-    public bool Add(ItemClass item, int quantity)
-    {
-
-
-        //check if inventory contains item
-        SlotClass slot = Contains(item);
-        if (slot != null && slot.GetItem().isStackable)
-        {
-            slot.AddQuantity(1);
-        }
-        else
-        {
-            for (int i = 0; i < items.Length; i++)
-            {
-                if (items[i].GetItem() == null)//this is an empty slot
-                {
-                    items[i].AddItem(item, quantity);
-                    break;
-                }
-            }
-
-
-        }
-
-        RefreshUI();
-        return true;
-    }
-
-
-    public bool Remove(ItemClass item)
-    {
-
-        SlotClass temp = Contains(item);
-        if (temp != null)
-        {
-            if (temp.GetQuantity() > 1)
-            {
-                temp.SubtractQuantity(1);
-            }
-            else
-            {
-
-                int slotToRemoveIndex = 0;
-
-                for (int i = 0; i < items.Length; i++)
-                {
-                    if (items[i].GetItem() == item)
-                    {
-                        slotToRemoveIndex = i;
-                        break;
-                    }
-                }
-
-
-                items[slotToRemoveIndex].Clear();
-            }
-
-        }
-        else
-        {
-            return false;
-        }
-
-
-
-
-        RefreshUI();
-        return true;
-    }
-
+    /*
     //Remove for crafting
     public bool Remove(ItemClass item, int quantity)
     {
@@ -257,17 +226,18 @@ public class InventoryManager : MonoBehaviour
 
 
 
-        RefreshUI();
+        //RefreshUI();
         return true;
     }
+    */
 
 
     public SlotClass Contains(ItemClass item)
     {
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < _items.Count; i++)
         {
-            if (items[i].GetItem() == item)
-                return items[i];
+            if (_items[i].GetItem() == item)
+                return _items[i];
         }
 
         return null;
@@ -276,9 +246,9 @@ public class InventoryManager : MonoBehaviour
     //Checks items for crafting
     public bool Contains(ItemClass item, int quantity)
     {
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < _items.Count; i++)
         {
-            if (items[i].GetItem() == item && items[i].GetQuantity() >= quantity)
+            if (_items[i].GetItem() == item && _items[i].GetQuantity() >= quantity)
                 return true;
         }
 
@@ -300,7 +270,7 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-
+    /*
     private bool BeginItemMove()
     {
         originalSlot = GetClosestSlot();
@@ -378,4 +348,5 @@ public class InventoryManager : MonoBehaviour
 
         return null;
     }
+    */
 }

@@ -9,9 +9,9 @@ public class UI_ItemQuantityElement : MonoBehaviour
     public Image itemImage;
     public TextMeshProUGUI itemQuantityText;
 
-    public void SetToItemQuantity(ItemQuantity itemQuantity)
+    public void SetToItemQuantity(SlotClass itemQuantity)
     {
-        if (itemQuantity.item != null) itemImage.sprite = itemQuantity.item.itemIcon;
-        itemQuantityText.text = itemQuantity.itemQuantity.ToString();
+        if (itemQuantity.GetItem() != null) itemImage.sprite = itemQuantity.GetItem().itemIcon;
+        itemQuantityText.text = itemQuantity.GetQuantity().ToString();
     }
 }
