@@ -236,6 +236,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Oven
       objectReference: {fileID: 0}
+    - target: {fileID: 1709835222163486577, guid: cf74968436e07a343bc3d28601681293, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3544306128689534560, guid: cf74968436e07a343bc3d28601681293, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -10404,7 +10408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7531568078813146426, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 850
+      value: 650
       objectReference: {fileID: 0}
     - target: {fileID: 7531568078813146426, guid: 3320ad2ebdd04411cabf0b2b0e7119c4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10596,6 +10600,8 @@ MonoBehaviour:
   startingItems:
   - item: {fileID: 11400000, guid: 5476be705bb40174fb510c5999fc2c3a, type: 2}
     quantity: 4
+  - item: {fileID: 11400000, guid: 499ca29d63124954ebfd77e75bd35c95, type: 2}
+    quantity: 2
 --- !u!4 &1039787885
 Transform:
   m_ObjectHideFlags: 0
