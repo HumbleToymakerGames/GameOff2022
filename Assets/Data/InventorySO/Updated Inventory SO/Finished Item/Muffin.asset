@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b8fb5eb3bcc7d24c9d459bafbefed16, type: 3}
-  m_Name: Baguette
+  m_Script: {fileID: 11500000, guid: 6e4ab10558053e6499f05a734a987bfc, type: 3}
+  m_Name: Muffin
   m_EditorClassIdentifier: 
-  itemName: Baguette
-  stackable: 1
-  itemIcon: {fileID: 21300072, guid: a686ecd845234064f945285464b93c53, type: 3}
+  itemName: Muffin
+  itemIcon: {fileID: 0}
+  isStackable: 1

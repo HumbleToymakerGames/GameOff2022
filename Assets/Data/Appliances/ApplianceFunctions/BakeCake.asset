@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   functionName: Bake Cake
   inputs:
-  - item: {fileID: 11400000, guid: 4faa944b3a4584c3cb7e46a94651e988, type: 2}
+  - item: {fileID: 11400000, guid: fa77209ad5d52f24597e820cf7749c05, type: 2}
     itemQuantity: 1
-  - item: {fileID: 11400000, guid: 6842e367dd17e431bb069179f397015b, type: 2}
+  - item: {fileID: 11400000, guid: 06da6c00dc0e29245abd94aa498e8e39, type: 2}
     itemQuantity: 1
   outputs:
-  - item: {fileID: 11400000, guid: 3e245c19f4cd84db08332c897d043a04, type: 2}
+  - item: {fileID: 11400000, guid: b4969a9b47085274487eed67a818f950, type: 2}
     itemQuantity: 1
   hoursToMake: 4
+  manual: 0

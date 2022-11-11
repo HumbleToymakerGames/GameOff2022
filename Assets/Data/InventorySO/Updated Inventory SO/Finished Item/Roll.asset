@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e4ab10558053e6499f05a734a987bfc, type: 3}
-  m_Name: Bread
+  m_Name: Roll
   m_EditorClassIdentifier: 
-  itemName: Bread
-  itemIcon: {fileID: 21300000, guid: cce9851d76de39d429d0bbf1bedc0a5e, type: 3}
+  itemName: Roll
+  itemIcon: {fileID: 0}
   isStackable: 1

@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   functionName: Bake Brownies
   inputs:
-  - item: {fileID: 11400000, guid: ef5a45dda59f14959b207b74bdd7e984, type: 2}
+  - item: {fileID: 11400000, guid: 1b76e308287d1f344aa4f5ae8818c8cb, type: 2}
     itemQuantity: 1
   outputs:
-  - item: {fileID: 11400000, guid: 001d179b24551488dafdf1239e39ad36, type: 2}
+  - item: {fileID: 11400000, guid: 93e8a8853da966a4b9a09b8c72a06df8, type: 2}
     itemQuantity: 1
   hoursToMake: 4
+  manual: 0
