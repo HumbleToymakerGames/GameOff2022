@@ -10672,8 +10672,6 @@ MonoBehaviour:
   startingItems:
   - item: {fileID: 11400000, guid: 2040612493164f74fa9367d8379292e7, type: 2}
     quantity: 4
-  - item: {fileID: 11400000, guid: 499ca29d63124954ebfd77e75bd35c95, type: 2}
-    quantity: 2
 --- !u!4 &1039787885
 Transform:
   m_ObjectHideFlags: 0

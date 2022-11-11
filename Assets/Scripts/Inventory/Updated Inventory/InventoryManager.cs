@@ -68,6 +68,14 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
         return true;
     }
 
+    public bool CanAfford(SlotClass item)
+    {
+        SlotClass foundItem = Contains(item.GetItem());
+        if (foundItem == null) return false;
+        if (foundItem.GetQuantity() < item.GetQuantity()) return false;
+        return true;
+    }
+
 
     public bool Remove(ItemClass item, int quantity)
     {

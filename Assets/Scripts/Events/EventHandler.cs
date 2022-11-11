@@ -39,4 +39,11 @@ public static class EventHandler
     {
         if (ShopMoneyDidChangeEvent != null) ShopMoneyDidChangeEvent(netChange, newTotal);
     }
+
+    public static event Action InventoryDidChangeEvent;
+
+    public static void CallInventoryDidChangeEvent()
+    {
+        if (InventoryDidChangeEvent != null) InventoryDidChangeEvent();
+    }
 }

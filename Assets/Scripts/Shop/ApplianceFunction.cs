@@ -31,6 +31,13 @@ public class ApplianceFunction
 
     public void StartFunction(GameObject progressBar)
     {
+        Debug.Log("StartFunction called");
+
+        foreach(SlotClass slot in _applianceFunctionSO.inputItems)
+        {
+            InventoryManager.Instance.Remove(slot.GetItem(), slot.GetQuantity());
+        }
+
         this.progressBar = progressBar;
         working = true;
 
@@ -76,6 +83,15 @@ public class ApplianceFunction
         }*/
 
     }
+    public bool CanAffordFunction()
+    {
+        foreach (SlotClass item in _applianceFunctionSO.inputItems)
+        {
+           if (InventoryManager.Instance.CanAfford(item) == false) return false;
+        }
+        return true;
+    }
+         
 
     public void UpdateFunction()
     {

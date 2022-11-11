@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minutesToRefresh: 15
+  clockText: {fileID: 8351274122812705270}
 --- !u!1 &4191997749984078789
 GameObject:
   m_ObjectHideFlags: 0

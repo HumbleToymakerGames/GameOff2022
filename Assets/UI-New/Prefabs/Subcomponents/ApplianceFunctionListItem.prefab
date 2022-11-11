@@ -728,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9056604, g: 0.80740476, b: 0.80740476, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -762,6 +762,7 @@ MonoBehaviour:
   outputProduct: {fileID: 8139649825895341412}
   inputItemsParent: {fileID: 6714725942572640631}
   singleInputItemPrefab: {fileID: 8934945094849551554, guid: 9e1c6431c09f1a6478838452271c77e1, type: 3}
+  rootImage: {fileID: 4989051505022676205}
   startFunctionButton: {fileID: 7539065648153646287}
 --- !u!114 &7539065648153646287
 MonoBehaviour:

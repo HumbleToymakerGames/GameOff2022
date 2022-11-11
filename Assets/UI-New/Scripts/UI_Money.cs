@@ -5,12 +5,7 @@ using TMPro;
 
 public class UI_Money : MonoBehaviour
 {
-    private TextMeshProUGUI _moneyText;
-
-    private void Start()
-    {
-        _moneyText = GetComponentInChildren<TextMeshProUGUI>();
-    }
+    public TextMeshProUGUI moneyText;
 
     private void OnEnable()
     {
@@ -24,6 +19,6 @@ public class UI_Money : MonoBehaviour
 
     private void ConfigureMoneyUIForMoney(int netChange, int newTotal)
     {
-        _moneyText.text = "$" + newTotal.ToString();
+        moneyText.text = "$" + newTotal.ToString();
     }
 }

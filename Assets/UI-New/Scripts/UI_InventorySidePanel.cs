@@ -10,6 +10,15 @@ public class UI_InventorySidePanel : MonoBehaviour
     private GameObject _visibleSidebar;
     private bool _isSidebarVisible;
 
+    private void OnEnable()
+    {
+        EventHandler.InventoryDidChangeEvent += ConfigureInventoryPanel;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.InventoryDidChangeEvent -= ConfigureInventoryPanel;
+    }
     private void Start()
     {
         _visibleSidebar = GameObject.Find("VisibleSidebar");
