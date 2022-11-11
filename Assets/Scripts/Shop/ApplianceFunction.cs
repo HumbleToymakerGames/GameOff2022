@@ -41,9 +41,30 @@ public class ApplianceFunction
             playerMovement.movementLocked = true;
         }
 
+
         // We should remove the input items from the inventory and begin the function
+
         // After the amount of hours passes, the function should complete, the appliance becomes available
         // and the output items should be added to inventory
+
+
+        /*public bool CanCraft(InventoryManager inventory)
+
+        { 
+
+            for (int i = 0; i < inputItems.Length; i++)
+            {
+                if (!inventory.Contains(inputItems[i].GetItem(), inputItems[i].GetQuantity()))
+                {
+
+                     return false;
+                }
+            }
+
+               //return if inventory has input itmes
+
+            return true;
+        }*/
     }
 
     public void UpdateFunction()

@@ -15,7 +15,7 @@ public class ApplianceFunctionSO : ScriptableObject
     //public SlotClass[] inputItems;
     //public SlotClass outputItem;
 
-
+   
 
     public string functionName;
     public List<ItemQuantity> inputs = new List<ItemQuantity>();

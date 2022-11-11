@@ -12,8 +12,7 @@ public class Appliance
 
     public bool anyFunctionRunning;
 
-    //public SlotClass[] inputItems;
-    //public SlotClass outputItem;
+    
 
     public Appliance(ApplianceSO applianceSO)
     {
@@ -61,24 +60,7 @@ public class Appliance
             currentFunction = null;
         }
 
-       /* public bool CanCraft(InventoryManager inventory)
-        {
-
-
-            for (int i = 0; i < inputItems.Length; i++)
-            {
-                if (!inventory.Contains(inputItems[i].GetItem(), inputItems[i].GetQuantity()))
-                {
-
-                    return false;
-                }
-            }
-
-            //return if inventory has input itmes
-
-            return true;
-        }*/
-
+       
     }
 
     public void UpdateFunction()
