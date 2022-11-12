@@ -29,11 +29,6 @@ public class NpcMovement : Movement
 
     protected override void Update()
     {
-        Test();
-    }
-
-    protected void Test()
-    {
         if (movementState == NPCMovementState.Random) RandomMovementTick();
         if (movementState == NPCMovementState.Exiting) DestroyIfAtExit();
         if (stepsRemainingInPath > 0) MoveTowardNextPathStep();
