@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Baguette
   itemIcon: {fileID: 21300072, guid: a686ecd845234064f945285464b93c53, type: 3}
   isStackable: 1
+  isSellable: 1

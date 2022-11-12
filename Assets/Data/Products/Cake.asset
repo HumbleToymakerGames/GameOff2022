@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Cake
   itemIcon: {fileID: 0}
   isStackable: 1
+  isSellable: 1

@@ -22,7 +22,12 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
 
     public List<SlotClass> GetInventory()
     {
-        return _items;
+        return _items.FindAll(item => item.GetItem().isSellable == false);
+    }
+
+    public List<SlotClass> GetStoreStock()
+    {
+        return _items.FindAll(item => item.GetItem().isSellable == true);
     }
 
     private void OnEnable()
@@ -46,6 +51,7 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
 
         foreach(SlotClass slot in startingItems)
         {
+            Debug.Log(slot.GetItem().GetType());
             Add(slot.GetItem(), slot.GetQuantity());
         }
     }

@@ -134,6 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryItemQuantityElementPrefab: {fileID: 8934945094849551554, guid: b7093708fab57432f8596496e49849c7, type: 3}
   itemListParent: {fileID: 483592778137126837}
+  visibleSidebar: {fileID: 8936296533873912709}
 --- !u!1 &3462943893000339899
 GameObject:
   m_ObjectHideFlags: 0

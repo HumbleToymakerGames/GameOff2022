@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_InventorySidePanel : MonoBehaviour
+public class UI_StoreDisplaySidePanel : MonoBehaviour
 {
     public GameObject inventoryItemQuantityElementPrefab;
     public GameObject itemListParent;
@@ -12,12 +12,12 @@ public class UI_InventorySidePanel : MonoBehaviour
 
     private void OnEnable()
     {
-        EventHandler.InventoryDidChangeEvent += ConfigureInventoryPanel;
+        EventHandler.InventoryDidChangeEvent += ConfigureStoreDisplayPanel;
     }
 
     private void OnDisable()
     {
-        EventHandler.InventoryDidChangeEvent -= ConfigureInventoryPanel;
+        EventHandler.InventoryDidChangeEvent -= ConfigureStoreDisplayPanel;
     }
     private void Start()
     {
@@ -32,7 +32,7 @@ public class UI_InventorySidePanel : MonoBehaviour
 
     public void ShowSidebar()
     {
-        ConfigureInventoryPanel();
+        ConfigureStoreDisplayPanel();
         visibleSidebar.SetActive(true);
         _isSidebarVisible = true;
     }
@@ -49,14 +49,14 @@ public class UI_InventorySidePanel : MonoBehaviour
         }
     }
 
-    public void ConfigureInventoryPanel()
+    public void ConfigureStoreDisplayPanel()
     {
         foreach(Transform el in itemListParent.transform)
         {
             Destroy(el.gameObject);
         }
 
-        List<SlotClass> items = InventoryManager.Instance.GetInventory();
+        List<SlotClass> items = InventoryManager.Instance.GetStoreStock();
         foreach(SlotClass item in items)
         {
             GameObject go = Instantiate(inventoryItemQuantityElementPrefab, itemListParent.transform);
