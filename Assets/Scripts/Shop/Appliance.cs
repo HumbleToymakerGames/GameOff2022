@@ -37,6 +37,7 @@ public class Appliance
 
     public void StartFunction()
     {
+        Debug.Log("ApplianceStart");
         //Check other functions to see if they are running
         anyFunctionRunning = false;
         foreach (ApplianceFunction f in _applianceFunctions)
@@ -48,12 +49,11 @@ public class Appliance
         //If there are no functions running on this appliance start
         if (!anyFunctionRunning)
         {
-            // currentFunction.StartFunction(UIManager.Instance.PlaceProgressBarForApplianceFunction(currentFunction, worldAppliance.transform.position + new Vector3(0, 0.25f, 0)));
+            //currentFunction.StartFunction(UIManager.Instance.PlaceProgressBarForApplianceFunction(currentFunction, worldAppliance.transform.position + new Vector3(0, 0.25f, 0)));
+            currentFunction.StartFunction();
             anyFunctionRunning = true;
             currentFunction = null;
         }
-
-       
     }
 
     public void FunctionClicked(ApplianceFunction function)

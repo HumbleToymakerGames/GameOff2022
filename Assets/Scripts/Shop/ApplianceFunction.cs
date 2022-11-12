@@ -29,7 +29,7 @@ public class ApplianceFunction
         return _applianceFunctionSO.functionName;
     }
 
-    public void StartFunction(GameObject progressBar)
+    public void StartFunction(GameObject progressBar = null)
     {
         Debug.Log("StartFunction called");
 
@@ -98,7 +98,8 @@ public class ApplianceFunction
         int minutesToCompleteFunction = (int)Math.Floor(_applianceFunctionSO.hoursToMake * 60);
         progress = (float)(TimeManager.GetAbsoluteGameMinutes() - _startTime) / minutesToCompleteFunction;
 
-        progressBar.GetComponent<ApplianceFunctionProgressBar>().progress = progress;
+        if(progressBar != null)
+            progressBar.GetComponent<ApplianceFunctionProgressBar>().progress = progress;
 
         if (progress >= 1)
         {
@@ -108,7 +109,8 @@ public class ApplianceFunction
 
     public void FinishFunction()
     {
-        progressBar.SetActive(false);
+        if(progressBar != null)
+            progressBar.SetActive(false);
         EventHandler.CallApplianceFunctionDidCompleteEvent(this, GetItemQuantityForOutput());
         working = false;
         if (_applianceFunctionSO.manual) playerMovement.movementLocked = false;
