@@ -45,7 +45,6 @@ public class WorldAppliance : MonoBehaviour
             {
                 return;
             }
-            Debug.Log("Clicked");
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
             screenPosition += new Vector3(screenPosition.x <= Screen.width / 2 ? Screen.width / 4 : -Screen.width / 4, 0, 0);
             screenPosition.y = Screen.height / 2;
@@ -63,6 +62,7 @@ public class WorldAppliance : MonoBehaviour
 
     public void AtAppliance()
     {
+        Debug.Log("Start Func");
         appliance.StartFunction();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<PlayerCurrentAppliance>().currentAppliance = null;
