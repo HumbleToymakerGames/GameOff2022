@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9119517353624096222}
   - component: {fileID: 1977687092298424174}
   - component: {fileID: 2530725861804859587}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 1311187267134236838}
   - component: {fileID: 452803747850357780}
   - component: {fileID: 6722100590820297723}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ApplianceFunctionProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3572022883388831188}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4602337945878459706}
   - component: {fileID: 949868871348113159}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 1150690965738999016}
   - component: {fileID: 2903841928179406904}
   - component: {fileID: 8802601502764753996}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 6057696625382600846}
   - component: {fileID: 6462834411726772081}
   - component: {fileID: 3998543410598936362}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

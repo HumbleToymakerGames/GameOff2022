@@ -10,12 +10,12 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     // public ApplianceContextActionUI applianceContextActionUiPrefab;
     // private ApplianceContextActionUI _applianceContextUI;
 
-    // public GameObject worldUiParent;
-    // public GameObject progressBarPrefab;
+    public GameObject worldUiParent;
+    public GameObject progressBarPrefab;
 
-    // public float inWorldUIPositionYOffset = 0.5f;
+    public float inWorldUIPositionYOffset = 0.5f;
 
-    // private List<GameObject> _progressBarObjectPool = new List<GameObject>();
+    private List<GameObject> _progressBarObjectPool = new List<GameObject>();
 
     private void Start()
     {
@@ -43,7 +43,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     }
 
 
-    /*
+    
     public GameObject PlaceProgressBarForApplianceFunction(ApplianceFunction applianceFunction, Vector2 position)
     {
 
@@ -76,5 +76,5 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         newBarGO.SetActive(false);
         return newBarGO;
     }
-    */
+    
 }

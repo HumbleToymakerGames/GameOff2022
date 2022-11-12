@@ -30,32 +30,37 @@ public class UI_ApplianceFunctionListItemElement : MonoBehaviour
             Destroy(el.gameObject);
         }
 
-        foreach (KeyValuePair<Sprite, bool> spriteAffordability in GetInputItemsSpritesAndAffordability())
+        foreach (ItemAffordability itemAffordability in GetInputItemsAndAffordability())
         {
             GameObject inputItemEl = Instantiate(singleInputItemPrefab, inputItemsParent.transform);
-            inputItemEl.GetComponent<UI_InventoryItemSingleElement>().SetSprite(spriteAffordability.Key);
-            inputItemEl.GetComponent<UI_InventoryItemSingleElement>().SetDoesHave(spriteAffordability.Value);
+            inputItemEl.GetComponent<UI_InventoryItemSingleElement>().SetSprite(itemAffordability.item.itemIcon);
+            inputItemEl.GetComponent<UI_InventoryItemSingleElement>().SetDoesHave(itemAffordability.isAffordable);
         }
 
         selectFunctionButton.onClick.AddListener(() => _applianceFunction.parentAppliance.FunctionClicked(_applianceFunction));
-
-
     }
 
-    private Dictionary<Sprite, bool> GetInputItemsSpritesAndAffordability()
+    private List<ItemAffordability> GetInputItemsAndAffordability()
     {
-        Dictionary<Sprite, bool> returnDictionary = new Dictionary<Sprite, bool>();
+        List<ItemAffordability> returnList = new List<ItemAffordability>();
         List<SlotClass> inputItems = _applianceFunction.GetItemQuantitiesForInputs();
         foreach(SlotClass inputItem in inputItems)
         {
             int itemCount = InventoryManager.Instance.GetCountOfItem(inputItem.GetItem());
-            bool hasThisItem;
             for(int i = 0; i < inputItem.GetQuantity(); i++)
             {
-                hasThisItem = itemCount > i;
-                returnDictionary.Add(inputItem.GetItem().itemIcon, hasThisItem);
+                ItemAffordability returnStruct;
+                returnStruct.isAffordable = itemCount > i;
+                returnStruct.item = inputItem.GetItem();
+                returnList.Add(returnStruct);
             }
         }
-        return returnDictionary;
+        return returnList;
     }
+}
+
+public struct ItemAffordability
+{
+    public ItemClass item;
+    public bool isAffordable;
 }

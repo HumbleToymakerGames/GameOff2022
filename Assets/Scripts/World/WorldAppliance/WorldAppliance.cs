@@ -62,7 +62,6 @@ public class WorldAppliance : MonoBehaviour
 
     public void AtAppliance()
     {
-        Debug.Log("Start Func");
         appliance.StartFunction();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<PlayerCurrentAppliance>().currentAppliance = null;

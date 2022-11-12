@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: KneadingCounter
   m_EditorClassIdentifier: 
   applianceName: 
-  functions: []
+  functions:
+  - {fileID: 11400000, guid: 758ff20642346d045baacaafb71c5b3f, type: 2}

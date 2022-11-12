@@ -49,8 +49,7 @@ public class Appliance
         //If there are no functions running on this appliance start
         if (!anyFunctionRunning)
         {
-            //currentFunction.StartFunction(UIManager.Instance.PlaceProgressBarForApplianceFunction(currentFunction, worldAppliance.transform.position + new Vector3(0, 0.25f, 0)));
-            currentFunction.StartFunction();
+            currentFunction.StartFunction(UIManager.Instance.PlaceProgressBarForApplianceFunction(currentFunction, worldAppliance.transform.position + new Vector3(0, 0.25f, 0)));
             anyFunctionRunning = true;
             currentFunction = null;
         }

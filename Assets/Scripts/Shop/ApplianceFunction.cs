@@ -31,8 +31,6 @@ public class ApplianceFunction
 
     public void StartFunction(GameObject progressBar = null)
     {
-        Debug.Log("StartFunction called");
-
         foreach(SlotClass slot in _applianceFunctionSO.inputItems)
         {
             InventoryManager.Instance.Remove(slot.GetItem(), slot.GetQuantity());
@@ -95,6 +93,7 @@ public class ApplianceFunction
 
     public void UpdateFunction()
     {
+        Debug.Log("We are in UpdateFunction");
         int minutesToCompleteFunction = (int)Math.Floor(_applianceFunctionSO.hoursToMake * 60);
         progress = (float)(TimeManager.GetAbsoluteGameMinutes() - _startTime) / minutesToCompleteFunction;
 

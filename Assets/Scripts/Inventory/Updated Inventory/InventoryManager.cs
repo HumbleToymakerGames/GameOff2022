@@ -64,7 +64,7 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
             _items.Add(new SlotClass(item, quantity));
         }
 
-        //RefreshUI();
+        EventHandler.CallInventoryDidChangeEvent();
         return true;
     }
 
@@ -114,7 +114,7 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
 
 
 
-        //RefreshUI();
+        EventHandler.CallInventoryDidChangeEvent();
         return true;
     }
 

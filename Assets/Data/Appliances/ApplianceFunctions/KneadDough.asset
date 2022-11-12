@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: KneadDough
   m_EditorClassIdentifier: 
   functionName: Knead Dough
-  inputs:
-  - item: {fileID: 11400000, guid: 0e9ae7c0b05abf344abb012cda47461b, type: 2}
-    itemQuantity: 1
-  - item: {fileID: 11400000, guid: ec72519fc35cd554da6a0df63cb4c470, type: 2}
-    itemQuantity: 1
-  - item: {fileID: 11400000, guid: 64118c8d7fba8485ea5774d20c9b72bd, type: 2}
-    itemQuantity: 1
-  outputs:
-  - item: {fileID: 11400000, guid: a8aab45613a9d4a3288ef80586e2239c, type: 2}
-    itemQuantity: 1
+  inputItems:
+  - item: {fileID: 11400000, guid: 5476be705bb40174fb510c5999fc2c3a, type: 2}
+    quantity: 2
+  - item: {fileID: 11400000, guid: 8d2687a39783fe544931c5a0c22bd7cd, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: 2b95df327839f404a8379b3c6ff420d6, type: 2}
+    quantity: 1
+  outputItem:
+    item: {fileID: 11400000, guid: 2040612493164f74fa9367d8379292e7, type: 2}
+    quantity: 4
   hoursToMake: 0.5
   manual: 1
