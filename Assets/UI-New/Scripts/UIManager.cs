@@ -37,6 +37,11 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         _appliancePopupMenuPanelScript.ClearApplianceContext();
     }
 
+    public void PreviewApplianceFunction(ApplianceFunction function)
+    {
+        _appliancePopupMenuPanelScript.PreviewApplianceFunction(function);
+    }
+
 
     /*
     public GameObject PlaceProgressBarForApplianceFunction(ApplianceFunction applianceFunction, Vector2 position)

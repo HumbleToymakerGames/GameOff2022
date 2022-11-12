@@ -763,7 +763,7 @@ MonoBehaviour:
   inputItemsParent: {fileID: 6714725942572640631}
   singleInputItemPrefab: {fileID: 8934945094849551554, guid: 9e1c6431c09f1a6478838452271c77e1, type: 3}
   rootImage: {fileID: 4989051505022676205}
-  startFunctionButton: {fileID: 7539065648153646287}
+  selectFunctionButton: {fileID: 7539065648153646287}
 --- !u!114 &7539065648153646287
 MonoBehaviour:
   m_ObjectHideFlags: 0

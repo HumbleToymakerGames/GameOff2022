@@ -13,7 +13,7 @@ public class UI_ApplianceFunctionListItemElement : MonoBehaviour
     public GameObject singleInputItemPrefab;
     public GameObject rootImage;
 
-    public Button startFunctionButton;
+    public Button selectFunctionButton;
 
     private ApplianceFunction _applianceFunction;
 
@@ -30,43 +30,32 @@ public class UI_ApplianceFunctionListItemElement : MonoBehaviour
             Destroy(el.gameObject);
         }
 
-        foreach (Sprite sprite in GetInputItemsSprites())
+        foreach (KeyValuePair<Sprite, bool> spriteAffordability in GetInputItemsSpritesAndAffordability())
         {
             GameObject inputItemEl = Instantiate(singleInputItemPrefab, inputItemsParent.transform);
-            inputItemEl.GetComponent<UI_InventoryItemSingleElement>().SetSprite(sprite);
+            inputItemEl.GetComponent<UI_InventoryItemSingleElement>().SetSprite(spriteAffordability.Key);
+            inputItemEl.GetComponent<UI_InventoryItemSingleElement>().SetDoesHave(spriteAffordability.Value);
         }
 
-        if (applianceFunction.CanAffordFunction())
-        {
-            ConfigureUIForCanUse();
-        } else
-        {
-            ConfigureUIForCannotUse();
-        }
+        selectFunctionButton.onClick.AddListener(() => _applianceFunction.parentAppliance.FunctionClicked(_applianceFunction));
+
+
     }
 
-    public List<Sprite> GetInputItemsSprites()
+    private Dictionary<Sprite, bool> GetInputItemsSpritesAndAffordability()
     {
-        List<Sprite> spriteList = new List<Sprite>();
+        Dictionary<Sprite, bool> returnDictionary = new Dictionary<Sprite, bool>();
         List<SlotClass> inputItems = _applianceFunction.GetItemQuantitiesForInputs();
         foreach(SlotClass inputItem in inputItems)
         {
+            int itemCount = InventoryManager.Instance.GetCountOfItem(inputItem.GetItem());
+            bool hasThisItem;
             for(int i = 0; i < inputItem.GetQuantity(); i++)
             {
-                spriteList.Add(inputItem.GetItem().itemIcon);
+                hasThisItem = itemCount > i;
+                returnDictionary.Add(inputItem.GetItem().itemIcon, hasThisItem);
             }
         }
-        return spriteList;
-    }
-
-    private void ConfigureUIForCanUse()
-    {
-        rootImage.GetComponent<Image>().color = Color.white;
-        startFunctionButton.onClick.AddListener(() => _applianceFunction.parentAppliance.FunctionClicked(_applianceFunction));
-    }
-
-    private void ConfigureUIForCannotUse()
-    {
-        rootImage.GetComponent<Image>().color = Color.red;
+        return returnDictionary;
     }
 }

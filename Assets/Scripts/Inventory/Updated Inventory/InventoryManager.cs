@@ -194,7 +194,7 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
         
     }
     */
-   
+
     /*
     //Remove for crafting
     public bool Remove(ItemClass item, int quantity)
@@ -238,6 +238,17 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
         return true;
     }
     */
+
+    public int GetCountOfItem(ItemClass item)
+    {
+        for (int i = 0; i < _items.Count; i++)
+        {
+            if (_items[i].GetItem() == item)
+                return _items[i].GetQuantity();
+        }
+
+        return 0;
+    }
 
 
     public SlotClass Contains(ItemClass item)

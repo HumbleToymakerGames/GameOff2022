@@ -58,6 +58,11 @@ public class Appliance
 
     public void FunctionClicked(ApplianceFunction function)
     {
+        UIManager.Instance.PreviewApplianceFunction(function);
+    }
+
+    public void FunctionStarted(ApplianceFunction function)
+    {
         currentFunction = function;
         UIManager.Instance.CloseApplianceContextPanel();
         worldAppliance.MovePlayerToAppliance();
