@@ -37,7 +37,7 @@ public class TileSelect : MonoBehaviour
     /// Gets a random tiles position on the map that can be pathed to
     /// </summary>
     /// <returns>The tiles position on the tilemap</returns>
-    public static TileInfo SelectRandomTile()
+    public static TileInfo SelectRandomTile(Mask mask)
     {
         /* This needs to be refactored to pick a random tile in the cafe portion of the map
 
@@ -53,7 +53,27 @@ public class TileSelect : MonoBehaviour
         }
         */
 
-        return new TileInfo(new Vector3Int(Random.Range(4, -6), Random.Range(1, 5), 0), true); ;
+        //Still not great or perfomant but just need it to work for now
+        // Will freeze the game if the mask is not set
+        TileInfo randomTile = new TileInfo(new Vector3Int(2, -0, 2), true);
+        bool validTile = false;
+
+        //this is to prevent freezing the game if a mask isn't set
+        int allowedAttempts = 100;
+        while (!validTile)
+        {
+            randomTile = new TileInfo(new Vector3Int((int)Random.Range(MapInformation.groundMapBounds.xMin, MapInformation.groundMapBounds.xMax), (int)Random.Range(MapInformation.groundMapBounds.yMin, MapInformation.groundMapBounds.yMax), 0), true);
+            if (MapInformation.groundTileMap.HasTile(randomTile.position) && randomTile.mask == mask && randomTile.walkable)
+            {
+                validTile = true;
+            }
+            allowedAttempts--;
+            if (allowedAttempts <= 0)
+                break;
+        }
+
+        //return new TileInfo(new Vector3Int(Random.Range(4, -6), Random.Range(1, 5), 0), true);
+        return randomTile;
     }
 
     public static TileInfo FindTileOfType(TileType tileType)
