@@ -3,24 +3,18 @@ using UnityEngine;
 
 public class UIManager : SingletonMonoBehaviour<UIManager>
 {
-    private GameObject _appliancePopupMenuPanel;
-    private UI_AppliancePopupMenuPanel _appliancePopupMenuPanelScript;
-
-    // public GameObject uiParent;    
-    // public ApplianceContextActionUI applianceContextActionUiPrefab;
-    // private ApplianceContextActionUI _applianceContextUI;
-
     public GameObject worldUiParent;
     public GameObject progressBarPrefab;
-
     public float inWorldUIPositionYOffset = 0.5f;
+
+    private GameObject _appliancePopupMenuPanel;
+    private UI_AppliancePopupMenuPanel _appliancePopupMenuPanelScript;
 
     private List<GameObject> _progressBarObjectPool = new List<GameObject>();
 
     private void Start()
     {
         _appliancePopupMenuPanel = GameObject.Find("AppliancePopupMenuPanel");
-        Debug.Log(_appliancePopupMenuPanel);
         _appliancePopupMenuPanelScript = _appliancePopupMenuPanel.GetComponent<UI_AppliancePopupMenuPanel>();
         _appliancePopupMenuPanel.SetActive(false);
     }
@@ -41,12 +35,9 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     {
         _appliancePopupMenuPanelScript.PreviewApplianceFunction(function);
     }
-
-
     
     public GameObject PlaceProgressBarForApplianceFunction(ApplianceFunction applianceFunction, Vector2 position)
     {
-
         GameObject progressBar = GetUnusedProgressBarOrInstantiate();
         progressBar.transform.position = new Vector2(position.x, position.y + inWorldUIPositionYOffset);
         Sprite sprite = applianceFunction.SpriteForOutputProduct();
@@ -58,7 +49,6 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
 
         progressBar.SetActive(true);
         return progressBar;
-
     }
 
     private GameObject GetUnusedProgressBarOrInstantiate()

@@ -5,8 +5,10 @@ using System.Collections.Generic;
 public class CustomerManager : SingletonMonoBehaviour<CustomerManager>
 {
     public List<CustomerArchetypeSO> potentialCustomerArchetypes = new List<CustomerArchetypeSO>();
+    public GameObject customerSpawnParent;
 
     private List<Customer> _customersInShop = new List<Customer>();
+    private List<GameObject> _customerObjectPool = new List<GameObject>();
 
     private GameObject customerPrefab;
     private Transform entrance;
@@ -47,13 +49,31 @@ public class CustomerManager : SingletonMonoBehaviour<CustomerManager>
     private void SpawnCustomer(CustomerArchetypeSO archetype)
     {
         Customer newCustomer = new Customer(archetype);
-        GameObject customerObject = Instantiate(customerPrefab, entrance.position, Quaternion.identity);
-        customerObject.GetComponent<WorldCustomer>().customer = newCustomer;
+        GameObject customerObject = GetUnusedCustomerOrInstantiate();
+        customerObject.GetComponent<WorldCustomer>().InitializeWithCustomer(newCustomer);
+        customerObject.GetComponent<NpcMovement>().movementState = NPCMovementState.Random;
         _customersInShop.Add(newCustomer);
+        customerObject.SetActive(true);
     }
 
     public void RemoveCustomer(Customer customerToRemove)
     {
         customerToRemove.worldCustomer.GetComponent<NpcMovement>().StartNPCMoveToExit();
+        _customersInShop.Remove(customerToRemove);
+    }
+    private GameObject GetUnusedCustomerOrInstantiate()
+    {
+        if (_customerObjectPool.Count > 0)
+        {
+            foreach (GameObject customer in _customerObjectPool)
+            {
+                if (customer.activeInHierarchy == false) return customer;
+            }
+        }
+
+        GameObject newCustomer = Instantiate(customerPrefab, customerSpawnParent.transform);
+        _customerObjectPool.Add(newCustomer);
+        newCustomer.SetActive(false);
+        return newCustomer;
     }
 }

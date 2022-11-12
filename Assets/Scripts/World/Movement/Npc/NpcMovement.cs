@@ -15,7 +15,6 @@ public class NpcMovement : Movement
 
     private Vector3 oldGoal = new Vector3(-99999, -99999, -99999);
 
-    private bool exitStarted = false;
 
     protected override void Start()
     {

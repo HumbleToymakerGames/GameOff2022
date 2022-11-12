@@ -303,6 +303,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3544306128689534560, guid: cf74968436e07a343bc3d28601681293, type: 3}
   m_PrefabInstance: {fileID: 297607736}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &419068070 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8151289343535951404, guid: 9f85ee0b5eece264ea2cf8b8a86f9f39, type: 3}
+  m_PrefabInstance: {fileID: 8151289343388505738}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &458320946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12033,5 +12038,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: CustomerManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8151289343535951405, guid: 9f85ee0b5eece264ea2cf8b8a86f9f39, type: 3}
+      propertyPath: customerSpawnParent
+      value: 
+      objectReference: {fileID: 419068070}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f85ee0b5eece264ea2cf8b8a86f9f39, type: 3}
