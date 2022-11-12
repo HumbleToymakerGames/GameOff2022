@@ -15,6 +15,11 @@ public class NpcMovement : Movement
 
     private Vector3 oldGoal = new Vector3(-99999, -99999, -99999);
 
+    private void OnEnable()
+    {
+        timeUntilRandomMovement = 0;
+        ResetPath();
+    }
 
     protected override void Start()
     {
@@ -24,9 +29,15 @@ public class NpcMovement : Movement
 
     protected override void Update()
     {
+        Test();
+    }
+
+    protected void Test()
+    {
         if (movementState == NPCMovementState.Random) RandomMovementTick();
         if (movementState == NPCMovementState.Exiting) DestroyIfAtExit();
-        MoveTowardNextPathStep();
+        if (stepsRemainingInPath > 0) MoveTowardNextPathStep();
+        else FinishFollowingPath();
     }
 
     private void RandomMovementTick()
@@ -35,7 +46,13 @@ public class NpcMovement : Movement
 
         if (timeUntilRandomMovement <= 0)
         {
-            SetPathTo(DestinationForNPCMovementState(movementState), Mask.Customer);
+            Debug.Log("Find new path");
+            //Continue to try and find path until valid one is found
+            bool pathFound = false;
+            while(!pathFound)
+            {
+                pathFound = SetPathTo(DestinationForNPCMovementState(movementState), Mask.Customer);
+            }
             timeUntilRandomMovement = Random.Range(timeBetweenRandomMove - 1f, timeBetweenRandomMove + 1f);
         }
         
@@ -46,13 +63,13 @@ public class NpcMovement : Movement
         switch (movementState)
         {
             case NPCMovementState.Random:
-                return TileSelect.SelectRandomTile().position;
+                return TileSelect.SelectRandomTile(Mask.Customer).position;
             case NPCMovementState.Seat:
                 return TileSelect.FindTileOfType(TileType.Seat).position;
             case NPCMovementState.Exiting:
                 return doorTile;
             default:
-                return TileSelect.SelectRandomTile().position;
+                return TileSelect.SelectRandomTile(Mask.Customer).position;
         }
     }
 
@@ -67,8 +84,6 @@ public class NpcMovement : Movement
         movementState = NPCMovementState.Exiting;
         SetPathTo(DestinationForNPCMovementState(movementState), Mask.Customer);
     }
-
-
 }
 
 

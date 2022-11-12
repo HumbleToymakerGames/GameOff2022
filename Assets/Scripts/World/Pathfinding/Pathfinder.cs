@@ -27,22 +27,27 @@ public class Pathfinder : MonoBehaviour
             || goalGridPos.x < 0 || goalGridPos.y < 0)
             return shortestPath;
 
-        if (MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken || !MapInformation.groundMap[goalGridPos.x, goalGridPos.y].walkable || MapInformation.groundMap[goalGridPos.x, goalGridPos.y].mask != mask)
-            return shortestPath;
-        else
+        if (MapInformation.groundMap[goalGridPos.x, goalGridPos.y] != null)
         {
-            if (oldGoalGridPos.x >= MapInformation.groundMapBounds.max.x - MapInformation.groundMapBounds.min.x + 2 || oldGoalGridPos.y >= MapInformation.groundMapBounds.max.y - MapInformation.groundMapBounds.min.y + 2
-            || oldGoalGridPos.x < 0 || oldGoalGridPos.y < 0)
-            {
-
-            }
+            if (MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken || !MapInformation.groundMap[goalGridPos.x, goalGridPos.y].walkable || MapInformation.groundMap[goalGridPos.x, goalGridPos.y].mask != mask)
+                return shortestPath;
             else
             {
-                MapInformation.groundMap[oldGoalGridPos.x, oldGoalGridPos.y].taken = false;
+                if (oldGoalGridPos.x >= MapInformation.groundMapBounds.max.x - MapInformation.groundMapBounds.min.x + 2 || oldGoalGridPos.y >= MapInformation.groundMapBounds.max.y - MapInformation.groundMapBounds.min.y + 2
+                || oldGoalGridPos.x < 0 || oldGoalGridPos.y < 0)
+                {
+
+                }
+                else if(MapInformation.groundMap[oldGoalGridPos.x, oldGoalGridPos.y] != null)
+                {
+                    MapInformation.groundMap[oldGoalGridPos.x, oldGoalGridPos.y].taken = false;
+                }
+                /* if (setAsTaken)
+                    MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken = true; */
             }
-            /* if (setAsTaken)
-                MapInformation.groundMap[goalGridPos.x, goalGridPos.y].taken = true; */ 
         }
+        else
+            return shortestPath;
 
         nodes[startGridPos.x, startGridPos.y].CalculateCosts(goalGridPos);
         open.Add(nodes[startGridPos.x, startGridPos.y]);
@@ -74,7 +79,7 @@ public class Pathfinder : MonoBehaviour
         return shortestPath;
     }
 
-    public static IList<Vector3Int> FindRandomPath(Vector3 start)
+    public static IList<Vector3Int> FindRandomPath(Vector3 start, Mask mask)
     {
         bool pathFound = false;
         IList<Vector3Int> shortestPath = new List<Vector3Int>();
@@ -86,7 +91,7 @@ public class Pathfinder : MonoBehaviour
             Node[,] nodes = CreateGrid();
 
             Vector3Int startGridPos = MapInformation.GetTileIndex(start);
-            goalGridPos = TileSelect.SelectRandomTile().position;
+            goalGridPos = TileSelect.SelectRandomTile(mask).position;
 
             nodes[startGridPos.x, startGridPos.y].CalculateCosts(goalGridPos);
             open.Add(nodes[startGridPos.x, startGridPos.y]);

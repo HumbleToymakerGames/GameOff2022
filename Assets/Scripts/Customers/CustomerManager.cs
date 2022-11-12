@@ -73,7 +73,7 @@ public class CustomerManager : SingletonMonoBehaviour<CustomerManager>
         }
 
         GameObject newCustomer = Instantiate(customerPrefab, customerSpawnParent.transform);
-        newCustomer.transform.position = entrance.transform.position;
+        newCustomer.transform.position = entrance.transform.position + new Vector3(0, newCustomer.transform.localScale.y/2, 0);
         _customerObjectPool.Add(newCustomer);
         newCustomer.SetActive(false);
         return newCustomer;

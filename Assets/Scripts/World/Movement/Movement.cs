@@ -38,9 +38,15 @@ public class Movement : MonoBehaviour
         else FinishFollowingPath();
     }
 
-    private void FinishFollowingPath()
+    protected void FinishFollowingPath()
     {
         TileSelect.ClearHighlight();
+        pathStarted = false;
+    }
+
+    protected void ResetPath()
+    {
+        path.Clear();
         pathStarted = false;
     }
 
@@ -59,11 +65,12 @@ public class Movement : MonoBehaviour
         TileSelect.HighlightTile(destinationTile);
     }
 
-    protected void SetPathTo(Vector3Int destinationTile, Mask mask)
+    protected bool SetPathTo(Vector3Int destinationTile, Mask mask)
     {
         path = PathToTile(destinationTile, mask);
         previousGoal = destinationTile;
         if (path.Count > 0) pathStarted = true;
+        return pathStarted;
     }
 
     protected IList<Vector3Int> PathToTile(Vector3Int destinationTile, Mask mask)
