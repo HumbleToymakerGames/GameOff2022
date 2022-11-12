@@ -53,12 +53,11 @@ public class TileSelect : MonoBehaviour
         }
         */
 
-        //Still not great or perfomant but just need it to work for now
-        // Will freeze the game if the mask is not set
+        // Still not great or perfomant but just need it to work for now
         TileInfo randomTile = new TileInfo(new Vector3Int(2, -0, 2), true);
         bool validTile = false;
 
-        //this is to prevent freezing the game if a mask isn't set
+        //this is to prevent freezing the game if a mask isn't valid
         int allowedAttempts = 100;
         while (!validTile)
         {

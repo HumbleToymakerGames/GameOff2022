@@ -28,7 +28,7 @@ public class PlaceableObject : MonoBehaviour
 
         Vector3Int gridPosition = groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0));
         Vector3Int indexPosition = MapInformation.GetTileIndex(gridPosition);
-        if (MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable && MapInformation.groundMap[indexPosition.x, indexPosition.y].mask == placeableObjectSO.placementMask)
+        if (MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable && (MapInformation.groundMap[indexPosition.x, indexPosition.y].mask == placeableObjectSO.placementMask || MapInformation.groundMap[indexPosition.x, indexPosition.y].mask == Mask.Empty))
         {
             placed = true;
             if (tileType == TileType.Seat || tileType == TileType.Empty)
@@ -89,8 +89,6 @@ public class PlaceableObject : MonoBehaviour
                 worldAppliance.usePositionOffset = new Vector3Int(placeableObjectSO.usePositionOffsetIfApplicable.y, placeableObjectSO.usePositionOffsetIfApplicable.x, placeableObjectSO.usePositionOffsetIfApplicable.z);
                 transform.localScale = new Vector3(-1, 1, 1);
             }
-
-            TileSelect.HighlightTile(MapInformation.groundTileMap.WorldToCell(worldAppliance.transform.position - new Vector3(0, worldAppliance.transform.localScale.y / 2, 0)) + worldAppliance.usePositionOffset);
         }
         else
         {

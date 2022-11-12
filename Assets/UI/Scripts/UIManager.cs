@@ -15,8 +15,11 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     private void Start()
     {
         _appliancePopupMenuPanel = GameObject.Find("AppliancePopupMenuPanel");
-        _appliancePopupMenuPanelScript = _appliancePopupMenuPanel.GetComponent<UI_AppliancePopupMenuPanel>();
-        _appliancePopupMenuPanel.SetActive(false);
+        if (_appliancePopupMenuPanel != null)
+        {
+            _appliancePopupMenuPanelScript = _appliancePopupMenuPanel.GetComponent<UI_AppliancePopupMenuPanel>();
+            _appliancePopupMenuPanel.SetActive(false);
+        }
     }
 
     public void ShowApplianceContextPanel(Appliance appliance)

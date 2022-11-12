@@ -90,11 +90,12 @@ public class PlayerEditMode : MonoBehaviour
 
     private void SetObjectColor(Vector3Int indexPosition)
     {
-        Color color;
-        if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null || MapInformation.groundMap[indexPosition.x, indexPosition.y].mask != currentPlaceableObjectSO.placementMask)
-            color = Color.red;
-        else
-            color = Color.white;
+        Color color = Color.white;
+        if (MapInformation.groundMap[indexPosition.x, indexPosition.y].mask != Mask.Empty)
+        {
+            if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null || MapInformation.groundMap[indexPosition.x, indexPosition.y].mask != currentPlaceableObjectSO.placementMask)
+                color = Color.red;
+        }
         color.a = 0.5f;
 
         heldObject.GetComponent<SpriteRenderer>().color = color;
