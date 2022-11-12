@@ -13,6 +13,10 @@ GameObject:
   - component: {fileID: 8765669348542087905}
   - component: {fileID: 8765669348542087916}
   - component: {fileID: 1690571115}
+  - component: {fileID: 1911585485}
+  - component: {fileID: 1911585486}
+  - component: {fileID: 1484749015}
+  - component: {fileID: 1484749016}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -100,6 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  movementLocked: 0
 --- !u!114 &8765669348542087916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7578493200bd945b7316d49a1c0b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapped: 0
 --- !u!114 &1690571115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +131,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentAppliance: {fileID: 0}
   atAppliance: 0
+--- !u!114 &1911585485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8765669348542087904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6365fd23857424a4b8ed0e798a350718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placeableObjectPrefab: {fileID: 1709835222163486577, guid: cf74968436e07a343bc3d28601681293, type: 3}
+--- !u!114 &1911585486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8765669348542087904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c745bebb7dd6b4e8f6ed5c7ce7c9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placementPanel: {fileID: 0}
+  objectSelectButtonPrefab: {fileID: 9100716615943518781, guid: 10df2754d674bac4d92716cc53cc08f0, type: 3}
+--- !u!114 &1484749015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8765669348542087904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c745bebb7dd6b4e8f6ed5c7ce7c9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placementPanel: {fileID: 0}
+  objectSelectButtonPrefab: {fileID: 9100716615943518781, guid: 10df2754d674bac4d92716cc53cc08f0, type: 3}
+--- !u!114 &1484749016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8765669348542087904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6365fd23857424a4b8ed0e798a350718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placeableObjectPrefab: {fileID: 1709835222163486577, guid: cf74968436e07a343bc3d28601681293, type: 3}
