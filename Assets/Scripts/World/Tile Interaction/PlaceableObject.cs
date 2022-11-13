@@ -49,12 +49,12 @@ public class PlaceableObject : MonoBehaviour
                 }
                 else if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null && MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.supportsDeskItems && MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null)
                 {
-                    transform.position = new Vector3(transform.position.x, transform.position.y, 1);
+                    transform.position = new Vector3(transform.position.x, transform.position.y, 2);
                     MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile = gameObject;
                 }
                 else if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile == null)
                 {
-                    transform.position = new Vector3(transform.position.x, transform.position.y, 1);
+                    transform.position = new Vector3(transform.position.x, transform.position.y, 0);
                     MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile = gameObject;
                 }
 

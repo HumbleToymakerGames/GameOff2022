@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0654ab3e8af4a754f9028eed084d27de, type: 3}
-  m_Name: Table
+  m_Name: TableLamp
   m_EditorClassIdentifier: 
-  name: Table
-  sprite: {fileID: 21300000, guid: 73e409d08205eb44d86ff6f4646157e4, type: 3}
-  type: 0
-  supportsDeskItems: 1
-  pixelHeight: 28
+  name: Table Lamp
+  sprite: {fileID: 21300000, guid: df6ebb9c4aadb614583d527fe01c20f7, type: 3}
+  type: 3
+  supportsDeskItems: 0
+  pixelHeight: 0
   placementMask: 0
   applianceSOIfApplicable: {fileID: 0}
   usePositionOffsetIfApplicable: {x: 0, y: 0, z: 0}
