@@ -48,9 +48,9 @@ public class PlayerEditMode : MonoBehaviour
             //Set height
             if (currentPlaceableObjectSO.type == TileType.DeskItem)
             {
-                float height = MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile == null ? 1.25f : (float)(64 - MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.pixelHeight)/64;
+                float height = MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile == null ? 1f : (float)(MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.pixelHeight)/64;
                 SpriteRenderer spr = heldObject.GetComponent<SpriteRenderer>();
-                spr.sprite = Sprite.Create(currentPlaceableObjectSO.sprite.texture, currentPlaceableObjectSO.sprite.rect, new Vector2(0.5f, height * (32 / (currentPlaceableObjectSO.sprite.bounds.size.y * currentPlaceableObjectSO.sprite.pixelsPerUnit))));
+                spr.sprite = Sprite.Create(currentPlaceableObjectSO.sprite.texture, currentPlaceableObjectSO.sprite.rect, new Vector2(0.5f, height * (32 / (currentPlaceableObjectSO.sprite.bounds.size.y * currentPlaceableObjectSO.sprite.pixelsPerUnit))), currentPlaceableObjectSO.sprite.pixelsPerUnit);
             }
             SetObjectColor(indexPosition);
 
@@ -101,13 +101,31 @@ public class PlayerEditMode : MonoBehaviour
         Color color = Color.white;
         if (MapInformation.groundMap[indexPosition.x, indexPosition.y].mask != Mask.Empty)
         {
-            if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null || MapInformation.groundMap[indexPosition.x, indexPosition.y].mask != currentPlaceableObjectSO.placementMask)
+            //if (currentPlaceableObjectSO.type != TileType.DeskItem && (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null || MapInformation.groundMap[indexPosition.x, indexPosition.y].mask != currentPlaceableObjectSO.placementMask))
+            //    color = Color.red;
+            if (currentPlaceableObjectSO.placementMask != MapInformation.groundMap[indexPosition.x, indexPosition.y].mask)
+            {
                 color = Color.red;
+            }
+            if (currentPlaceableObjectSO.type != TileType.DeskItem && MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null)
+            {
+                color = Color.red;
+            }
+            if (currentPlaceableObjectSO.type == TileType.DeskItem && ((MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null && !MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.supportsDeskItems) || MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile != null))
+            {
+                color = Color.red;
+            }
         }
-        //Desk item checks
-        if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null && (!MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.supportsDeskItems || MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile != null))
+        else
         {
-            color = Color.red;
+            if (currentPlaceableObjectSO.type != TileType.DeskItem && MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null)
+            {
+                color = Color.red;
+            }
+            if (currentPlaceableObjectSO.type == TileType.DeskItem && ((MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null && !MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.supportsDeskItems) || MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile != null))
+            {
+                color = Color.red;
+            }
         }
         color.a = 0.5f;
 
