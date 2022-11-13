@@ -41,8 +41,9 @@ public class PlayerEditMode : MonoBehaviour
         }
         else if (heldObject != null)
         {
-            heldObject.transform.position = MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(true) + new Vector3Int(1, 1, 0));
-            Vector3Int indexPosition = MapInformation.GetTileIndex(MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(true)));
+            heldObject.transform.position = MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(currentPlaceableObjectSO.type != TileType.DeskItem) + new Vector3Int(1, 1, 0));
+
+            Vector3Int indexPosition = MapInformation.GetTileIndex(MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(currentPlaceableObjectSO.type != TileType.DeskItem)));
 
             SetObjectColor(indexPosition);
 
@@ -62,7 +63,10 @@ public class PlayerEditMode : MonoBehaviour
                 {
                     //Change index position to mouse position instead of objects
                     indexPosition = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false));
-                    Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile);
+                    if (currentPlaceableObjectSO.type == TileType.DeskItem)
+                        Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile);
+                    else
+                        Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile);
                     MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable = true;
                 }
 

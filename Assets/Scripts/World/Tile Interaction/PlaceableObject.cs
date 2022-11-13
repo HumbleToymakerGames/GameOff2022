@@ -28,7 +28,8 @@ public class PlaceableObject : MonoBehaviour
 
         Vector3Int gridPosition = groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0));
         Vector3Int indexPosition = MapInformation.GetTileIndex(gridPosition);
-        if (MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable && (MapInformation.groundMap[indexPosition.x, indexPosition.y].mask == placeableObjectSO.placementMask || MapInformation.groundMap[indexPosition.x, indexPosition.y].mask == Mask.Empty))
+        if ((placeableObjectSO.type != TileType.DeskItem ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile == null : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null && MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null) 
+            && (MapInformation.groundMap[indexPosition.x, indexPosition.y].mask == placeableObjectSO.placementMask || MapInformation.groundMap[indexPosition.x, indexPosition.y].mask == Mask.Empty))
         {
             placed = true;
             if (tileType == TileType.Seat || tileType == TileType.Empty)
@@ -40,7 +41,10 @@ public class PlaceableObject : MonoBehaviour
                 MapInformation.SetTileWalkability(gridPosition, false);
             }
 
-            MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile = gameObject;
+            if(placeableObjectSO.type != TileType.DeskItem)
+                MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile = gameObject;
+            else
+                MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile = gameObject;
 
             MapInformation.SetTileType(gridPosition, tileType);
         }
@@ -140,4 +144,4 @@ public class PlaceableObject : MonoBehaviour
     }
 }
 
-public enum TileType { Furniture, Interactable, Seat, Empty }
+public enum TileType { Furniture, Interactable, Seat, DeskItem, Empty }

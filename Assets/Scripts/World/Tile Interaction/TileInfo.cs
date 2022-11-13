@@ -13,6 +13,7 @@ public class TileInfo
     public bool taken = false;
 
     public GameObject gameObjectOnTile;
+    public GameObject deskObjectOnTile = null;
 
     public Mask mask = Mask.Empty;
 
