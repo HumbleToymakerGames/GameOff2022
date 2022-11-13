@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0654ab3e8af4a754f9028eed084d27de, type: 3}
-  m_Name: Island
+  m_Name: Candle
   m_EditorClassIdentifier: 
-  name: Island
-  sprite: {fileID: 21300000, guid: 4c8658e999112044f8e33676f43cbad8, type: 3}
-  type: 0
-  supportsDeskItems: 1
-  placementMask: 1
+  name: Candle
+  sprite: {fileID: 21300000, guid: 8e947702401b9864fb66d9bf26f182bf, type: 3}
+  type: 3
+  supportsDeskItems: 0
+  pixelHeight: 0
+  placementMask: 0
   applianceSOIfApplicable: {fileID: 0}
   usePositionOffsetIfApplicable: {x: 0, y: 0, z: 0}

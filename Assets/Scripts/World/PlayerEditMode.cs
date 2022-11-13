@@ -33,7 +33,7 @@ public class PlayerEditMode : MonoBehaviour
             heldObject = Instantiate(placeableObjectPrefab);
             heldObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
             
-            heldObject.transform.position = MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(true) + new Vector3Int(1, 1, 0));
+            heldObject.transform.position = MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(false) + new Vector3Int(1, 1, 0));
             Vector3Int indexPosition = MapInformation.GetTileIndex(MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(true)));
             UpdateObject();
             SetObjectColor(indexPosition);
@@ -41,10 +41,17 @@ public class PlayerEditMode : MonoBehaviour
         }
         else if (heldObject != null)
         {
-            heldObject.transform.position = MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(currentPlaceableObjectSO.type != TileType.DeskItem) + new Vector3Int(1, 1, 0));
+            heldObject.transform.position = MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(false) + new Vector3Int(1, 1, 0));
 
             Vector3Int indexPosition = MapInformation.GetTileIndex(MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(currentPlaceableObjectSO.type != TileType.DeskItem)));
 
+            //Set height
+            if (currentPlaceableObjectSO.type == TileType.DeskItem)
+            {
+                float height = MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile == null ? 1.25f : (float)(64 - MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.pixelHeight)/64;
+                SpriteRenderer spr = heldObject.GetComponent<SpriteRenderer>();
+                spr.sprite = Sprite.Create(currentPlaceableObjectSO.sprite.texture, currentPlaceableObjectSO.sprite.rect, new Vector2(0.5f, height * (32 / (currentPlaceableObjectSO.sprite.bounds.size.y * currentPlaceableObjectSO.sprite.pixelsPerUnit))));
+            }
             SetObjectColor(indexPosition);
 
             if (!EventSystem.current.IsPointerOverGameObject())
@@ -96,6 +103,11 @@ public class PlayerEditMode : MonoBehaviour
         {
             if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null || MapInformation.groundMap[indexPosition.x, indexPosition.y].mask != currentPlaceableObjectSO.placementMask)
                 color = Color.red;
+        }
+        //Desk item checks
+        if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null && (!MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.supportsDeskItems || MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile != null))
+        {
+            color = Color.red;
         }
         color.a = 0.5f;
 

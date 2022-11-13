@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Counter
   sprite: {fileID: 21300000, guid: a548108b459827b4aaf3f0417d8f7992, type: 3}
   type: 1
+  supportsDeskItems: 1
   placementMask: 1
   applianceSOIfApplicable: {fileID: 11400000, guid: 6c14a11ec42704b43a7d8c3877fc53fc, type: 2}
   usePositionOffsetIfApplicable: {x: -1, y: 0, z: 0}

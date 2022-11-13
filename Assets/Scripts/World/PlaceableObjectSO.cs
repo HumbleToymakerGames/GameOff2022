@@ -9,6 +9,7 @@ public class PlaceableObjectSO : ScriptableObject
     public Sprite sprite;
     public TileType type;
     public bool supportsDeskItems;
+    public int pixelHeight = 32;
     public Mask placementMask;
     public ApplianceSO applianceSOIfApplicable;
     public Vector3Int usePositionOffsetIfApplicable;
