@@ -63,10 +63,7 @@ public class PlayerEditMode : MonoBehaviour
                 {
                     //Change index position to mouse position instead of objects
                     indexPosition = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false));
-                    if (currentPlaceableObjectSO.type == TileType.DeskItem)
-                        Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile);
-                    else
-                        Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile);
+                    Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile);
                     MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable = true;
                 }
 
