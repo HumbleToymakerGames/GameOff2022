@@ -16,7 +16,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 73e409d08205eb44d86ff6f4646157e4, type: 3}
   type: 0
   supportsDeskItems: 1
-  pixelHeight: 48
+  pixelHeight: 32
   placementMask: 0
   applianceSOIfApplicable: {fileID: 0}
   usePositionOffsetIfApplicable: {x: 0, y: 0, z: 0}
