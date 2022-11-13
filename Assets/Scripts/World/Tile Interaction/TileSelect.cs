@@ -39,20 +39,6 @@ public class TileSelect : MonoBehaviour
     /// <returns>The tiles position on the tilemap</returns>
     public static TileInfo SelectRandomTile(Mask mask)
     {
-        /* This needs to be refactored to pick a random tile in the cafe portion of the map
-
-        TileInfo randomTile = new TileInfo(new Vector3Int(2, -0, 2), true);
-        bool validTile = false;
-        while (!validTile)
-        {
-            randomTile = new TileInfo(new Vector3Int((int)Random.Range(MapInformation.groundMapBounds.xMin, MapInformation.groundMapBounds.xMax), (int)Random.Range(MapInformation.groundMapBounds.yMin, MapInformation.groundMapBounds.yMax), 0), true);
-            if (MapInformation.groundTileMap.HasTile(randomTile.position) && randomTile.walkable)
-            {
-                validTile = true;
-            }    
-        }
-        */
-
         // Still not great or perfomant but just need it to work for now
         TileInfo randomTile = new TileInfo(new Vector3Int(2, -0, 2), true);
         bool validTile = false;

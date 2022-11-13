@@ -15,5 +15,8 @@ MonoBehaviour:
   name: Stool
   sprite: {fileID: 21300000, guid: 9d92fbd8f239b8f4a92bcb59e33bf0fe, type: 3}
   type: 2
+  supportsDeskItems: 0
+  pixelHeight: 24
+  placementMask: 0
   applianceSOIfApplicable: {fileID: 0}
   usePositionOffsetIfApplicable: {x: 0, y: 0, z: 0}
