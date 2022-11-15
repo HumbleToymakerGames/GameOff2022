@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777a53e35b45b78488a6136dc6385ddc, type: 3}
   m_Name: BuyCake
   m_EditorClassIdentifier: 
-  outputItem:
-    item: {fileID: 11400000, guid: b4969a9b47085274487eed67a818f950, type: 2}
+  outputItems:
+  - item: {fileID: 11400000, guid: b4969a9b47085274487eed67a818f950, type: 2}
     quantity: 1

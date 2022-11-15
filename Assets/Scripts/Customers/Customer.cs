@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class Customer
 {
     private CustomerArchetypeSO _archetype;
-    //Tony canged this from Item to Item Class
     private ItemClass _preferredItem;
     private ItemClass _fallbackItem;
     private GameTime _timeWillLeave;
