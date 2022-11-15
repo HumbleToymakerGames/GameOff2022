@@ -11,20 +11,18 @@ public class PlayerEditMode : MonoBehaviour
 
     private bool loadedObjects = false;
 
-    private int selectedObject = 0;
-    private bool objectSwap = false;
-
     private bool flipped = false;
 
     private IList<PlaceableObjectSO> placeableObjects = new List<PlaceableObjectSO>();
     private PlaceableObjectSO currentPlaceableObjectSO;
 
+    // Using this instead of update so that it can be disabled in the Player Script
     public void UpdateCall()
     {
+        //Ensures that the player has an object in their hand when switching to edit mode
         if (!loadedObjects)
         {
-            placeableObjects = Resources.LoadAll<PlaceableObjectSO>("Data/PlaceableObjects");
-            currentPlaceableObjectSO = placeableObjects[0];
+            currentPlaceableObjectSO = Resources.LoadAll<PlaceableObjectSO>("Data/PlaceableObjects")[0];
             loadedObjects = true;
         }
 
@@ -45,16 +43,16 @@ public class PlayerEditMode : MonoBehaviour
 
             Vector3Int indexPosition = MapInformation.GetTileIndex(MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(currentPlaceableObjectSO.type != TileType.DeskItem)));
 
-            //Set height
+            //Set the "height" of an object so it appears to be on top of something else
             if (currentPlaceableObjectSO.type == TileType.DeskItem)
             {
-                Debug.Log(currentPlaceableObjectSO.sprite.pixelsPerUnit);
                 float height = MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile == null ? 1f : (float)(MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.pixelHeight) / 64;
                 SpriteRenderer spr = heldObject.GetComponent<SpriteRenderer>();
                 spr.sprite = Sprite.Create(currentPlaceableObjectSO.sprite.texture, currentPlaceableObjectSO.sprite.rect, new Vector2(0.5f, height * ((currentPlaceableObjectSO.sprite.pixelsPerUnit/2) / (currentPlaceableObjectSO.sprite.bounds.size.y * currentPlaceableObjectSO.sprite.pixelsPerUnit))), currentPlaceableObjectSO.sprite.pixelsPerUnit);
             }
             SetObjectColor(indexPosition);
 
+            //Make sure mouse isn't over any ui
             if (!EventSystem.current.IsPointerOverGameObject())
             {
                 if (Input.GetMouseButtonDown(0))
@@ -85,18 +83,29 @@ public class PlayerEditMode : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the object to be placed to whatever is attached to the button pressed
+    /// </summary>
+    /// <param name="buttonObject"></param>
     public void SetObject(GameObject buttonObject = null)
     {
         currentPlaceableObjectSO = buttonObject.GetComponent<ObjectSelectButton>().placeableObjectSO;
         UpdateObject();
     }
 
+    /// <summary>
+    /// A quick way to refresh all object properties after a change has been made
+    /// </summary>
     private void UpdateObject()
     {
         heldObject.GetComponent<PlaceableObject>().FlipObject(flipped);
         heldObject.GetComponent<PlaceableObject>().SetComponents(currentPlaceableObjectSO);
     }
 
+    /// <summary>
+    /// Contains the checks to see whether an object should be turned red to indicate it's in an unplaceable position
+    /// </summary>
+    /// <param name="indexPosition"></param>
     private void SetObjectColor(Vector3Int indexPosition)
     {
         Color color = Color.white;

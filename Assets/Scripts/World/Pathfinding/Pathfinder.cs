@@ -11,6 +11,15 @@ public class Pathfinder : MonoBehaviour
     private static IList<Node> open = new List<Node>();
     private static IList<Node> closed = new List<Node>();
 
+    /// <summary>
+    /// Finds a path to the passed in cell position
+    /// </summary>
+    /// <param name="start">The current position</param>
+    /// <param name="goal">The desired position to reach</param>
+    /// <param name="oldGoal">The last desired position, used to set that tile as no longer taken so others can pathfind to it</param>
+    /// <param name="setAsTaken">Whether the goal position should be reserved. Not currently working</param>
+    /// <param name="mask">The mask that the end goal tile must match</param>
+    /// <returns>A list of positions to move to if a path could be found. Otherwise returns an empty list if no path could be found</returns>
     public static IList<Vector3Int> FindPath(Vector3Int start, Vector3Int goal, Vector3Int oldGoal, bool setAsTaken = true, Mask mask = Mask.Empty)
     {
         open.Clear();
@@ -79,7 +88,8 @@ public class Pathfinder : MonoBehaviour
         return shortestPath;
     }
 
-    public static IList<Vector3Int> FindRandomPath(Vector3 start, Mask mask)
+    //Replaced by TileSelect.SelectRandomTile() and setting a path to that tile
+    /*public static IList<Vector3Int> FindRandomPath(Vector3 start, Mask mask)
     {
         bool pathFound = false;
         IList<Vector3Int> shortestPath = new List<Vector3Int>();
@@ -122,7 +132,7 @@ public class Pathfinder : MonoBehaviour
             }
         }
         return shortestPath;
-    }
+    }*/
 
     private static void SortList(IList<Node> list)
     {

@@ -42,6 +42,9 @@ public class MusicController : MonoBehaviour
             audioSource.volume = maxVolume;
     }
 
+    /// <summary>
+    /// Moves to the next song
+    /// </summary>
     private void NextSong()
     {
         trackNumber++;

@@ -8,7 +8,6 @@ public class CameraControls : MonoBehaviour
     public float speed = 5f;
     public float zoomSpeed = 2f;
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 inputs = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);

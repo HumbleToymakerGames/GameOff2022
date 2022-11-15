@@ -86,6 +86,11 @@ public class MapInformation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Converts the world position to the appropriate x and y index for use in the tilemap arrays
+    /// </summary>
+    /// <param name="worldPosition">Normal world position</param>
+    /// <returns>A Vector3Int with the x and y index positions</returns>
     public static Vector3Int GetTileIndex(Vector3 worldPosition)
     {
         Vector3Int tilePos = groundTileMap.WorldToCell(worldPosition);
@@ -93,6 +98,11 @@ public class MapInformation : MonoBehaviour
         return new Vector3Int(((tilePos.x) + (-groundMapBounds.min.x)), ((tilePos.y) + (-groundMapBounds.min.y)), 0);
     }
 
+    /// <summary>
+    /// Converts the cell position to the appropriate x and y index for use in the tilemap arrays
+    /// </summary>
+    /// <param name="cellPosition">Grid cell position</param>
+    /// <returns>A Vector3Int with the x and y index positions</returns>
     public static Vector3Int GetTileIndex(Vector3Int cellPosition)
     {
         Vector3Int tilePos = cellPosition;
@@ -100,6 +110,11 @@ public class MapInformation : MonoBehaviour
         return new Vector3Int(((tilePos.x) + (-groundMapBounds.min.x)), ((tilePos.y) + (-groundMapBounds.min.y)), 0);
     }
 
+    /// <summary>
+    /// Sets the passed in cell position's walkability
+    /// </summary>
+    /// <param name="tilePos"></param>
+    /// <param name="walkable"></param>
     public static void SetTileWalkability(Vector3Int tilePos, bool walkable)
     {
         Vector3Int tileIndex = GetTileIndex(tilePos);
@@ -111,6 +126,11 @@ public class MapInformation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets a tile's type to the passed in type and adds it to the appropriate list
+    /// </summary>
+    /// <param name="tilePos"></param>
+    /// <param name="tileType"></param>
     public static void SetTileType(Vector3Int tilePos, TileType tileType)
     {
         Vector3Int tileIndex = GetTileIndex(tilePos);
@@ -127,6 +147,11 @@ public class MapInformation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Grabs the list of objects matching the passed in TileType
+    /// </summary>
+    /// <param name="tileType"></param>
+    /// <returns>A List of objects matching the passed in TileType</returns>
     public static IList<TileInfo> GetTileTypeList(TileType tileType)
     { 
         IList<TileInfo> tL = chairs;

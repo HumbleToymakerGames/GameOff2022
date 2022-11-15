@@ -11665,7 +11665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2075494480, guid: f990b5e8c1fdeb544bc656fe30408f8a, type: 3}
       propertyPath: musicTracks.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2075494480, guid: f990b5e8c1fdeb544bc656fe30408f8a, type: 3}
       propertyPath: musicTracks.Array.data[0]

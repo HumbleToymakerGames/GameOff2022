@@ -15,6 +15,7 @@ public class NpcMovement : Movement
 
     private Vector3 oldGoal = new Vector3(-99999, -99999, -99999);
 
+    // Resets essential values on enable for object pooling to work
     private void OnEnable()
     {
         timeUntilRandomMovement = 0;

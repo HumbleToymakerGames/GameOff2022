@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//This probably shouldn't be its own script but it works and we don't have unlimited time
 public class PlayerCurrentAppliance : MonoBehaviour
 {
+    
     public WorldAppliance currentAppliance;
     public bool atAppliance = false;
 
