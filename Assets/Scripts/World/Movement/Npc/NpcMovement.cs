@@ -41,7 +41,6 @@ public class NpcMovement : Movement
 
         if (timeUntilRandomMovement <= 0)
         {
-            Debug.Log("Find new path");
             //Continue to try and find path until valid one is found
             bool pathFound = false;
             while(!pathFound)

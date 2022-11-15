@@ -17,7 +17,6 @@ public class PlayerCurrentAppliance : MonoBehaviour
 
         if (currentPosition == currentApplianceUsePosition)
         {
-            Debug.Log("At appliance");
             currentAppliance.AtAppliance();
         }
     }

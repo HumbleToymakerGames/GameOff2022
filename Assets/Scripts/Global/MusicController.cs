@@ -13,6 +13,8 @@ public class MusicController : MonoBehaviour
 
     public float maxVolume = 0.75f;
 
+    public bool skipSongDebug = false;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -20,6 +22,12 @@ public class MusicController : MonoBehaviour
 
     public void Update()
     {
+        if (skipSongDebug)
+        {
+            NextSong();
+            fadeTimer = 0f;
+            skipSongDebug = false;
+        }
         if (!audioSource.isPlaying)
         {
             NextSong();
@@ -42,6 +50,7 @@ public class MusicController : MonoBehaviour
             trackNumber = 0;
         }
 
+        audioSource.Stop();
         audioSource.PlayOneShot(musicTracks[trackNumber]);
     }
 }
