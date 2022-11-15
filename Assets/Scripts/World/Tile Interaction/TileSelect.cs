@@ -56,11 +56,14 @@ public class TileSelect : MonoBehaviour
             if (allowedAttempts <= 0)
                 break;
         }
-
-        //return new TileInfo(new Vector3Int(Random.Range(4, -6), Random.Range(1, 5), 0), true);
         return randomTile;
     }
 
+    /// <summary>
+    /// Finds a tile that matches the passed in tileType. Untested in a while and unsure if it works properly now. TODO if we end up needing it
+    /// </summary>
+    /// <param name="tileType"></param>
+    /// <returns></returns>
     public static TileInfo FindTileOfType(TileType tileType)
     {
         TileInfo tile = new TileInfo(new Vector3Int(-99999, -99999, -99999), true);
@@ -71,6 +74,10 @@ public class TileSelect : MonoBehaviour
         return tile;
     }
 
+    /// <summary>
+    /// Applies the highlight overlay at the tilemap position that is passed in. Clears all other highlights when called.
+    /// </summary>
+    /// <param name="tileMapPosition"></param>
     public static void HighlightTile(Vector3Int tileMapPosition)
     {
         if (highlightTile == null)
@@ -83,6 +90,9 @@ public class TileSelect : MonoBehaviour
         MapInformation.overlayTileMap.SetTile(tileMapPosition, highlightTile);
     }
 
+    /// <summary>
+    /// Clears all highlights
+    /// </summary>
     public static void ClearHighlight()
     {
         MapInformation.overlayTileMap.ClearAllTiles();

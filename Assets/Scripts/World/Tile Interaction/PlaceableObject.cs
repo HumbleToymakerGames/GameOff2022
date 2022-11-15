@@ -21,7 +21,7 @@ public class PlaceableObject : MonoBehaviour
     /// <summary>
     /// Places an object where it is at currently
     /// </summary>
-    /// <returns>Whether the placement was successful </returns>
+    /// <returns>Whether the placement was successful or not</returns>
     public bool PlaceObject()
     {
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
@@ -61,10 +61,13 @@ public class PlaceableObject : MonoBehaviour
                 MapInformation.SetTileType(gridPosition, tileType);
             }
         }
-
         return placed;
     }
 
+    /// <summary>
+    /// Sets all the components of an object depending on whether it is an appliance or not
+    /// </summary>
+    /// <param name="placeableObjectSO"></param>
     public void SetComponents(PlaceableObjectSO placeableObjectSO)
     {
         WorldAppliance worldAppliance;
@@ -124,6 +127,10 @@ public class PlaceableObject : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Counterintuitively this doesn't flip an object when called but takes in a bool to say which way it is flipped to
+    /// </summary>
+    /// <param name="flipped"></param>
     public void FlipObject(bool flipped)
     {
         WorldAppliance worldAppliance = gameObject.GetComponent<WorldAppliance>();

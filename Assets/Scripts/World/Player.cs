@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
+        // Game state swapping
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if(controlState != ControlState.Game)
@@ -44,6 +45,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Enables the object placement menu and loads in all placeable objects. Will need to be hooked up to the inventory system eventually if we plan to have furniture be bought
+    /// </summary>
     private void LoadObjectMenu()
     {
         if (!menuLoaded)
@@ -80,6 +84,9 @@ public class Player : MonoBehaviour
         menuLoaded = true;
     }
 
+    /// <summary>
+    /// Disables the object placement menu and destroys all buttons inside of it
+    /// </summary>
     private void UnloadObjectMenu()
     {
         if(menuLoaded)
