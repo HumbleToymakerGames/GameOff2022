@@ -11,6 +11,7 @@ TagManager:
   - Register
   - MaskTileMap
   - ObjectSelectButton
+  - PlacementPanel
   layers:
   - Default
   - TransparentFX

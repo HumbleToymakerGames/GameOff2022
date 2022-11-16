@@ -12,9 +12,7 @@ public class Player : MonoBehaviour
     private PlayerEditMode edit;
 
     public GameObject placementPanel;
-    public GameObject objectSelectButtonPrefab;
-    private bool menuLoaded = false;
-    private float menuButtonMargin = 5f;
+    
 
     private void Start()
     {
@@ -36,65 +34,12 @@ public class Player : MonoBehaviour
         switch (controlState)
         {
             case ControlState.Edit:
-                LoadObjectMenu();
+                PlacementPanel.ShowPlacementMenu(true);
                 edit.UpdateCall();
                 break;
             case ControlState.Game:
-                UnloadObjectMenu();
+                PlacementPanel.ShowPlacementMenu(false);
                 break;
-        }
-    }
-
-    /// <summary>
-    /// Enables the object placement menu and loads in all placeable objects. Will need to be hooked up to the inventory system eventually if we plan to have furniture be bought
-    /// </summary>
-    private void LoadObjectMenu()
-    {
-        if (!menuLoaded)
-        {
-            placementPanel.SetActive(true);
-            float menuPadding = 12f;
-            RectTransform placementRect = placementPanel.GetComponent<RectTransform>();
-            IList<PlaceableObjectClass> placeableObjects = Resources.LoadAll<PlaceableObjectClass>("Data/PlaceableObjects");
-            int maxPerRow = (int)((placementRect.rect.width - menuPadding*2) / (objectSelectButtonPrefab.GetComponent<RectTransform>().rect.width + menuButtonMargin));
-            int y = 0;
-            int x = 0;
-            for (int i = 0; i < placeableObjects.Count; i++)
-            {
-                GameObject button = Instantiate(objectSelectButtonPrefab, placementPanel.transform);
-                RectTransform rect = button.GetComponent<RectTransform>();
-                button.GetComponent<ObjectSelectButton>().placeableObjectSO = placeableObjects[i];
-
-                rect.localPosition += new Vector3(-(placementRect.rect.width/2 - rect.rect.width/2 - menuPadding - (x * (menuButtonMargin + rect.rect.width))), placementRect.rect.height/2 - rect.rect.height / 2 - menuPadding - (y * (menuButtonMargin + rect.rect.height)));
-
-                button.SetActive(true);
-
-                Button btn = button.GetComponent<Button>();
-                btn.onClick.AddListener(() => { edit.GetComponent<PlayerEditMode>().SetObject(button); });
-
-                x++;
-                if (x > maxPerRow)
-                {
-                    x = 0;
-                    y++;
-                }    
-            }
-        }
-
-        menuLoaded = true;
-    }
-
-    /// <summary>
-    /// Disables the object placement menu and destroys all buttons inside of it
-    /// </summary>
-    private void UnloadObjectMenu()
-    {
-        if(menuLoaded)
-        {
-            for (int i = placementPanel.transform.childCount - 1; i >= 0; i--)
-                Destroy(placementPanel.transform.GetChild(i).gameObject);
-            placementPanel.SetActive(false);
-            menuLoaded = false;
         }
     }
 }
