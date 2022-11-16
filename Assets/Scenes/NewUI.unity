@@ -12189,7 +12189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5535731822991240964, guid: 9ae2768c3d06160478b9ab8009d15edc, type: 3}
       propertyPath: startingItems.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5535731822991240964, guid: 9ae2768c3d06160478b9ab8009d15edc, type: 3}
       propertyPath: startingItems.Array.data[3].item
@@ -12198,14 +12198,30 @@ PrefabInstance:
     - target: {fileID: 5535731822991240964, guid: 9ae2768c3d06160478b9ab8009d15edc, type: 3}
       propertyPath: startingItems.Array.data[4].item
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 2c69d545ffce1fc4bafb47b852162011, type: 2}
+    - target: {fileID: 5535731822991240964, guid: 9ae2768c3d06160478b9ab8009d15edc, type: 3}
+      propertyPath: startingItems.Array.data[5].item
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e11e201d2b94ad4fb60c656f3c4b8a1, type: 2}
+    - target: {fileID: 5535731822991240964, guid: 9ae2768c3d06160478b9ab8009d15edc, type: 3}
+      propertyPath: startingItems.Array.data[6].item
+      value: 
+      objectReference: {fileID: 11400000, guid: 2040612493164f74fa9367d8379292e7, type: 2}
     - target: {fileID: 5535731822991240964, guid: 9ae2768c3d06160478b9ab8009d15edc, type: 3}
       propertyPath: startingItems.Array.data[3].quantity
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5535731822991240964, guid: 9ae2768c3d06160478b9ab8009d15edc, type: 3}
       propertyPath: startingItems.Array.data[4].quantity
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5535731822991240964, guid: 9ae2768c3d06160478b9ab8009d15edc, type: 3}
+      propertyPath: startingItems.Array.data[5].quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5535731822991240964, guid: 9ae2768c3d06160478b9ab8009d15edc, type: 3}
+      propertyPath: startingItems.Array.data[6].quantity
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5535731822991240965, guid: 9ae2768c3d06160478b9ab8009d15edc, type: 3}
       propertyPath: m_RootOrder

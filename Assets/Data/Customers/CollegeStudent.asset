@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   archetypeName: College Student
   preferredItemPool:
-  - item: {fileID: 11400000, guid: a7c4b9d878378584691611188b7810b7, type: 2}
+  - item: {fileID: 11400000, guid: ddb70ac4b06f8a14aae80f7ffbc3b08b, type: 2}
     weight: 3
   fallbackItemPool:
   - item: {fileID: 11400000, guid: 1b4cb953e50419c478ddd3876dcd1f6a, type: 2}

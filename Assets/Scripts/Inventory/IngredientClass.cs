@@ -11,6 +11,7 @@ public class IngredientClass : ItemClass
     public override ApplianceClass GetAppliance() { return null; }
     public override MiscClass GetMisc() { return null; }
     public override IngredientClass GetIngredient() { return this; }
+    public override PlaceableObjectClass GetPlaceableObject() { return null; }
 
 
 }

@@ -14,5 +14,6 @@ public abstract class ItemClass : ScriptableObject
     public abstract ApplianceClass GetAppliance();
     public abstract MiscClass GetMisc();
     public abstract IngredientClass GetIngredient();
+    public abstract PlaceableObjectClass GetPlaceableObject();
 
 }

@@ -5,12 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "new Tool Class", menuName = "Item/Appliance")]
 public class ApplianceClass : ItemClass
 {
-    public ApplianceType applianceType;
-    public enum ApplianceType
-    {
-        Mixer,
-        Oven
-    }
+    public string applianceName;
+    public List<ApplianceFunctionSO> functions = new List<ApplianceFunctionSO>();
 
 
 
@@ -18,5 +14,7 @@ public class ApplianceClass : ItemClass
     public override ApplianceClass GetAppliance() { return this; }
     public override MiscClass GetMisc() { return null; }
     public override IngredientClass GetIngredient() { return null; }
+    public override PlaceableObjectClass GetPlaceableObject() { return null; }
+    
 
 }
