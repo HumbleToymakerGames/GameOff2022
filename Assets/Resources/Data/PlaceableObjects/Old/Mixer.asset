@@ -9,18 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 256e5c59846a1944d8bfbe6a65f582f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0654ab3e8af4a754f9028eed084d27de, type: 3}
   m_Name: Mixer
   m_EditorClassIdentifier: 
-  itemName: Mixer
-  itemIcon: {fileID: 21300000, guid: 40a8bbc74e417c5419349d4e9b668985, type: 3}
-  isStackable: 1
-  isSellable: 0
   name: Mixer
   sprite: {fileID: 21300000, guid: 40a8bbc74e417c5419349d4e9b668985, type: 3}
-  type: 0
-  supportsDeskItems: 0
-  pixelHeight: 32
+  type: 1
   placementMask: 1
   applianceSOIfApplicable: {fileID: 11400000, guid: 620de75729fd5b3478ce715345f331a8, type: 2}
   usePositionOffsetIfApplicable: {x: 0, y: -1, z: 0}

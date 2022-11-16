@@ -8,7 +8,7 @@ public class PlaceableObject : MonoBehaviour
     public bool placed = false;
     public bool placeOnStart = false;
 
-    public PlaceableObjectSO placeableObjectSO;
+    public PlaceableObjectClass placeableObjectSO;
 
     private TileType tileType = TileType.Furniture;
 
@@ -68,7 +68,7 @@ public class PlaceableObject : MonoBehaviour
     /// Sets all the components of an object depending on whether it is an appliance or not
     /// </summary>
     /// <param name="placeableObjectSO"></param>
-    public void SetComponents(PlaceableObjectSO placeableObjectSO)
+    public void SetComponents(PlaceableObjectClass placeableObjectSO)
     {
         WorldAppliance worldAppliance;
         this.placeableObjectSO = placeableObjectSO;
