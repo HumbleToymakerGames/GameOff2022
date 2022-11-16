@@ -13,8 +13,8 @@ public class PlayerEditMode : MonoBehaviour
 
     private bool flipped = false;
 
-    private IList<PlaceableObjectSO> placeableObjects = new List<PlaceableObjectSO>();
-    private PlaceableObjectSO currentPlaceableObjectSO;
+    private IList<PlaceableObjectClass> placeableObjects = new List<PlaceableObjectClass>();
+    private PlaceableObjectClass currentPlaceableObjectSO;
 
     // Using this instead of update so that it can be disabled in the Player Script
     public void UpdateCall()
@@ -22,7 +22,7 @@ public class PlayerEditMode : MonoBehaviour
         //Ensures that the player has an object in their hand when switching to edit mode
         if (!loadedObjects)
         {
-            currentPlaceableObjectSO = Resources.LoadAll<PlaceableObjectSO>("Data/PlaceableObjects")[0];
+            currentPlaceableObjectSO = Resources.LoadAll<PlaceableObjectClass>("Data/PlaceableObjects")[0];
             loadedObjects = true;
         }
 

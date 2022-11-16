@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ObjectSelectButton : MonoBehaviour
 {
-    public PlaceableObjectSO placeableObjectSO;
+    public PlaceableObjectClass placeableObjectSO;
 
     private void Awake()
     {

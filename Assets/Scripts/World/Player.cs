@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
             placementPanel.SetActive(true);
             float menuPadding = 12f;
             RectTransform placementRect = placementPanel.GetComponent<RectTransform>();
-            IList<PlaceableObjectSO> placeableObjects = Resources.LoadAll<PlaceableObjectSO>("Data/PlaceableObjects");
+            IList<PlaceableObjectClass> placeableObjects = Resources.LoadAll<PlaceableObjectClass>("Data/PlaceableObjects");
             int maxPerRow = (int)((placementRect.rect.width - menuPadding*2) / (objectSelectButtonPrefab.GetComponent<RectTransform>().rect.width + menuButtonMargin));
             int y = 0;
             int x = 0;

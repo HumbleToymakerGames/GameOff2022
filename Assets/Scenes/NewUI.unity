@@ -275,7 +275,7 @@ PrefabInstance:
     - target: {fileID: -1292160262630079994, guid: cf74968436e07a343bc3d28601681293, type: 3}
       propertyPath: placeableObjectSO
       value: 
-      objectReference: {fileID: 11400000, guid: 75743f30cc8794746b1c1f95ddf8f159, type: 2}
+      objectReference: {fileID: 11400000, guid: e097996fd0733ea40b7d9489ffe16833, type: 2}
     - target: {fileID: -1292160262630079994, guid: cf74968436e07a343bc3d28601681293, type: 3}
       propertyPath: placeableObjectPrefab
       value: 
@@ -409,7 +409,7 @@ PrefabInstance:
     - target: {fileID: -1292160262630079994, guid: cf74968436e07a343bc3d28601681293, type: 3}
       propertyPath: placeableObjectSO
       value: 
-      objectReference: {fileID: 11400000, guid: 75743f30cc8794746b1c1f95ddf8f159, type: 2}
+      objectReference: {fileID: 11400000, guid: e097996fd0733ea40b7d9489ffe16833, type: 2}
     - target: {fileID: -1292160262630079994, guid: cf74968436e07a343bc3d28601681293, type: 3}
       propertyPath: placeableObjectPrefab
       value: 
@@ -10870,6 +10870,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6442399183841577307, guid: af87ad484c1e3c9408ce3fbfdfd7241b, type: 3}
+      propertyPath: m_PixelSnapping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6442399183841577311, guid: af87ad484c1e3c9408ce3fbfdfd7241b, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -11326,7 +11330,7 @@ PrefabInstance:
     - target: {fileID: -1292160262630079994, guid: cf74968436e07a343bc3d28601681293, type: 3}
       propertyPath: placeableObjectSO
       value: 
-      objectReference: {fileID: 11400000, guid: aa1455538d3b7574aa60877cafd63897, type: 2}
+      objectReference: {fileID: 11400000, guid: 3002ed9e1d22a524a97af0e46eb886cd, type: 2}
     - target: {fileID: -1292160262630079994, guid: cf74968436e07a343bc3d28601681293, type: 3}
       propertyPath: placeableObjectPrefab
       value: 
@@ -11451,7 +11455,7 @@ PrefabInstance:
     - target: {fileID: -1292160262630079994, guid: cf74968436e07a343bc3d28601681293, type: 3}
       propertyPath: placeableObjectSO
       value: 
-      objectReference: {fileID: 11400000, guid: 75743f30cc8794746b1c1f95ddf8f159, type: 2}
+      objectReference: {fileID: 11400000, guid: e097996fd0733ea40b7d9489ffe16833, type: 2}
     - target: {fileID: -1292160262630079994, guid: cf74968436e07a343bc3d28601681293, type: 3}
       propertyPath: placeableObjectPrefab
       value: 
