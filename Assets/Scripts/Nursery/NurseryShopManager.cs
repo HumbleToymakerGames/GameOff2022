@@ -8,11 +8,11 @@ public class NurseryShopManager : MonoBehaviour
 
     [SerializeField] private List<BuyFurnitureSO> buyFurniture = new List<BuyFurnitureSO>();
 
-
+    //This is for the GO that holds all the slots
     [SerializeField] private GameObject slotHolder;
     
     
-
+    
     [SerializeField] private SlotClass[] startingItems;
 
     private SlotClass[] items;
@@ -44,7 +44,7 @@ public class NurseryShopManager : MonoBehaviour
 
         }
 
-        //set all slots
+        //sets all slots
         for (int i = 0; i < slotHolder.transform.childCount; i++)
         {
             slots[i] = slotHolder.transform.GetChild(i).gameObject;
@@ -243,6 +243,12 @@ public class NurseryShopManager : MonoBehaviour
         return false;
     }
 
+
+
+
+
+
+    //************This is for the shop panel when I build it, Tony**************************************************
     private void Buy(BuyFurnitureSO buyFurn)
     {
         buyFurn.BuyItem(this);
