@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     private Movement movement;
     private PlayerEditMode edit;
 
+    public ControlState lockedState = ControlState.None;
+
     public GameObject placementPanel;
     
 
@@ -23,25 +25,30 @@ public class Player : MonoBehaviour
     public void Update()
     {
         // Game state swapping
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (lockedState == ControlState.None)
         {
-            if(controlState != ControlState.Game)
-                controlState = ControlState.Game;
-            else
-                controlState = ControlState.Edit;
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                if (controlState != ControlState.Game)
+                    controlState = ControlState.Game;
+                else
+                    controlState = ControlState.Edit;
+            }
         }
+        else
+            controlState = lockedState;
 
         switch (controlState)
         {
             case ControlState.Edit:
-                PlacementPanel.ShowPlacementMenu(true);
+                //PlacementPanel.ShowPlacementMenu(true);
                 edit.UpdateCall();
                 break;
             case ControlState.Game:
-                PlacementPanel.ShowPlacementMenu(false);
+                //PlacementPanel.ShowPlacementMenu(false);
                 break;
         }
     }
 }
 
-public enum ControlState { Game, Edit };
+public enum ControlState { Game, Edit, None };

@@ -2248,7 +2248,7 @@ GameObject:
   - component: {fileID: 913155657}
   m_Layer: 0
   m_Name: FurnitureManager
-  m_TagString: Untagged
+  m_TagString: FurnitureManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2498,6 +2498,10 @@ PrefabInstance:
     - target: {fileID: 2656334438381707128, guid: f990b5e8c1fdeb544bc656fe30408f8a, type: 3}
       propertyPath: m_Name
       value: Music
+      objectReference: {fileID: 0}
+    - target: {fileID: 2656334438381707128, guid: f990b5e8c1fdeb544bc656fe30408f8a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2656334438381707134, guid: f990b5e8c1fdeb544bc656fe30408f8a, type: 3}
       propertyPath: m_RootOrder
@@ -3094,6 +3098,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1484749015, guid: d23d081d0784d544d87dd8d76e7927b6, type: 3}
+      propertyPath: lockedState
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1484749015, guid: d23d081d0784d544d87dd8d76e7927b6, type: 3}
       propertyPath: placementPanel
       value: 

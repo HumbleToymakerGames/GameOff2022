@@ -16,7 +16,7 @@ public class PlaceableObject : MonoBehaviour
 
     public bool flipped = false;
 
-    public GameObject placeableObjectPrefab;
+    public ItemClass itemClass;
 
     /// <summary>
     /// Places an object where it is at currently
@@ -59,6 +59,8 @@ public class PlaceableObject : MonoBehaviour
                 }
 
                 MapInformation.SetTileType(gridPosition, tileType);
+
+                GameObject.FindGameObjectWithTag("FurnitureManager").GetComponent<NurseryShopManager>().Remove(itemClass, 1);
             }
         }
         return placed;

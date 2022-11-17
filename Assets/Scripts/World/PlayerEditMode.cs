@@ -15,70 +15,89 @@ public class PlayerEditMode : MonoBehaviour
 
     private IList<PlaceableObjectClass> placeableObjects = new List<PlaceableObjectClass>();
     private PlaceableObjectClass currentPlaceableObjectSO;
+    private ItemClass currentItemClass;
+    private SlotClass slot;
 
     // Using this instead of update so that it can be disabled in the Player Script
     public void UpdateCall()
     {
         //Ensures that the player has an object in their hand when switching to edit mode
-        if (!loadedObjects)
-        {
-            currentPlaceableObjectSO = Resources.LoadAll<PlaceableObjectClass>("Data/PlaceableObjects")[0];
-            loadedObjects = true;
-        }
+        //if (!loadedObjects)
+        //{
+        //    currentPlaceableObjectSO = Resources.LoadAll<PlaceableObjectClass>("Data/PlaceableObjects")[0];
+        //    loadedObjects = true;
+        //}
 
-        if (heldObject == null)
+        if (currentPlaceableObjectSO != null)
         {
-            heldObject = Instantiate(placeableObjectPrefab);
-            heldObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
-            
-            heldObject.transform.position = MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(false) + new Vector3Int(1, 1, 0));
-            Vector3Int indexPosition = MapInformation.GetTileIndex(MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(true)));
-            UpdateObject();
-            SetObjectColor(indexPosition);
-            heldObject.SetActive(true);
-        }
-        else if (heldObject != null)
-        {
-            heldObject.transform.position = MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(false) + new Vector3Int(1, 1, 0));
-
-            Vector3Int indexPosition = MapInformation.GetTileIndex(MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(currentPlaceableObjectSO.type != TileType.DeskItem)));
-
-            //Set the "height" of an object so it appears to be on top of something else
-            if (currentPlaceableObjectSO.type == TileType.DeskItem)
+            if (heldObject == null)
             {
-                float height = MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile == null ? 1f : (float)(MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.pixelHeight) / 64;
-                SpriteRenderer spr = heldObject.GetComponent<SpriteRenderer>();
-                spr.sprite = Sprite.Create(currentPlaceableObjectSO.sprite.texture, currentPlaceableObjectSO.sprite.rect, new Vector2(0.5f, height * ((currentPlaceableObjectSO.sprite.pixelsPerUnit/2) / (currentPlaceableObjectSO.sprite.bounds.size.y * currentPlaceableObjectSO.sprite.pixelsPerUnit))), currentPlaceableObjectSO.sprite.pixelsPerUnit);
-            }
-            SetObjectColor(indexPosition);
-
-            //Make sure mouse isn't over any ui
-            if (!EventSystem.current.IsPointerOverGameObject())
-            {
-                if (Input.GetMouseButtonDown(0))
+                if (slot.GetQuantity() > 0)
                 {
-                    //try place object
-                    if (heldObject.GetComponent<PlaceableObject>().PlaceObject())
+                    heldObject = Instantiate(placeableObjectPrefab);
+                    heldObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+
+                    heldObject.transform.position = MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(false) + new Vector3Int(1, 1, 0));
+                    Vector3Int indexPosition = MapInformation.GetTileIndex(MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(true)));
+                    UpdateObject();
+                    SetObjectColor(indexPosition);
+                    heldObject.SetActive(true);
+                }
+                else
+                {
+                    currentPlaceableObjectSO = null;
+                    currentItemClass = null;
+                    slot = null;
+                }
+            }
+            else if (heldObject != null)
+            {
+                heldObject.transform.position = MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(false) + new Vector3Int(1, 1, 0));
+
+                Vector3Int indexPosition = MapInformation.GetTileIndex(MapInformation.groundTileMap.CellToWorld(TileSelect.GetTileUnderMouse(currentPlaceableObjectSO.type != TileType.DeskItem)));
+
+                //Set the "height" of an object so it appears to be on top of something else
+                if (currentPlaceableObjectSO.type == TileType.DeskItem)
+                {
+                    float height = MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile == null ? 1f : (float)(MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.pixelHeight) / 64;
+                    SpriteRenderer spr = heldObject.GetComponent<SpriteRenderer>();
+                    spr.sprite = Sprite.Create(currentPlaceableObjectSO.sprite.texture, currentPlaceableObjectSO.sprite.rect, new Vector2(0.5f, height * ((currentPlaceableObjectSO.sprite.pixelsPerUnit / 2) / (currentPlaceableObjectSO.sprite.bounds.size.y * currentPlaceableObjectSO.sprite.pixelsPerUnit))), currentPlaceableObjectSO.sprite.pixelsPerUnit);
+                }
+                SetObjectColor(indexPosition);
+
+                //Make sure mouse isn't over any ui
+                if (!EventSystem.current.IsPointerOverGameObject())
+                {
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        heldObject.GetComponent<SpriteRenderer>().color = Color.white;
-                        heldObject.GetComponent<SpriteRenderer>().sortingOrder = 0;
-                        heldObject = null;
+                        //try place object
+                        heldObject.GetComponent<PlaceableObject>().itemClass = currentItemClass;
+                        if (heldObject.GetComponent<PlaceableObject>().PlaceObject())
+                        {
+                            heldObject.GetComponent<SpriteRenderer>().color = Color.white;
+                            heldObject.GetComponent<SpriteRenderer>().sortingOrder = 0;
+                            heldObject = null;
+                        }
+                    }
+
+                    //Flip object
+                    if (Input.GetKeyDown(KeyCode.R))
+                    {
+                        flipped = !flipped;
+                        UpdateObject();
                     }
                 }
-                else if (Input.GetMouseButtonDown(1))
-                {
-                    //Change index position to mouse position instead of objects
-                    indexPosition = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false));
-                    Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile);
-                    MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable = true;
-                }
-
-                //Flip object
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    flipped = !flipped;
-                    UpdateObject();
-                }
+            }
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector3Int indexPosition = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false));
+            if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null)
+            {
+                Debug.Log(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().itemClass : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile.GetComponent<PlaceableObject>().itemClass);
+                GameObject.FindGameObjectWithTag("FurnitureManager").GetComponent<NurseryShopManager>().Add(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().itemClass : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile.GetComponent<PlaceableObject>().itemClass, 1);
+                Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile);
+                MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable = true;
             }
         }
     }
@@ -87,10 +106,18 @@ public class PlayerEditMode : MonoBehaviour
     /// Sets the object to be placed to whatever is attached to the button pressed
     /// </summary>
     /// <param name="buttonObject"></param>
-    public void SetObject(GameObject buttonObject = null)
+    public void SetObject(GameObject buttonObject, SlotClass slot)
     {
-        currentPlaceableObjectSO = buttonObject.GetComponent<ObjectSelectButton>().placeableObjectSO;
-        UpdateObject();
+        if(buttonObject != null)
+            currentPlaceableObjectSO = buttonObject.GetComponent<ObjectSelectButton>().placeableObjectSO;
+        if (slot != null)
+        {
+            this.slot = slot;
+            currentItemClass = slot.GetItem();
+
+        }
+        if(heldObject != null)
+            UpdateObject();
     }
 
     /// <summary>
@@ -100,6 +127,7 @@ public class PlayerEditMode : MonoBehaviour
     {
         heldObject.GetComponent<PlaceableObject>().FlipObject(flipped);
         heldObject.GetComponent<PlaceableObject>().SetComponents(currentPlaceableObjectSO);
+        heldObject.GetComponent<PlaceableObject>().itemClass = currentItemClass;
     }
 
     /// <summary>
