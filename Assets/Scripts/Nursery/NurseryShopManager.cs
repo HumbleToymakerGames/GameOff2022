@@ -29,7 +29,7 @@ public class NurseryShopManager : MonoBehaviour
         slots = new GameObject[slotHolder.transform.childCount];
         items = new SlotClass[slots.Length];
 
-        
+
 
 
         for (int i = 0; i < items.Length; i++)
@@ -75,6 +75,8 @@ public class NurseryShopManager : MonoBehaviour
     //looks through all items there and determines if its there
     public void RefreshUI()
     {
+        PlacementPanel.ShowPlacementMenu(true, items);
+
         for (int i = 0; i < slots.Length; i++)
         {
             try
@@ -101,8 +103,6 @@ public class NurseryShopManager : MonoBehaviour
 
             }
         }
-
-        
     }
 
     
@@ -138,7 +138,6 @@ public class NurseryShopManager : MonoBehaviour
 
     public bool Remove(ItemClass item)
     {
-
         SlotClass temp = Contains(item);
         if (temp != null)
         {
@@ -180,7 +179,7 @@ public class NurseryShopManager : MonoBehaviour
     //Remove for placement
     public bool Remove(ItemClass item, int quantity)
     {
-
+        Debug.Log(Contains(item).GetItem().itemName);
         SlotClass temp = Contains(item);
         if (temp != null)
         {

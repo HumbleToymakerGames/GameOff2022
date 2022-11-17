@@ -12,6 +12,7 @@ TagManager:
   - MaskTileMap
   - ObjectSelectButton
   - PlacementPanel
+  - FurnitureManager
   layers:
   - Default
   - TransparentFX
