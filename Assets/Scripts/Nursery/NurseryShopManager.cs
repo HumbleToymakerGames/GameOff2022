@@ -179,7 +179,6 @@ public class NurseryShopManager : MonoBehaviour
     //Remove for placement
     public bool Remove(ItemClass item, int quantity)
     {
-        Debug.Log(Contains(item).GetItem().itemName);
         SlotClass temp = Contains(item);
         if (temp != null)
         {
@@ -201,7 +200,7 @@ public class NurseryShopManager : MonoBehaviour
                     }
                 }
 
-
+                PlacementPanel.RemoveButtonOfItem(temp.GetItem());
                 items[slotToRemoveIndex].Clear();
             }
 

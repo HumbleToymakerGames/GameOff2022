@@ -14,52 +14,55 @@ public static class PlacementPanel
     /// </summary>
     private static void LoadObjectMenu(SlotClass[] items = null)
     {
+        if (menuLoaded)
+            UnloadObjectMenu();
         //if (!menuLoaded)
         //{
-            //IList<ItemClass> placeableObjects = Resources.LoadAll<PlaceableObjectClass>("Data/PlaceableObjects");
-            IList<SlotClass> placeableObjects = new List<SlotClass>();
-            if (items != null)
+        //IList<ItemClass> placeableObjects = Resources.LoadAll<PlaceableObjectClass>("Data/PlaceableObjects");
+        IList<SlotClass> placeableObjects = new List<SlotClass>();
+        if (items != null)
+        {
+            foreach (SlotClass s in items)
             {
-                foreach (SlotClass s in items)
+                if (s.GetItem() != null)
                 {
-                    if (s.GetItem() != null)
-                    {
-                        placeableObjects.Add(s);
-                    }
+                    placeableObjects.Add(s);
                 }
             }
-            GameObject placementPanel = GameObject.FindGameObjectWithTag("PlacementPanel");
-            GameObject objectSelectButtonPrefab = Resources.Load<GameObject>("Prefabs/ObjectSelectButton");
-            placementPanel.GetComponent<Image>().enabled = true;
-            float menuPadding = 12f;
-            RectTransform placementRect = placementPanel.GetComponent<RectTransform>();
-            int maxPerRow = (int)((placementRect.rect.width - menuPadding * 2) / (objectSelectButtonPrefab.GetComponent<RectTransform>().rect.width + menuButtonMargin)) + 1;
-            int maxRows = (int)((placementRect.rect.height - menuPadding * 2) / (objectSelectButtonPrefab.GetComponent<RectTransform>().rect.height + menuButtonMargin));
-            int y = 0;
-            int x = 0;
-            for (int i = 0; i < placeableObjects.Count; i++)
+        }
+        GameObject placementPanel = GameObject.FindGameObjectWithTag("PlacementPanel");
+        GameObject objectSelectButtonPrefab = Resources.Load<GameObject>("Prefabs/ObjectSelectButton");
+        placementPanel.GetComponent<Image>().enabled = true;
+        float menuPadding = 12f;
+        RectTransform placementRect = placementPanel.GetComponent<RectTransform>();
+        int maxPerRow = (int)((placementRect.rect.width - menuPadding * 2) / (objectSelectButtonPrefab.GetComponent<RectTransform>().rect.width + menuButtonMargin)) + 1;
+        int maxRows = (int)((placementRect.rect.height - menuPadding * 2) / (objectSelectButtonPrefab.GetComponent<RectTransform>().rect.height + menuButtonMargin));
+        int y = 0;
+        int x = 0;
+        for (int i = 0; i < placeableObjects.Count; i++)
+        {
+            GameObject button = Object.Instantiate(objectSelectButtonPrefab, placementPanel.transform);
+            RectTransform rect = button.GetComponent<RectTransform>();
+            ItemClass item = placeableObjects[i].GetItem();
+            button.GetComponent<ObjectSelectButton>().item = item;
+            button.GetComponent<ObjectSelectButton>().placeableObjectSO = item.GetPlaceableObject();
+            button.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = placeableObjects[i].GetQuantity().ToString();
+
+            rect.localPosition += new Vector3(-(placementRect.rect.width / 2 - rect.rect.width / 2 - menuPadding - (x * (menuButtonMargin + rect.rect.width))), placementRect.rect.height / 2 - rect.rect.height / 2 - menuPadding - (y * (menuButtonMargin + rect.rect.height)));
+            
+            button.SetActive(true);
+
+            Button btn = button.GetComponent<Button>();
+            SlotClass tempSlot = placeableObjects[i];
+            btn.onClick.AddListener(() => { GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerEditMode>().SetObject(button, tempSlot); });
+
+            x++;
+            if (x >= maxPerRow)
             {
-                GameObject button = Object.Instantiate(objectSelectButtonPrefab, placementPanel.transform);
-                RectTransform rect = button.GetComponent<RectTransform>();
-                ItemClass item = placeableObjects[i].GetItem();
-                button.GetComponent<ObjectSelectButton>().placeableObjectSO = item.GetPlaceableObject();
-                button.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = placeableObjects[i].GetQuantity().ToString();
-
-                rect.localPosition += new Vector3(-(placementRect.rect.width / 2 - rect.rect.width / 2 - menuPadding - (x * (menuButtonMargin + rect.rect.width))), placementRect.rect.height / 2 - rect.rect.height / 2 - menuPadding - (y * (menuButtonMargin + rect.rect.height)));
-
-                button.SetActive(true);
-
-                Button btn = button.GetComponent<Button>();
-                SlotClass tempSlot = placeableObjects[i];
-                btn.onClick.AddListener(() => { GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerEditMode>().SetObject(button, tempSlot); });
-
-                x++;
-                if (x >= maxPerRow)
-                {
-                    x = 0;
-                    y++;
-                }
+                x = 0;
+                y++;
             }
+        }
         //}
         menuLoaded = true;
     }
@@ -90,4 +93,23 @@ public static class PlacementPanel
         else
             UnloadObjectMenu();
     }
+
+    public static void RemoveButtonOfItem(ItemClass item)
+    {
+        IList<GameObject> toBeDestroyed = new List<GameObject>();
+        for (int i = GameObject.FindGameObjectWithTag("PlacementPanel").transform.childCount - 1; i >= GameObject.FindGameObjectWithTag("PlacementPanel").transform.childCount; i--)
+        {
+            GameObject child = GameObject.FindGameObjectWithTag("PlacementPanel").transform.GetChild(i).gameObject;
+
+            if (child.CompareTag("ObjectSelectButton"))
+            {
+                if (child.GetComponent<ObjectSelectButton>().item == item)
+                {
+                    Debug.Log("Destroy: " + child);
+                    Object.Destroy(child);
+                }
+            }
+        }
+    }
 }
+

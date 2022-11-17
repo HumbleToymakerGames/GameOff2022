@@ -43,6 +43,12 @@ public class PlayerEditMode : MonoBehaviour
                     SetObjectColor(indexPosition);
                     heldObject.SetActive(true);
                 }
+                else
+                {
+                    currentPlaceableObjectSO = null;
+                    currentItemClass = null;
+                    slot = null;
+                }
             }
             else if (heldObject != null)
             {
@@ -66,21 +72,12 @@ public class PlayerEditMode : MonoBehaviour
                     {
                         //try place object
                         heldObject.GetComponent<PlaceableObject>().itemClass = currentItemClass;
-                        Debug.Log(currentItemClass);
                         if (heldObject.GetComponent<PlaceableObject>().PlaceObject())
                         {
                             heldObject.GetComponent<SpriteRenderer>().color = Color.white;
                             heldObject.GetComponent<SpriteRenderer>().sortingOrder = 0;
                             heldObject = null;
                         }
-                    }
-                    else if (Input.GetMouseButtonDown(1))
-                    {
-                        //Change index position to mouse position instead of objects
-                        indexPosition = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false));
-                        GameObject.FindGameObjectWithTag("FurnitureManager").GetComponent<NurseryShopManager>().Add(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().itemClass : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile.GetComponent<PlaceableObject>().itemClass, 1);
-                        Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile);
-                        MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable = true;
                     }
 
                     //Flip object
@@ -90,6 +87,17 @@ public class PlayerEditMode : MonoBehaviour
                         UpdateObject();
                     }
                 }
+            }
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector3Int indexPosition = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false));
+            if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null)
+            {
+                Debug.Log(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().itemClass : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile.GetComponent<PlaceableObject>().itemClass);
+                GameObject.FindGameObjectWithTag("FurnitureManager").GetComponent<NurseryShopManager>().Add(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().itemClass : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile.GetComponent<PlaceableObject>().itemClass, 1);
+                Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile);
+                MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable = true;
             }
         }
     }
@@ -108,7 +116,8 @@ public class PlayerEditMode : MonoBehaviour
             currentItemClass = slot.GetItem();
 
         }
-        UpdateObject();
+        if(heldObject != null)
+            UpdateObject();
     }
 
     /// <summary>
