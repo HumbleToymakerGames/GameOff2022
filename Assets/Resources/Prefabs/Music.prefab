@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicTracks:
+  - {fileID: 8300000, guid: f7a8432c0d8aab541a82d6dd067113fd, type: 3}
   - {fileID: 8300000, guid: 26526af94840ef24e944a974a3c73883, type: 3}
   - {fileID: 8300000, guid: 858405f8405c4954d9c75c8177ec948e, type: 3}
   trackNumber: -1
