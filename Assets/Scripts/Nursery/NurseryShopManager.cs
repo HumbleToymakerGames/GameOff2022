@@ -241,7 +241,10 @@ public class NurseryShopManager : MonoBehaviour
         return false;
     }
 
-
+    public SlotClass[] GetItems()
+    {
+        return items;
+    }
 
 
 
