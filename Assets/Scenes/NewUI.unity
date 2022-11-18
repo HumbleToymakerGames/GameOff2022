@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &64134639
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10299,7 +10299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &654929235
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10439,6 +10439,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlacementPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 1403161178231852540, guid: e6e317df7665478418ea247e3f76f0c4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1403161178231852541, guid: e6e317df7665478418ea247e3f76f0c4, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -10505,7 +10509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1403161178231852541, guid: e6e317df7665478418ea247e3f76f0c4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 1403161178231852541, guid: e6e317df7665478418ea247e3f76f0c4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -11181,7 +11185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1007490055
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11850,7 +11854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1247346156
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13018,7 +13022,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1834161927
 RectTransform:
   m_ObjectHideFlags: 0
