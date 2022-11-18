@@ -2305,6 +2305,10 @@ MonoBehaviour:
     quantity: 1
   - item: {fileID: 11400000, guid: b1d0c962ee6aeed4793bf88ad9766fa6, type: 2}
     quantity: 1
+  - item: {fileID: 11400000, guid: ca9c3d17d051b3e489f13af57a6aaffe, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: 1cd2716590a7962409627965ed690cd1, type: 2}
+    quantity: 1
 --- !u!4 &913155658
 Transform:
   m_ObjectHideFlags: 0
