@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Lamp
   itemIcon: {fileID: 21300000, guid: aa33eb48e5594ac45af0137ca0ec4fab, type: 3}
-  isStackable: 0
+  isStackable: 1
   isSellable: 0
   name: Lamp
   sprite: {fileID: 21300000, guid: aa33eb48e5594ac45af0137ca0ec4fab, type: 3}
