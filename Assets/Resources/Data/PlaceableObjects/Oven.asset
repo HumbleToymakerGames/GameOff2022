@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Oven
   itemIcon: {fileID: 21300000, guid: 9babb9e396213dc44b402f5ac864b244, type: 3}
-  isStackable: 1
+  isStackable: 0
   isSellable: 0
   name: Oven
   sprite: {fileID: 21300000, guid: 9babb9e396213dc44b402f5ac864b244, type: 3}
