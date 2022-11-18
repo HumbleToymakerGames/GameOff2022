@@ -6,9 +6,11 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     public GameObject worldUiParent;
     public GameObject progressBarPrefab;
     public float inWorldUIPositionYOffset = 0.5f;
+    public GameObject mainMenu;
 
     private GameObject _appliancePopupMenuPanel;
     private UI_AppliancePopupMenuPanel _appliancePopupMenuPanelScript;
+    private bool _isMainMenuDisplaying = false;
 
     private List<GameObject> _progressBarObjectPool = new List<GameObject>();
 
@@ -52,6 +54,12 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
 
         progressBar.SetActive(true);
         return progressBar;
+    }
+
+    public void ToggleMainMenu()
+    {
+        mainMenu.SetActive(!_isMainMenuDisplaying);
+        _isMainMenuDisplaying = !_isMainMenuDisplaying;
     }
 
     private GameObject GetUnusedProgressBarOrInstantiate()

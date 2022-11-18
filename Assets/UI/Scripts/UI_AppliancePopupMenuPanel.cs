@@ -19,6 +19,7 @@ public class UI_AppliancePopupMenuPanel : MonoBehaviour
 
     public void InitializeWithAppliance(Appliance appliance)
     {
+        ClearApplianceContext();
         _applianceNameText.text = appliance.GetApplianceName();
         List<ApplianceFunction> functions = appliance.GetApplianceFunctions();
         foreach (ApplianceFunction function in functions)

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Eggs
   m_EditorClassIdentifier: 
   itemName: Eggs
-  itemIcon: {fileID: 21300000, guid: 1ba08b5f08c63644598a173765c76dd4, type: 3}
+  itemIcon: {fileID: -4169056378020552763, guid: 4deb1e561faa9014baf0af94b42c09b1, type: 3}
   isStackable: 1
+  isSellable: 0
