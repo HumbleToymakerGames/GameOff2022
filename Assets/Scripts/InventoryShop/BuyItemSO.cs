@@ -10,6 +10,8 @@ public class BuyItemSO : ScriptableObject
     public SlotClass addItem;
     public SlotClass subtractItem;
 
+
+
     public void AddItemToCart(ShopFunction shopFunction)
     {
         shopFunction.Add(addItem.GetItem(), addItem.GetQuantity());
