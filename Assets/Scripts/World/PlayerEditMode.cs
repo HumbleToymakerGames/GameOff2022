@@ -96,8 +96,7 @@ public class PlayerEditMode : MonoBehaviour
             Vector3Int indexPosition = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false));
             if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null)
             {
-                //Debug.Log(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().itemClass : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile.GetComponent<PlaceableObject>().itemClass);
-                GameObject.FindGameObjectWithTag("FurnitureManager").GetComponent<NurseryShopManager>().Add(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().itemClass : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile.GetComponent<PlaceableObject>().itemClass, 1);
+                GameObject.FindGameObjectWithTag("FurnitureManager").GetComponent<NurseryShopManager>().Add(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO, 2);
                 Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile);
                 if (MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null)
                     MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile = null;
@@ -105,7 +104,6 @@ public class PlayerEditMode : MonoBehaviour
                     MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile = null;
 
                 MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable = true;
-                //MapInformation.mapData.UpdateMapData();
             }
         }
     }

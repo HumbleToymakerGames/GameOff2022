@@ -5,10 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class MapData : MonoBehaviour
 {
+    public GameObject placeableObjectPrefab;
+
     [SerializeField] private PlacedObjectsData mapSaveData = new PlacedObjectsData();
+
+    private PlaceableObjectClass[] placeableObjectSOs;
 
     public void Awake()
     {
+        placeableObjectSOs = Resources.LoadAll<PlaceableObjectClass>("Data/PlaceableObjects");
+        placeableObjectPrefab = Resources.Load<GameObject>("Prefabs/PlaceableObjects/PlaceableObjectPrefab");
         mapSaveData = LoadJson();
     }
 
@@ -38,10 +44,7 @@ public class MapData : MonoBehaviour
         {
             PlacedObjectsData mapSaveData = LoadJson();
 
-            foreach(GameObjectData gameObjectData in mapSaveData.placedObjects)
-            {
-                Debug.Log(gameObjectData.name);
-            }
+            PopulateMap();
         }
     }
 
@@ -54,6 +57,28 @@ public class MapData : MonoBehaviour
     public PlacedObjectsData LoadJson()
     {
         return JsonUtility.FromJson<PlacedObjectsData>(System.IO.File.ReadAllText(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + ".json"));
+    }
+
+    public void PopulateMap()
+    {
+        foreach (GameObjectData g in mapSaveData.placedObjects)
+        {
+            GameObject placeableObject = Instantiate(placeableObjectPrefab);
+            placeableObject.SetActive(true);
+
+            PlaceableObject script = placeableObject.GetComponent<PlaceableObject>();
+
+            foreach (PlaceableObjectClass p in placeableObjectSOs)
+            {
+                if (g.name == p.itemName)
+                {
+                    script.itemClass = p;
+                    script.SetComponents(p);
+
+                    script.PlaceObjectAt(new Vector3Int(g.position.x, g.position.y, g.position.z));
+                }
+            }
+        }
     }
 
     public void UpdateMapData()

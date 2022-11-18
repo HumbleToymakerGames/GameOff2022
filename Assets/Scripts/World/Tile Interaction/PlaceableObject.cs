@@ -67,6 +67,58 @@ public class PlaceableObject : MonoBehaviour
     }
 
     /// <summary>
+    /// WARNING: Only for use with loading the game. Place an object at a grid position.
+    /// </summary>
+    /// <param name="gridPosition"></param>
+    /// <returns></returns>
+    public bool PlaceObjectAt(Vector3Int gridPosition)
+    {
+        groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
+
+        transform.position = groundTileMap.CellToWorld(gridPosition + new Vector3Int(1, 1, 0));
+
+        //Vector3Int gridPosition = groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0));
+        Vector3Int indexPosition = MapInformation.GetTileIndex(gridPosition);
+        if (MapInformation.groundMap[indexPosition.x, indexPosition.y].mask == placeableObjectSO.placementMask || MapInformation.groundMap[indexPosition.x, indexPosition.y].mask == Mask.Empty)
+        {
+            if (placeableObjectSO.type != TileType.DeskItem ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile == null : (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile == null || (MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null && MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.supportsDeskItems)))
+            {
+                placed = true;
+                if (tileType == TileType.Seat || tileType == TileType.Empty)
+                {
+                    MapInformation.SetTileWalkability(gridPosition, true);
+                }
+                else
+                {
+                    MapInformation.SetTileWalkability(gridPosition, false);
+                }
+
+
+                if (placeableObjectSO.type != TileType.DeskItem)
+                {
+                    MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile = gameObject;
+                }
+                else if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null && MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.supportsDeskItems && MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null)
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y, 2);
+                    MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile = gameObject;
+                }
+                else if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile == null)
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+                    MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile = gameObject;
+                }
+
+                MapInformation.SetTileType(gridPosition, tileType);
+
+                //GameObject.FindGameObjectWithTag("FurnitureManager").GetComponent<NurseryShopManager>().Remove(itemClass, 1);
+            }
+        }
+        return placed;
+    }
+
+
+    /// <summary>
     /// Sets all the components of an object depending on whether it is an appliance or not
     /// </summary>
     /// <param name="placeableObjectSO"></param>
