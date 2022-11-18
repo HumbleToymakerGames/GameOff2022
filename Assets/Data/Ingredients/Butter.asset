@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Butter
   m_EditorClassIdentifier: 
   itemName: Butter
-  itemIcon: {fileID: 21300070, guid: a686ecd845234064f945285464b93c53, type: 3}
+  itemIcon: {fileID: -2985248430916621527, guid: 4deb1e561faa9014baf0af94b42c09b1, type: 3}
   isStackable: 1
+  isSellable: 0

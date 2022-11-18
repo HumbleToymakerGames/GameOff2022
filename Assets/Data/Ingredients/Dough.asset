@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Dough
   m_EditorClassIdentifier: 
   itemName: Dough
-  itemIcon: {fileID: 21300050, guid: a686ecd845234064f945285464b93c53, type: 3}
+  itemIcon: {fileID: -3317567201830675668, guid: c38bd5f79485dea44be5d4840970d395, type: 3}
   isStackable: 1
+  isSellable: 0
