@@ -1,70 +1,143 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-[System.Serializable]
-public class MapData
+public class MapData : MonoBehaviour
 {
-    public int placedItems = 0;
-    public int[,] positions;
-    public string[] names;
+    [SerializeField] private PlacedObjectsData mapSaveData = new PlacedObjectsData();
 
+    public void Awake()
+    {
+        mapSaveData = LoadJson();
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            mapSaveData.placedObjects.Clear();
+            foreach (TileInfo t in MapInformation.groundMap)
+            {
+                if (t != null)
+                {
+                    if (t.gameObjectOnTile != null)
+                    {
+                        mapSaveData.placedObjects.Add(new GameObjectData(t.gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.itemName, new PositionData(t.position.x, t.position.y, t.position.z)));
+                    }
+                    if (t.deskObjectOnTile != null)
+                    {
+                        mapSaveData.placedObjects.Add(new GameObjectData(t.deskObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.itemName, new PositionData(t.position.x, t.position.y, t.position.z)));
+                    }
+                }
+            }
+
+            SaveIntoJason();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            PlacedObjectsData mapSaveData = LoadJson();
+
+            foreach(GameObjectData gameObjectData in mapSaveData.placedObjects)
+            {
+                Debug.Log(gameObjectData.name);
+            }
+        }
+    }
+
+    public void SaveIntoJason()
+    {
+        string objectData = JsonUtility.ToJson(mapSaveData);
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + ".json", objectData);
+    }
+
+    public PlacedObjectsData LoadJson()
+    {
+        return JsonUtility.FromJson<PlacedObjectsData>(System.IO.File.ReadAllText(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + ".json"));
+    }
 
     public void UpdateMapData()
     {
-        //clear previous data
-        positions = new int[0, 0];
-        names = new string[0];
-        placedItems = 0;
+        ////clear previous data
+        //placedItems = 0;
 
-        IList<GameObject> objects = new List<GameObject>();
-        IList<Vector3Int> objectPositions = new List<Vector3Int>();
+        //IList<GameObject> objects = new List<GameObject>();
+        //IList<Vector3Int> objectPositions = new List<Vector3Int>();
 
-        objects.Clear();
+        //foreach (TileInfo t in MapInformation.groundMap)
+        //{
+        //    if (t != null)
+        //    {
+        //        if (t.gameObjectOnTile != null)
+        //        {
+        //            objects.Add(t.gameObjectOnTile);
+        //            objectPositions.Add(t.position);
+        //            placedItems++;
+        //        }
+        //        if (t.deskObjectOnTile != null)
+        //        {
+        //            objects.Add(t.deskObjectOnTile);
+        //            objectPositions.Add(t.position);
+        //            placedItems++;
+        //        }
+        //    }
+        //}
 
-        objectPositions.Clear();
+        //foreach (Vector3Int v in objectPositions)
+        //{
+        //    Debug.Log(v);
+        //}
 
-        foreach (TileInfo t in MapInformation.groundMap)
-        {
-            if (t != null)
-            {
-                if (t.gameObjectOnTile != null)
-                {
-                    objects.Add(t.gameObjectOnTile);
-                    objectPositions.Add(t.position);
-                    placedItems++;
-                }
-                if (t.deskObjectOnTile != null)
-                {
-                    objects.Add(t.deskObjectOnTile);
-                    objectPositions.Add(t.position);
-                    placedItems++;
-                }
-            }
-        }
+        //xPos = new int[placedItems];
+        //yPos = new int[placedItems];
+        //zPos = new int[placedItems];
+        //names = new string[placedItems];
+        //for (int i = 0; i < placedItems; i++)
+        //{
+        //    names[i] = objects[i].GetComponent<PlaceableObject>().placeableObjectSO.itemName;
 
-        positions = new int[3, placedItems];
-        names = new string[placedItems];
-        for (int i = 0; i < placedItems; i++)
-        {
-            names[i] = objects[i].GetComponent<PlaceableObject>().placeableObjectSO.itemName;
+        //    xPos[i] = objectPositions[i].x;
+        //    yPos[i] = objectPositions[i].y;
+        //    zPos[i] = objectPositions[i].z;
+        //}
+    }
+}
 
-            for (int x = 0; x < 3; x++)
-            {
-                //This feels dumb but it's alright, it happens
-                switch (x) 
-                {
-                    case 0:
-                        positions[x, i] = objectPositions[i].x;
-                        break;
-                    case 1:
-                        positions[x, i] = objectPositions[i].y;
-                        break;
-                    case 2:
-                        positions[x, i] = objectPositions[i].z;
-                        break;
-                }
-            }
-        }
+[System.Serializable]
+public class PlacedObjectsData
+{
+    public List<GameObjectData> placedObjects = new List<GameObjectData>();
+}
+
+[System.Serializable]
+public class GameObjectData
+{
+    public string name;
+    public PositionData position;
+
+    public GameObjectData(string name, PositionData position)
+    {
+        this.name = name;
+        this.position = position;
+    }
+}
+
+[System.Serializable]
+public class PositionData
+{
+    public int x;
+    public int y;
+    public int z;
+
+    public PositionData(int x, int y, int z)
+    {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    public override string ToString()
+    {
+        return "(" + x + ", " + y + ", " + z + ")";
     }
 }

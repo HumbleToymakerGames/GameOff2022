@@ -21,7 +21,7 @@ public class MapInformation : MonoBehaviour
     public static IList<TileInfo> furniture = new List<TileInfo>();
     public static IList<TileInfo> interactables = new List<TileInfo>();
 
-    public static MapData mapData = new MapData();
+    //public static MapData mapData = new MapData();
 
     private void Awake()
     {
@@ -203,6 +203,6 @@ public class MapInformation : MonoBehaviour
 
     public static void UpdateMapData()
     {
-        mapData.UpdateMapData();
+        //mapData.UpdateMapData();
     }
 }

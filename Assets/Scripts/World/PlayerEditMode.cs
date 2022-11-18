@@ -78,7 +78,7 @@ public class PlayerEditMode : MonoBehaviour
                             heldObject.GetComponent<SpriteRenderer>().sortingOrder = 0;
                             heldObject = null;
 
-                            MapInformation.mapData.UpdateMapData();
+                            //MapInformation.mapData.UpdateMapData();
                         }
                     }
 
@@ -105,7 +105,7 @@ public class PlayerEditMode : MonoBehaviour
                     MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile = null;
 
                 MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable = true;
-                MapInformation.mapData.UpdateMapData();
+                //MapInformation.mapData.UpdateMapData();
             }
         }
     }

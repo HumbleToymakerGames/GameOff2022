@@ -22,6 +22,7 @@ public class SaveSystem : MonoBehaviour
 
     public void SaveGame(MapData saveData, string fileName)
     {
+        saveData.UpdateMapData();
         filePath = Application.persistentDataPath + "/" + fileName + ".data";
         FileStream dataStream = new FileStream(filePath, FileMode.Create);
 
