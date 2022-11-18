@@ -14,12 +14,13 @@ public class Player : MonoBehaviour
     public ControlState lockedState = ControlState.None;
 
     public GameObject placementPanel;
+    private bool placementPanelShown = false;
     
 
     private void Start()
     {
         movement = GetComponent<Movement>();
-        edit = GetComponent<PlayerEditMode>();   
+        edit = GetComponent<PlayerEditMode>();
     }
 
     public void Update()
@@ -41,11 +42,16 @@ public class Player : MonoBehaviour
         switch (controlState)
         {
             case ControlState.Edit:
-                //PlacementPanel.ShowPlacementMenu(true);
+                if (!placementPanelShown)
+                {
+                    PlacementPanel.ShowPlacementMenu(true, GameObject.FindGameObjectWithTag("FurnitureManager").GetComponent<NurseryShopManager>().GetItems());
+                    placementPanelShown = true;
+                }
                 edit.UpdateCall();
                 break;
             case ControlState.Game:
-                //PlacementPanel.ShowPlacementMenu(false);
+                placementPanelShown = false;
+                PlacementPanel.ShowPlacementMenu(false);
                 break;
         }
     }

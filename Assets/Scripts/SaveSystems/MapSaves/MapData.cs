@@ -73,6 +73,8 @@ public class MapData : MonoBehaviour
         }
 
         PopulateMap();
+
+        SaveMap();
     }
 
     public static void SaveIntoJason()
