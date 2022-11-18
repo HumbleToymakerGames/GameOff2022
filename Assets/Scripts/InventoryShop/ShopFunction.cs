@@ -9,11 +9,10 @@ public class ShopFunction : MonoBehaviour
     [SerializeField] private List<CraftingRecipe> craftingRecipes = new List<CraftingRecipe>();
     [SerializeField] private GameObject slotHolder;
     
-    //[SerializeField] private ApplianceClass itemToAdd;
-    //[SerializeField] private ItemClass itemToRemove;
+    
     private SlotClass[] items;
     private GameObject[] slots;
-     
+    
 
     public void Start()
     {
@@ -163,7 +162,7 @@ public class ShopFunction : MonoBehaviour
         return true;
     }
 
-
+    
 
     //Remove for crafting
     public bool Remove(ItemClass item, int quantity)
@@ -207,6 +206,15 @@ public class ShopFunction : MonoBehaviour
         return true;
     }
 
+    public void AddItemsToInventory(InventoryManager inventory)
+    {
+        
+            for(int i = 0; i < items.Length; i++)
+        {
+            inventory.Add(items[i].GetItem(), items[i].GetQuantity());
+        }
+        
+    }
 
     public SlotClass Contains(ItemClass item)
     {
