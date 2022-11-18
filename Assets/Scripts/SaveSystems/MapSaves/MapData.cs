@@ -35,11 +35,11 @@ public class MapData : MonoBehaviour
             {
                 if (t.gameObjectOnTile != null)
                 {
-                    mapSaveData.placedObjects.Add(new GameObjectData(t.gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.itemName, new PositionData(t.position.x, t.position.y, t.position.z)));
+                    mapSaveData.placedObjects.Add(new GameObjectData(t.gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.itemName, new PositionData(t.position.x, t.position.y, t.position.z), t.gameObjectOnTile.GetComponent<PlaceableObject>().flipped));
                 }
                 if (t.deskObjectOnTile != null)
                 {
-                    mapSaveData.placedObjects.Add(new GameObjectData(t.deskObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.itemName, new PositionData(t.position.x, t.position.y, t.position.z)));
+                    mapSaveData.placedObjects.Add(new GameObjectData(t.deskObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.itemName, new PositionData(t.position.x, t.position.y, t.position.z), t.deskObjectOnTile.GetComponent<PlaceableObject>().flipped));
                 }
             }
         }
@@ -100,6 +100,7 @@ public class MapData : MonoBehaviour
                 if (g.name == p.itemName)
                 {
                     script.itemClass = p;
+                    script.flipped = g.flipped;
                     script.SetComponents(p);
 
                     script.PlaceObjectAt(new Vector3Int(g.position.x, g.position.y, g.position.z));
@@ -166,11 +167,13 @@ public class GameObjectData
 {
     public string name;
     public PositionData position;
+    public bool flipped;
 
-    public GameObjectData(string name, PositionData position)
+    public GameObjectData(string name, PositionData position, bool flipped)
     {
         this.name = name;
         this.position = position;
+        this.flipped = flipped;
     }
 }
 

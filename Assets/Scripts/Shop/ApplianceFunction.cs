@@ -93,7 +93,7 @@ public class ApplianceFunction
 
     public void UpdateFunction()
     {
-        Debug.Log("We are in UpdateFunction");
+        
         int minutesToCompleteFunction = (int)Math.Floor(_applianceFunctionSO.hoursToMake * 60);
         progress = (float)(TimeManager.GetAbsoluteGameMinutes() - _startTime) / minutesToCompleteFunction;
 
