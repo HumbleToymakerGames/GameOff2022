@@ -77,6 +77,8 @@ public class PlayerEditMode : MonoBehaviour
                             heldObject.GetComponent<SpriteRenderer>().color = Color.white;
                             heldObject.GetComponent<SpriteRenderer>().sortingOrder = 0;
                             heldObject = null;
+
+                            MapInformation.mapData.UpdateMapData();
                         }
                     }
 
@@ -94,10 +96,16 @@ public class PlayerEditMode : MonoBehaviour
             Vector3Int indexPosition = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false));
             if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null)
             {
-                Debug.Log(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().itemClass : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile.GetComponent<PlaceableObject>().itemClass);
+                //Debug.Log(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().itemClass : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile.GetComponent<PlaceableObject>().itemClass);
                 GameObject.FindGameObjectWithTag("FurnitureManager").GetComponent<NurseryShopManager>().Add(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().itemClass : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile.GetComponent<PlaceableObject>().itemClass, 1);
                 Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile);
+                if (MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null)
+                    MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile = null;
+                else
+                    MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile = null;
+
                 MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable = true;
+                MapInformation.mapData.UpdateMapData();
             }
         }
     }

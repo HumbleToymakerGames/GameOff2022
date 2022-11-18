@@ -21,6 +21,8 @@ public class MapInformation : MonoBehaviour
     public static IList<TileInfo> furniture = new List<TileInfo>();
     public static IList<TileInfo> interactables = new List<TileInfo>();
 
+    public static MapData mapData = new MapData();
+
     private void Awake()
     {
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
@@ -197,5 +199,10 @@ public class MapInformation : MonoBehaviour
                 interactables.Remove(tile);
                 break;
         }
+    }
+
+    public static void UpdateMapData()
+    {
+        mapData.UpdateMapData();
     }
 }
