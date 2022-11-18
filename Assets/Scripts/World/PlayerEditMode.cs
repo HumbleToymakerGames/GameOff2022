@@ -78,7 +78,7 @@ public class PlayerEditMode : MonoBehaviour
                             heldObject.GetComponent<SpriteRenderer>().sortingOrder = 0;
                             heldObject = null;
 
-                            //MapInformation.mapData.UpdateMapData();
+                            MapData.SaveMap();
                         }
                     }
 
@@ -96,7 +96,7 @@ public class PlayerEditMode : MonoBehaviour
             Vector3Int indexPosition = MapInformation.GetTileIndex(TileSelect.GetTileUnderMouse(false));
             if (MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile != null)
             {
-                GameObject.FindGameObjectWithTag("FurnitureManager").GetComponent<NurseryShopManager>().Add(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO, 2);
+                GameObject.FindGameObjectWithTag("FurnitureManager").GetComponent<NurseryShopManager>().Add(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO, 1);
                 Destroy(MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null ? MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile : MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile);
                 if (MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile == null)
                     MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile = null;
@@ -104,6 +104,7 @@ public class PlayerEditMode : MonoBehaviour
                     MapInformation.groundMap[indexPosition.x, indexPosition.y].deskObjectOnTile = null;
 
                 MapInformation.groundMap[indexPosition.x, indexPosition.y].walkable = true;
+                MapData.SaveMap();
             }
         }
     }
