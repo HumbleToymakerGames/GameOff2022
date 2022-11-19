@@ -55,6 +55,10 @@ public class MapData : MonoBehaviour
 
         if (mapSaveData.placedObjects.Count > 0)
         {
+            if(MapInformation.groundMap == null)
+            {
+                MapInformation.RefreshMap();
+            }
             foreach (TileInfo t in MapInformation.groundMap)
             {
                 if (t != null)
