@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
 
 public class PlaceableObject : MonoBehaviour
@@ -18,6 +19,9 @@ public class PlaceableObject : MonoBehaviour
 
     public ItemClass itemClass;
 
+    private GameObject lightObject;
+
+    public float height = 0;
     /// <summary>
     /// Places an object where it is at currently
     /// </summary>
@@ -25,6 +29,9 @@ public class PlaceableObject : MonoBehaviour
     public bool PlaceObject()
     {
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
+
+        if (placeableObjectSO.type == TileType.DeskItem && placeableObjectSO.lightEmitter)
+            lightObject.transform.localPosition = new Vector3(placeableObjectSO.lightOffset.x, placeableObjectSO.lightOffset.y + height * ((placeableObjectSO.sprite.pixelsPerUnit / 2) / (placeableObjectSO.sprite.bounds.size.y * placeableObjectSO.sprite.pixelsPerUnit)), placeableObjectSO.lightOffset.z);
 
         Vector3Int gridPosition = groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0));
         Vector3Int indexPosition = MapInformation.GetTileIndex(gridPosition);
@@ -76,6 +83,8 @@ public class PlaceableObject : MonoBehaviour
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
 
         transform.position = groundTileMap.CellToWorld(gridPosition + new Vector3Int(1, 1, 0));
+        if(placeableObjectSO.type == TileType.DeskItem && placeableObjectSO.lightEmitter)
+            lightObject.transform.localPosition = new Vector3(placeableObjectSO.lightOffset.x, placeableObjectSO.lightOffset.y + height * ((placeableObjectSO.sprite.pixelsPerUnit / 2) / (placeableObjectSO.sprite.bounds.size.y * placeableObjectSO.sprite.pixelsPerUnit)), placeableObjectSO.lightOffset.z);
 
         //Vector3Int gridPosition = groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0));
         Vector3Int indexPosition = MapInformation.GetTileIndex(gridPosition);
@@ -110,8 +119,6 @@ public class PlaceableObject : MonoBehaviour
                 }
 
                 MapInformation.SetTileType(gridPosition, tileType);
-
-                //GameObject.FindGameObjectWithTag("FurnitureManager").GetComponent<NurseryShopManager>().Remove(itemClass, 1);
             }
         }
         return placed;
@@ -129,6 +136,29 @@ public class PlaceableObject : MonoBehaviour
         tileType = placeableObjectSO.type;
 
         gameObject.GetComponent<SpriteRenderer>().sprite = placeableObjectSO.sprite;
+
+        if (placeableObjectSO.lightEmitter)
+        {
+            if (gameObject.transform.childCount == 0)
+            {
+                GameObject lightPrefab = Resources.Load<GameObject>("Prefabs/Lights/ObjectLight");
+                lightObject = Instantiate(lightPrefab, gameObject.transform);
+                lightObject.transform.localPosition = placeableObjectSO.lightOffset;
+
+                Light2D light = lightObject.GetComponent<Light2D>();
+                light.intensity = placeableObjectSO.lightIntensity;
+                light.color = placeableObjectSO.lightColor;
+            }
+
+            if (placeableObjectSO.type == TileType.DeskItem)
+            {
+                lightObject.transform.localPosition = new Vector3(placeableObjectSO.lightOffset.x, placeableObjectSO.lightOffset.y + height * ((placeableObjectSO.sprite.pixelsPerUnit / 2) / (placeableObjectSO.sprite.bounds.size.y * placeableObjectSO.sprite.pixelsPerUnit)), placeableObjectSO.lightOffset.z);
+            }
+        }
+        else if (gameObject.transform.childCount > 0)
+        {
+            Destroy(lightObject);
+        }
 
         if (placeableObjectSO.type == TileType.Interactable)
         {

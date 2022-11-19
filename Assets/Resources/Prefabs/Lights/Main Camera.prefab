@@ -183,4 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6374666539dc7545a27b4fa4698179c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dayColor: {r: 1, g: 0.8317287, b: 0.5707547, a: 1}
+  nightColor: {r: 0.25943398, g: 0.3198763, b: 1, a: 1}
   time: 12
