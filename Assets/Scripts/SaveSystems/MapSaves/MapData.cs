@@ -39,7 +39,7 @@ public class MapData : MonoBehaviour
                 }
                 if (t.deskObjectOnTile != null)
                 {
-                    mapSaveData.placedObjects.Add(new GameObjectData(t.deskObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.itemName, new PositionData(t.position.x, t.position.y, t.position.z), t.deskObjectOnTile.GetComponent<PlaceableObject>().flipped));
+                    mapSaveData.placedObjects.Add(new GameObjectData(t.deskObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.itemName, new PositionData(t.position.x, t.position.y, t.position.z), t.deskObjectOnTile.GetComponent<PlaceableObject>().flipped, true));
                 }
             }
         }
@@ -90,25 +90,67 @@ public class MapData : MonoBehaviour
 
     public static void PopulateMap()
     {
-        foreach (GameObjectData g in mapSaveData.placedObjects)
+        GameObject lastPlacedObject = null;
+        for (int i = 0; i < mapSaveData.placedObjects.Count; i++)
         {
             GameObject placeableObject = Instantiate(placeableObjectPrefab);
             placeableObject.SetActive(true);
 
+           
             PlaceableObject script = placeableObject.GetComponent<PlaceableObject>();
 
             foreach (PlaceableObjectClass p in placeableObjectSOs)
             {
-                if (g.name == p.itemName)
+                if (mapSaveData.placedObjects[i].name == p.itemName)
                 {
                     script.itemClass = p;
-                    script.flipped = g.flipped;
+                    script.flipped = mapSaveData.placedObjects[i].flipped;
                     script.SetComponents(p);
 
-                    script.PlaceObjectAt(new Vector3Int(g.position.x, g.position.y, g.position.z));
+                    if (lastPlacedObject != null && mapSaveData.placedObjects[i].onDesk)
+                    {
+                        float height = (float)(lastPlacedObject.GetComponent<PlaceableObject>().placeableObjectSO.pixelHeight) / 64;
+                        SpriteRenderer spr = placeableObject.GetComponent<SpriteRenderer>();
+                        spr.sprite = Sprite.Create(p.sprite.texture, p.sprite.rect, new Vector2(0.5f, height * ((p.sprite.pixelsPerUnit / 2) / (p.sprite.bounds.size.y * p.sprite.pixelsPerUnit))), p.sprite.pixelsPerUnit);
+                    }
+
+                    script.PlaceObjectAt(new Vector3Int(mapSaveData.placedObjects[i].position.x, mapSaveData.placedObjects[i].position.y, mapSaveData.placedObjects[i].position.z));
+                    break;
                 }
             }
+
+            lastPlacedObject = placeableObject;
         }
+
+        //foreach (GameObjectData g in mapSaveData.placedObjects)
+        //{
+        //    //Move objects that were on top of things to a new list so they can be created after the ground objects
+        //    if (g.onDesk)
+        //    {
+        //        deskObjects.Add(g);
+        //    }
+        //    else
+        //    {
+        //        GameObject placeableObject = Instantiate(placeableObjectPrefab);
+        //        placeableObject.SetActive(true);
+
+        //        PlaceableObject script = placeableObject.GetComponent<PlaceableObject>();
+
+        //        Debug.Log(g.name);
+
+        //        foreach (PlaceableObjectClass p in placeableObjectSOs)
+        //        {
+        //            if (g.name == p.itemName)
+        //            {
+        //                script.itemClass = p;
+        //                script.flipped = g.flipped;
+        //                script.SetComponents(p);
+
+        //                script.PlaceObjectAt(new Vector3Int(g.position.x, g.position.y, g.position.z));
+        //            }
+        //        }
+        //    }
+        //}
     }
 
     public void UpdateMapData()
@@ -170,12 +212,14 @@ public class GameObjectData
     public string name;
     public PositionData position;
     public bool flipped;
+    public bool onDesk;
 
-    public GameObjectData(string name, PositionData position, bool flipped)
+    public GameObjectData(string name, PositionData position, bool flipped, bool onDesk = false)
     {
         this.name = name;
         this.position = position;
         this.flipped = flipped;
+        this.onDesk = onDesk;
     }
 }
 
