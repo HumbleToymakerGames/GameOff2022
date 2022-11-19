@@ -7,11 +7,13 @@ public class MapData : MonoBehaviour
 {
     private static GameObject placeableObjectPrefab;
 
+    public static bool saveLoadEnabled = true;
+
     [SerializeField] private static PlacedObjectsData mapSaveData = new PlacedObjectsData();
 
     private static PlaceableObjectClass[] placeableObjectSOs;
 
-    public void Awake()
+    public void Start()
     {
         placeableObjectSOs = Resources.LoadAll<PlaceableObjectClass>("Data/PlaceableObjects");
         placeableObjectPrefab = Resources.Load<GameObject>("Prefabs/PlaceableObjects/PlaceableObjectPrefab");
@@ -28,57 +30,71 @@ public class MapData : MonoBehaviour
 
     public static void SaveMap()
     {
-        mapSaveData.placedObjects.Clear();
-        foreach (TileInfo t in MapInformation.groundMap)
+        if (saveLoadEnabled)
         {
-            if (t != null)
-            {
-                if (t.gameObjectOnTile != null)
-                {
-                    mapSaveData.placedObjects.Add(new GameObjectData(t.gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.itemName, new PositionData(t.position.x, t.position.y, t.position.z), t.gameObjectOnTile.GetComponent<PlaceableObject>().flipped));
-                }
-                if (t.deskObjectOnTile != null)
-                {
-                    mapSaveData.placedObjects.Add(new GameObjectData(t.deskObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.itemName, new PositionData(t.position.x, t.position.y, t.position.z), t.deskObjectOnTile.GetComponent<PlaceableObject>().flipped, true));
-                }
-            }
-        }
+            if (mapSaveData == null)
+                mapSaveData = new PlacedObjectsData();
 
-        SaveIntoJason();
-    }
-
-    public static void LoadMap()
-    {
-        Debug.Log("Load");
-
-        mapSaveData = LoadJson();
-
-        if (mapSaveData.placedObjects.Count > 0)
-        {
-            if(MapInformation.groundMap == null)
-            {
-                MapInformation.RefreshMap();
-            }
+            mapSaveData.placedObjects.Clear();
             foreach (TileInfo t in MapInformation.groundMap)
             {
                 if (t != null)
                 {
                     if (t.gameObjectOnTile != null)
                     {
-                        Destroy(t.gameObjectOnTile);
+                        mapSaveData.placedObjects.Add(new GameObjectData(t.gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.itemName, new PositionData(t.position.x, t.position.y, t.position.z), t.gameObjectOnTile.GetComponent<PlaceableObject>().flipped));
                     }
                     if (t.deskObjectOnTile != null)
                     {
-                        Destroy(t.deskObjectOnTile);
+                        mapSaveData.placedObjects.Add(new GameObjectData(t.deskObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.itemName, new PositionData(t.position.x, t.position.y, t.position.z), t.deskObjectOnTile.GetComponent<PlaceableObject>().flipped, true));
                     }
                 }
             }
-            MapInformation.RefreshMap();
+
+            SaveIntoJason();
         }
+    }
 
-        PopulateMap();
+    public static void LoadMap()
+    {
+        if (saveLoadEnabled)
+        {
+            Debug.Log("Load");
 
-        SaveMap();
+            mapSaveData = LoadJson();
+
+            if (mapSaveData == null)
+                mapSaveData = new PlacedObjectsData();
+
+            if (mapSaveData != null
+                && mapSaveData.placedObjects.Count > 0)
+            {
+                if (MapInformation.groundMap != null)
+                {
+                    Debug.Log("Ground Map not null");
+                    foreach (TileInfo t in MapInformation.groundMap)
+                    {
+                        if (t != null)
+                        {
+                            if (t.gameObjectOnTile != null)
+                            {
+                                Destroy(t.gameObjectOnTile);
+                            }
+                            if (t.deskObjectOnTile != null)
+                            {
+                                Destroy(t.deskObjectOnTile);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log("Ground Map null");
+                }
+                PopulateMap();
+                SaveMap();
+            }
+        }
     }
 
     public static void SaveIntoJason()
@@ -89,7 +105,14 @@ public class MapData : MonoBehaviour
 
     public static PlacedObjectsData LoadJson()
     {
-        return JsonUtility.FromJson<PlacedObjectsData>(System.IO.File.ReadAllText(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + ".json"));
+        if (System.IO.File.Exists(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + ".json"))
+            return JsonUtility.FromJson<PlacedObjectsData>(System.IO.File.ReadAllText(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + ".json"));
+        else
+        {
+            SaveIntoJason();
+            return JsonUtility.FromJson<PlacedObjectsData>(System.IO.File.ReadAllText(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + ".json"));
+        }
+
     }
 
     public static void PopulateMap()

@@ -13,7 +13,6 @@ public class CameraControls : MonoBehaviour
         Vector3 inputs = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
 
         transform.position += inputs * (speed * Time.deltaTime);
-        Debug.Log(Camera.main);
         Camera.main.GetComponent<PixelPerfectCamera>().assetsPPU += (int)(zoomSpeed * Input.mouseScrollDelta.y);
     }
 }
