@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class NurseryShopManager : MonoBehaviour
 {
 
-    [SerializeField] private List<BuyFurnitureSO> buyFurniture = new List<BuyFurnitureSO>();
 
     //This is for the GO that holds all the slots
     [SerializeField] private GameObject slotHolder;
@@ -61,14 +60,6 @@ public class NurseryShopManager : MonoBehaviour
     private void Update()
     {
        
-
-
-
-       
-
-
-
-
 
     }
 
@@ -246,24 +237,4 @@ public class NurseryShopManager : MonoBehaviour
         return items;
     }
 
-
-
-
-    //************This is for the shop panel when I build it, Tony**************************************************
-    private void Buy(BuyFurnitureSO buyFurn)
-    {
-        buyFurn.BuyItem(this);
-    }
-
-
-    public void BuyFurniture()
-    {
-        Buy(buyFurniture[0]);
-    }
-
-
-    public void BuyFurniture2()
-    {
-        Buy(buyFurniture[1]);
-    }
 }

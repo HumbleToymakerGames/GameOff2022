@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ShoppingManager : MonoBehaviour
 {
-    [SerializeField] private List<BuyItemSO> BuyItemSO = new List<BuyItemSO>();
+    //[SerializeField] private List<BuyItemSO> BuyItemSO = new List<BuyItemSO>();
     [SerializeField] private GameObject slotHolder;
 
     private SlotClass[] items;
