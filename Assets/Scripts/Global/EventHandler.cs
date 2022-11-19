@@ -53,4 +53,11 @@ public static class EventHandler
     {
         if (DidLearnRecipeEvent != null) DidLearnRecipeEvent(newRecipe);
     }
+
+    public static event Action IngredientSupplyDeliveryWasMadeEvent;
+
+    public static void CallIngredientSupplyDeliveryWasMadeEvent()
+    {
+        if (IngredientSupplyDeliveryWasMadeEvent != null) IngredientSupplyDeliveryWasMadeEvent();
+    }
 }

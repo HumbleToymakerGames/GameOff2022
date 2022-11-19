@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Mixer
   m_EditorClassIdentifier: 
   itemName: Mixer
-  itemIcon: {fileID: 21300000, guid: 40a8bbc74e417c5419349d4e9b668985, type: 3}
+  itemIcon: {fileID: -56316552, guid: 501b385824eb440479f04a9a9b25b6fe, type: 3}
   isStackable: 1
   isSellable: 0
   name: Mixer
-  sprite: {fileID: 21300000, guid: 40a8bbc74e417c5419349d4e9b668985, type: 3}
+  sprite: {fileID: -56316552, guid: 501b385824eb440479f04a9a9b25b6fe, type: 3}
   type: 1
   supportsDeskItems: 0
   pixelHeight: 32

@@ -22,6 +22,6 @@ MonoBehaviour:
     quantity: 1
   outputItem:
     item: {fileID: 11400000, guid: 2040612493164f74fa9367d8379292e7, type: 2}
-    quantity: 4
+    quantity: 1
   hoursToMake: 0.5
   manual: 1

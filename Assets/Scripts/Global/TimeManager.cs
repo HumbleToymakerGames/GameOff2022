@@ -67,6 +67,7 @@ public class TimeManager : SingletonMonoBehaviour<TimeManager>
             }
 
             UpdateGameMinute();
+            if (GetGameHour() == 4 && _gameMinute == 0) EventHandler.CallIngredientSupplyDeliveryWasMadeEvent();
         }
     }
 

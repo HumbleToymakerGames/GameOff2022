@@ -34,16 +34,9 @@ public class Customer
     private void CustomerTick(int hours, int minutes)
     {
         if (worldCustomer.exiting == true) return;
-
-        if  (_hasPurchasedItem == false && TimeManager.GetCurrentGameTime() > _timeWillStartPurchaseAttempt)
-        {
-            AttemptToPurchaseItem();
-        }
-
-        if (TimeManager.GetCurrentGameTime() == _timeWillLeave)
-        {
-            CustomerLeavesDisappointed();
-        }
+        if (_hasPurchasedItem == true) return;
+        if (TimeManager.GetCurrentGameTime() > _timeWillLeave) CustomerLeavesDisappointed();
+        if (TimeManager.GetCurrentGameTime() > _timeWillStartPurchaseAttempt) AttemptToPurchaseItem();
     }
 
     private void AttemptToPurchaseItem()
@@ -55,13 +48,13 @@ public class Customer
         ShopManager.Instance.AddMoney(itemToPurchase.GetItem().baseCost);
         _hasPurchasedItem = true;
         CustomerManager.Instance.BeginRemoveCustomer(this);
-        Debug.Log("Purchase successful!");
     }
 
 
     private void CustomerLeavesDisappointed()
     {
         // Debug.Log("The " + _archetype.archetypeName + " left because the shop did not have a " + _preferredItem.itemName + " or a " + _fallbackItem.itemName + ".");
+        worldCustomer.exiting = true;
         CustomerManager.Instance.BeginRemoveCustomer(this);
     }
 

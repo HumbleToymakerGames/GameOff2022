@@ -18,6 +18,6 @@ MonoBehaviour:
     quantity: 1
   outputItem:
     item: {fileID: 11400000, guid: ddb70ac4b06f8a14aae80f7ffbc3b08b, type: 2}
-    quantity: 4
-  hoursToMake: 2
+    quantity: 2
+  hoursToMake: 1.5
   manual: 0
