@@ -58,8 +58,16 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
 
     public void ToggleMainMenu()
     {
-        mainMenu.SetActive(!_isMainMenuDisplaying);
-        _isMainMenuDisplaying = !_isMainMenuDisplaying;
+        if (_isMainMenuDisplaying)
+        {
+            _isMainMenuDisplaying = false;
+            mainMenu.SetActive(false);
+        } else
+        {
+            _isMainMenuDisplaying = true;
+            mainMenu.SetActive(true);
+            mainMenu.GetComponent<UI_MainMenu>().OpenPanel();
+        }
     }
 
     private GameObject GetUnusedProgressBarOrInstantiate()

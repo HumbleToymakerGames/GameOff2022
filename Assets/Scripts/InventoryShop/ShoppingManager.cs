@@ -3,24 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NurseryShopManager : MonoBehaviour
+public class ShoppingManager : MonoBehaviour
 {
-
-
-    //This is for the GO that holds all the slots
+    //[SerializeField] private List<BuyItemSO> BuyItemSO = new List<BuyItemSO>();
     [SerializeField] private GameObject slotHolder;
-    
-    
-    
-    [SerializeField] private SlotClass[] startingItems;
 
     private SlotClass[] items;
-
-
     private GameObject[] slots;
-    
-
-    
 
     public void Start()
     {
@@ -30,20 +19,15 @@ public class NurseryShopManager : MonoBehaviour
 
 
 
-
         for (int i = 0; i < items.Length; i++)
         {
             items[i] = new SlotClass();
 
         }
 
-        for (int i = 0; i < startingItems.Length; i++)
-        {
-            items[i] = startingItems[i];
 
-        }
 
-        //sets all slots
+        //set all slots
         for (int i = 0; i < slotHolder.transform.childCount; i++)
         {
             slots[i] = slotHolder.transform.GetChild(i).gameObject;
@@ -53,17 +37,17 @@ public class NurseryShopManager : MonoBehaviour
 
         RefreshUI();
 
-       
+
     }
 
 
     private void Update()
     {
-       
+
 
     }
 
-    //looks through all items there and determines if its there
+
     public void RefreshUI()
     {
         PlacementPanel.ShowPlacementMenu(true, items);
@@ -94,14 +78,14 @@ public class NurseryShopManager : MonoBehaviour
 
             }
         }
+
+
     }
 
-    
+
 
     public bool Add(ItemClass item, int quantity)
     {
-
-
         //check if inventory contains item
         SlotClass slot = Contains(item);
         if (slot != null && slot.GetItem().isStackable)
@@ -125,7 +109,6 @@ public class NurseryShopManager : MonoBehaviour
         RefreshUI();
         return true;
     }
-
 
     public bool Remove(ItemClass item)
     {
@@ -159,10 +142,6 @@ public class NurseryShopManager : MonoBehaviour
         {
             return false;
         }
-
-
-
-
         RefreshUI();
         return true;
     }
@@ -201,9 +180,6 @@ public class NurseryShopManager : MonoBehaviour
             return false;
         }
 
-
-
-
         RefreshUI();
         return true;
     }
@@ -219,6 +195,7 @@ public class NurseryShopManager : MonoBehaviour
 
         return null;
     }
+
 
     //Checks items for placement
     public bool Contains(ItemClass item, int quantity)

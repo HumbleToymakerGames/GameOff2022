@@ -24,6 +24,7 @@ public class UI_AppliancePopupMenuPanel : MonoBehaviour
         List<ApplianceFunction> functions = appliance.GetApplianceFunctions();
         foreach (ApplianceFunction function in functions)
         {
+            if (!function.IsKnown()) return;
             GameObject newFunctionElement = Instantiate(applianceFunctionListItemPrefab, applianceFunctionParent.transform);
             UI_ApplianceFunctionListItemElement newFunctionScript = newFunctionElement.GetComponent<UI_ApplianceFunctionListItemElement>();
             newFunctionScript.ConfigureForApplianceFunction(function);
@@ -38,6 +39,8 @@ public class UI_AppliancePopupMenuPanel : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        startApplianceFunctionButton.gameObject.SetActive(false);
+        insufficientItemsText.gameObject.SetActive(false);
     }
 
     public void PreviewApplianceFunction(ApplianceFunction function)

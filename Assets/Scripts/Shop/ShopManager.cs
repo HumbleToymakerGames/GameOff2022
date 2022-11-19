@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
 
 public class ShopManager : SingletonMonoBehaviour<ShopManager>
 {
@@ -7,6 +9,7 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
     private List<Appliance> _appliances = new List<Appliance>();
     private List<ApplianceFunctionSO> _knownRecipes = new();
     private List<ItemClass> _knownIngredients = new();
+    private List<SlotClass> _supplyOrder = new();
 
     public int shopStartingMoney = 100;
     private int _shopMoney = 0;
@@ -24,6 +27,16 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
         {
             LearnRecipe(recipe);
         }
+    }
+
+    private void OnEnable()
+    {
+        EventHandler.IngredientSupplyDeliveryWasMadeEvent += OnInventorySupplyDeliveryWasMade;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.IngredientSupplyDeliveryWasMadeEvent -= OnInventorySupplyDeliveryWasMade;
     }
 
     public void LearnRecipe(ApplianceFunctionSO recipe)
@@ -51,7 +64,7 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
     // Only ingredients that are used in known recipes should be purchaseable.
     // Return all unique ingredients which appear in known recipes.
     // TODO: Don't return ingredients which are intermediate products (ex: dough) ?
-    private List<ItemClass> GenerateKnownIngredientsList()
+    public List<ItemClass> GenerateKnownIngredientsList()
     {
         List<ItemClass> knownIngredients = new();
         foreach(ApplianceFunctionSO recipe in _knownRecipes)
@@ -82,4 +95,47 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
         return _shopMoney;
     }
 
+    // Get the last set quantity desired for a particular ingredient
+    // in the supply order.
+    public int GetCurrentOrderForIngredient(ItemClass ingredient)
+    {
+        foreach(SlotClass slot in _supplyOrder)
+        {
+            if (slot.GetItem() == ingredient) return slot.GetQuantity();
+        }
+        return 0;
+    }
+
+    public void UpdateRecurringOrder(SlotClass updatedOrder)
+    {
+        foreach(SlotClass slot in _supplyOrder)
+        {
+            if (slot.GetItem() == updatedOrder.GetItem())
+            {
+                slot.SetQuantity(updatedOrder.GetQuantity());
+                return;
+            }
+        }
+        _supplyOrder.Add(updatedOrder);
+    }
+
+    private void OnInventorySupplyDeliveryWasMade()
+    {
+        int pendingTotal = 0;
+        foreach(SlotClass slot in _supplyOrder)
+        {
+            pendingTotal += slot.GetQuantity() * slot.GetItem().baseCost;
+        }
+        if (pendingTotal > GetCurrentShopMoney())
+        {
+            Debug.Log("Could not make purchase because of insufficient funds!");
+            return;
+        }
+
+        foreach(SlotClass slot in _supplyOrder)
+        {
+            InventoryManager.Instance.Add(slot.GetItem(), slot.GetQuantity());
+        }
+        AddMoney(-pendingTotal);
+    }
 }

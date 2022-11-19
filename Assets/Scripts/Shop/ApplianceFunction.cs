@@ -29,6 +29,11 @@ public class ApplianceFunction
         return _applianceFunctionSO.functionName;
     }
 
+    public bool IsKnown()
+    {
+        return ShopManager.Instance.GetKnownRecipes().Contains(_applianceFunctionSO);
+    }
+
     public void StartFunction(GameObject progressBar = null)
     {
         foreach(SlotClass slot in _applianceFunctionSO.inputItems)

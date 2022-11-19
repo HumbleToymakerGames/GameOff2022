@@ -20,4 +20,4 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: cb19025532912874dbcaba649b8cc147, type: 2}
     weight: 1
   minutesWillWait: 45
-  chanceToSpawn: 0.005
+  chanceToSpawn: 0.01

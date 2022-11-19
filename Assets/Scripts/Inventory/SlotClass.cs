@@ -29,6 +29,12 @@ public class SlotClass
         this.item = null;
         this.quantity = 0;
     }
+
+    public void SetQuantity(int newQuantity)
+    {
+        this.quantity = newQuantity;
+    }
+
     public ItemClass GetItem() { return item; }
     public int GetQuantity() { return quantity; }
     public void AddQuantity(int _quantity) { quantity += _quantity; }

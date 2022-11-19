@@ -16,3 +16,4 @@ MonoBehaviour:
   itemIcon: {fileID: -4169056378020552763, guid: 4deb1e561faa9014baf0af94b42c09b1, type: 3}
   isStackable: 1
   isSellable: 0
+  baseCost: 1
