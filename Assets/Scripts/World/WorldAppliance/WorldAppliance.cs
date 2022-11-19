@@ -35,9 +35,8 @@ public class WorldAppliance : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
+    public void Clicked()
     {
-        
         if (Player.controlState == ControlState.Game)
         {
             //Check if over ui when clicking if so skip selection
