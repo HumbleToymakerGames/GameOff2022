@@ -21,6 +21,7 @@ public class UI_MainMenu : MonoBehaviour
         HideAllPanels();
         PanelForMainMenuState(state).SetActive(true);
         mainMenu.SetActive(true);
+        PanelForMainMenuState(state).GetComponent<I_UIMainMenuPanel>().Display();
     }
 
     private void HideAllPanels()

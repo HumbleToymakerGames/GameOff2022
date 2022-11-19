@@ -40,6 +40,31 @@ public class UI_ApplianceFunctionListItemElement : MonoBehaviour
         selectFunctionButton.onClick.AddListener(() => _applianceFunction.parentAppliance.FunctionClicked(_applianceFunction));
     }
 
+    public void ConfigureForApplianceFunction(ApplianceFunctionSO applianceFunction)
+    {
+        // overload when initializing recipes menu
+        // don't need information about affordability or button functionality
+        // TODO: use ApplianceFunction or ApplianceFunctionSO for all?
+
+        SlotClass outputItem = applianceFunction.outputItem;
+        applianceFunctionNameText.text = outputItem.GetItem().itemName;
+        applianceFunctionDurationText.text = applianceFunction.hoursToMake.ToString();
+        outputProduct.GetComponent<UI_ItemQuantityElement>().SetToItemQuantity(outputItem);
+
+        foreach (Transform el in inputItemsParent.transform)
+        {
+            Destroy(el.gameObject);
+        }
+        
+        foreach(SlotClass ingredient in applianceFunction.inputItems)
+        {
+            GameObject inputItemEl = Instantiate(singleInputItemPrefab, inputItemsParent.transform);
+            inputItemEl.GetComponent<UI_InventoryItemSingleElement>().SetSprite(ingredient.GetItem().itemIcon);
+            inputItemEl.GetComponent<UI_InventoryItemSingleElement>().SetDoesHave(true);
+        }
+
+    }
+
     private List<ItemAffordability> GetInputItemsAndAffordability()
     {
         List<ItemAffordability> returnList = new List<ItemAffordability>();

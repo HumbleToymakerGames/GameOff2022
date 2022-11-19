@@ -13057,6 +13057,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3730997952209153680, guid: 6fd77e68d5d945f4a92f3cce3c204906, type: 3}
+      propertyPath: shopStartingMoney
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3730997952209153680, guid: 6fd77e68d5d945f4a92f3cce3c204906, type: 3}
+      propertyPath: startingRecipes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3730997952209153680, guid: 6fd77e68d5d945f4a92f3cce3c204906, type: 3}
+      propertyPath: startingRecipes.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 758ff20642346d045baacaafb71c5b3f, type: 2}
+    - target: {fileID: 3730997952209153680, guid: 6fd77e68d5d945f4a92f3cce3c204906, type: 3}
+      propertyPath: startingRecipes.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5a1974a68ebf74d8eb67a4bc9858b2cd, type: 2}
+    - target: {fileID: 3730997952209153680, guid: 6fd77e68d5d945f4a92f3cce3c204906, type: 3}
+      propertyPath: startingRecipes.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 51f34b0aeb10d49baa8bb20e1cd5803a, type: 2}
     - target: {fileID: 3730997952209153681, guid: 6fd77e68d5d945f4a92f3cce3c204906, type: 3}
       propertyPath: m_Name
       value: ShopManager

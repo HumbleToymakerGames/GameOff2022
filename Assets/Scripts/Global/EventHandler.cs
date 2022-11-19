@@ -46,4 +46,11 @@ public static class EventHandler
     {
         if (InventoryDidChangeEvent != null) InventoryDidChangeEvent();
     }
+
+    public static event Action<ApplianceFunctionSO> DidLearnRecipeEvent;
+
+    public static void CallDidLearnRecipeEvent(ApplianceFunctionSO newRecipe)
+    {
+        if (DidLearnRecipeEvent != null) DidLearnRecipeEvent(newRecipe);
+    }
 }

@@ -9,6 +9,7 @@ public abstract class ItemClass : ScriptableObject
     public Sprite itemIcon;
     public bool isStackable = true;
     public bool isSellable = false;
+    public int baseCost = 0;
 
     public abstract ItemClass GetItem();
     public abstract ApplianceClass GetAppliance();

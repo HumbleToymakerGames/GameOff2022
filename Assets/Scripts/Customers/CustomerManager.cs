@@ -57,7 +57,7 @@ public class CustomerManager : SingletonMonoBehaviour<CustomerManager>
         customerObject.SetActive(true);
     }
 
-    public void RemoveCustomer(Customer customerToRemove)
+    public void BeginRemoveCustomer(Customer customerToRemove)
     {
         customerToRemove.worldCustomer.GetComponent<NpcMovement>().StartNPCMoveToExit();
         _customersInShop.Remove(customerToRemove);
