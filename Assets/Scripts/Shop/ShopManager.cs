@@ -51,7 +51,7 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
     // Only ingredients that are used in known recipes should be purchaseable.
     // Return all unique ingredients which appear in known recipes.
     // TODO: Don't return ingredients which are intermediate products (ex: dough) ?
-    private List<ItemClass> GenerateKnownIngredientsList()
+    public List<ItemClass> GenerateKnownIngredientsList()
     {
         List<ItemClass> knownIngredients = new();
         foreach(ApplianceFunctionSO recipe in _knownRecipes)
