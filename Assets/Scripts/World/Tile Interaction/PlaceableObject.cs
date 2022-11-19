@@ -30,7 +30,7 @@ public class PlaceableObject : MonoBehaviour
     {
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
 
-        if (placeableObjectSO.type == TileType.DeskItem && placeableObjectSO.lightEmitter)
+        if (placeableObjectSO.type == TileType.DeskItem && placeableObjectSO.lightEmitter && height != 0)
             lightObject.transform.localPosition = new Vector3(placeableObjectSO.lightOffset.x, placeableObjectSO.lightOffset.y + height * ((placeableObjectSO.sprite.pixelsPerUnit / 2) / (placeableObjectSO.sprite.bounds.size.y * placeableObjectSO.sprite.pixelsPerUnit)), placeableObjectSO.lightOffset.z);
 
         Vector3Int gridPosition = groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0));
@@ -83,7 +83,7 @@ public class PlaceableObject : MonoBehaviour
         groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
 
         transform.position = groundTileMap.CellToWorld(gridPosition + new Vector3Int(1, 1, 0));
-        if(placeableObjectSO.type == TileType.DeskItem && placeableObjectSO.lightEmitter)
+        if(placeableObjectSO.type == TileType.DeskItem && placeableObjectSO.lightEmitter && height != 0)
             lightObject.transform.localPosition = new Vector3(placeableObjectSO.lightOffset.x, placeableObjectSO.lightOffset.y + height * ((placeableObjectSO.sprite.pixelsPerUnit / 2) / (placeableObjectSO.sprite.bounds.size.y * placeableObjectSO.sprite.pixelsPerUnit)), placeableObjectSO.lightOffset.z);
 
         //Vector3Int gridPosition = groundTileMap.WorldToCell(transform.position - new Vector3(0, transform.localScale.y / 2, 0));

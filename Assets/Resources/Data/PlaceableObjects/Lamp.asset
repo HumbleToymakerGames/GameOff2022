@@ -16,6 +16,7 @@ MonoBehaviour:
   itemIcon: {fileID: 541936672, guid: 501b385824eb440479f04a9a9b25b6fe, type: 3}
   isStackable: 1
   isSellable: 0
+  baseCost: 0
   name: Lamp
   sprite: {fileID: 541936672, guid: 501b385824eb440479f04a9a9b25b6fe, type: 3}
   type: 0
@@ -24,3 +25,7 @@ MonoBehaviour:
   placementMask: 0
   applianceSOIfApplicable: {fileID: 0}
   usePositionOffsetIfApplicable: {x: 0, y: 0, z: 0}
+  lightEmitter: 1
+  lightOffset: {x: 0, y: 0.328, z: 0}
+  lightIntensity: 0.45
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
