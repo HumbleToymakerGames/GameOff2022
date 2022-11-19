@@ -52,7 +52,31 @@ public class Player : MonoBehaviour
             case ControlState.Game:
                 placementPanelShown = false;
                 PlacementPanel.ShowPlacementMenu(false);
+                Game();
                 break;
+        }
+    }
+
+    private void Game()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity);
+
+            GameObject lowestYValueObject = null;
+            if (hits.Length > 0)
+            {
+                foreach (RaycastHit2D hit in hits)
+                {
+                    if (lowestYValueObject == null)
+                        lowestYValueObject = hit.collider.gameObject;
+                    else if (lowestYValueObject.transform.position.y > hit.collider.gameObject.transform.position.y)
+                        lowestYValueObject = hit.collider.gameObject;
+                }
+
+                lowestYValueObject.GetComponent<WorldAppliance>().Clicked();
+            }
         }
     }
 }
