@@ -56,7 +56,6 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
         }
     }
 
-
     public bool Add(ItemClass item, int quantity)
     {
         //check if inventory contains item
@@ -117,13 +116,18 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
             return false;
         }
 
-
-
-
         EventHandler.CallInventoryDidChangeEvent();
         return true;
     }
 
+    public ItemClass GetRandomItemInStock()
+    {
+        List<SlotClass> flattenedStock = FlattenInventory(GetStoreStock());
+        if (flattenedStock == null || flattenedStock.Count == 0) return null;
+
+        int randomIndex = Random.Range(0, flattenedStock.Count - 1);
+        return flattenedStock[randomIndex].GetItem();
+    }
 
 
     private void Update()
@@ -159,6 +163,28 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
         */
 
     }
+
+    // Given a List of SlotClass entities with quantities of any value,
+    // returns a List of SlotClass entities where each quantity is 1
+    // and items are repeated if necessary.
+    // Useful for randomly selecting an item in a stock while accounting 
+    // for which items are more likely to be selected
+    private List<SlotClass> FlattenInventory(List<SlotClass> inventory)
+    {
+        if (inventory == null || inventory.Count == 0) return null;
+
+        List<SlotClass> returnInventory = new();
+
+        foreach(SlotClass item in inventory)
+        {
+            for (int i = 0; i < item.GetQuantity(); i++)
+            {
+                returnInventory.Add(new SlotClass(item.GetItem(), 1));
+            }
+        }
+        return returnInventory;
+    }
+
 
     private void OnApplianceFunctionDidComplete(ApplianceFunction function, SlotClass itemQuantity)
     {

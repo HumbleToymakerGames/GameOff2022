@@ -5,9 +5,12 @@ using System.Collections.Generic;
 public class Customer
 {
     private CustomerArchetypeSO _archetype;
-    private ItemClass _preferredItem;
-    private ItemClass _fallbackItem;
+    // private ItemClass _preferredItem;
+    // private ItemClass _fallbackItem;
+    private bool _hasPurchasedItem = false;
     private GameTime _timeWillLeave;
+    private GameTime _timeWillStartPurchaseAttempt;
+    private int _secondsBeforeStartPurchaseAttempt = Random.Range(7,15); 
 
     //Reference to world customer script for removal/gameobject interactions
     public WorldCustomer worldCustomer;
@@ -17,9 +20,10 @@ public class Customer
         _archetype = archetype;
         EventHandler.AdvanceGameMinuteEvent += CustomerTick;
         _timeWillLeave = TimeManager.AddMinutesToGameTime(TimeManager.GetCurrentGameTime(), _archetype.minutesWillWait);
-        _preferredItem = ChooseRandomItemFrom(_archetype.preferredItemPool);
-        _fallbackItem = ChooseRandomItemFrom(_archetype.fallbackItemPool);
-        Debug.Log("A " + _archetype.archetypeName + " has entered the shop. They are looking for a " + _preferredItem.itemName + " but will settle for a " + _fallbackItem.itemName);
+        _timeWillStartPurchaseAttempt = TimeManager.AddMinutesToGameTime(TimeManager.GetCurrentGameTime(), _secondsBeforeStartPurchaseAttempt);
+        //_preferredItem = ChooseRandomItemFrom(_archetype.preferredItemPool);
+        //_fallbackItem = ChooseRandomItemFrom(_archetype.fallbackItemPool);
+        // Debug.Log("A " + _archetype.archetypeName + " has entered the shop. They are looking for a " + _preferredItem.itemName + " but will settle for a " + _fallbackItem.itemName);
     }
 
     public void Despawn()
@@ -29,11 +33,12 @@ public class Customer
 
     private void CustomerTick(int hours, int minutes)
     {
-        // ShopManager.LookForItem(preferredItem);
-        // If found, buy item => leaveSatisfied
-        // If not found, ShopManager.LookForItem(fallbackItem);
-        // If found, buy item => leaveSomewhatSatisfied
-        // Else, wait
+        if (worldCustomer.exiting == true) return;
+
+        if  (_hasPurchasedItem == false && TimeManager.GetCurrentGameTime() > _timeWillStartPurchaseAttempt)
+        {
+            AttemptToPurchaseItem();
+        }
 
         if (TimeManager.GetCurrentGameTime() == _timeWillLeave)
         {
@@ -41,12 +46,28 @@ public class Customer
         }
     }
 
+    private void AttemptToPurchaseItem()
+    {
+        ItemClass itemToPurchase = InventoryManager.Instance.GetRandomItemInStock();
+        if (itemToPurchase == null) return;
+
+        InventoryManager.Instance.Remove(itemToPurchase, 1);
+        ShopManager.Instance.AddMoney(itemToPurchase.GetItem().baseCost);
+        _hasPurchasedItem = true;
+        CustomerManager.Instance.BeginRemoveCustomer(this);
+        Debug.Log("Purchase successful!");
+    }
+
+
     private void CustomerLeavesDisappointed()
     {
-        Debug.Log("The " + _archetype.archetypeName + " left because the shop did not have a " + _preferredItem.itemName + " or a " + _fallbackItem.itemName + ".");
-        CustomerManager.Instance.RemoveCustomer(this);
+        // Debug.Log("The " + _archetype.archetypeName + " left because the shop did not have a " + _preferredItem.itemName + " or a " + _fallbackItem.itemName + ".");
+        CustomerManager.Instance.BeginRemoveCustomer(this);
     }
+
+
     
+    // This method is not used because we are not using the "preferredItem" mechanic for now"
     private ItemClass ChooseRandomItemFrom(List<WeightedDesiredItem> weightedItemList)
     {
         int denominator = 0;
