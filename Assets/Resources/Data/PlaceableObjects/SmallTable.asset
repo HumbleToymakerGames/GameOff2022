@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: SmallTable
   m_EditorClassIdentifier: 
   itemName: Small Table
-  itemIcon: {fileID: 21300000, guid: 252d764ae1b3b74418353310990d205b, type: 3}
+  itemIcon: {fileID: -570147975, guid: 501b385824eb440479f04a9a9b25b6fe, type: 3}
   isStackable: 1
   isSellable: 0
   name: Small Table
-  sprite: {fileID: 21300000, guid: 252d764ae1b3b74418353310990d205b, type: 3}
+  sprite: {fileID: -570147975, guid: 501b385824eb440479f04a9a9b25b6fe, type: 3}
   type: 0
   supportsDeskItems: 1
   pixelHeight: 58
