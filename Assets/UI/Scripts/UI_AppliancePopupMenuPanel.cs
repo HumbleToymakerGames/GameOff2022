@@ -39,6 +39,8 @@ public class UI_AppliancePopupMenuPanel : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        startApplianceFunctionButton.gameObject.SetActive(false);
+        insufficientItemsText.gameObject.SetActive(false);
     }
 
     public void PreviewApplianceFunction(ApplianceFunction function)
