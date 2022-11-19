@@ -38,10 +38,14 @@ public class UI_MainMenuIngredientDeliveryPanel : MonoBehaviour, I_UIMainMenuPan
         _itemSupplyListItems.Clear();
     }
 
-    public void RecaclulateSubtotal()
+    public void ConfirmChanges()
     {
         // based on your selections so far, recalculate the subtotal
         // needs to be called from the ingredientorderprefab
         // also add an array of classes to this class so that we can foreach over those and get the data out of them
+        foreach (UI_ItemSupplyListItem listItem in _itemSupplyListItems)
+        {
+            ShopManager.Instance.UpdateRecurringOrder(new SlotClass(listItem.GetIngredient(), listItem.GetOrderAmount()));
+        }
     }
 }

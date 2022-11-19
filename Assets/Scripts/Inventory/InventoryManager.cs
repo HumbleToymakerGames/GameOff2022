@@ -191,6 +191,11 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
         Add(itemQuantity.GetItem(), itemQuantity.GetQuantity());
     }
 
+    private void OnInventorySupplyDeliveryWasMade()
+    {
+        
+    }
+
     //looks through all items there and determines if its there
 
     /*

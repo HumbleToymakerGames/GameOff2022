@@ -45,4 +45,14 @@ public class UI_ItemSupplyListItem : MonoBehaviour
         _orderAmount++;
         UpdateQuantityCalculations();
     }
+
+    public int GetOrderAmount()
+    {
+        return _orderAmount;
+    }
+
+    public ItemClass GetIngredient()
+    {
+        return _ingredient;
+    }
 }
