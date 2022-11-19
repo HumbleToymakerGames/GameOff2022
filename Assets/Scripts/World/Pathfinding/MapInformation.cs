@@ -13,10 +13,6 @@ public class MapInformation : MonoBehaviour
     public static Tilemap overlayTileMap;
     public static Tilemap maskTileMap;
 
-    private static int tilesSet = 0;
-
-    public bool refresh = false;
-
     public static IList<TileInfo> chairs = new List<TileInfo>();
     public static IList<TileInfo> furniture = new List<TileInfo>();
     public static IList<TileInfo> interactables = new List<TileInfo>();
@@ -25,20 +21,12 @@ public class MapInformation : MonoBehaviour
 
     private void Awake()
     {
-        groundTileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
-        objectTileMap = GameObject.FindGameObjectWithTag("ObjectTileMap").GetComponent<Tilemap>();
-        overlayTileMap = GameObject.FindGameObjectWithTag("OverlayTileMap").GetComponent<Tilemap>();
-        maskTileMap = GameObject.FindGameObjectWithTag("MaskTileMap").GetComponent<Tilemap>();
         RefreshMap();
     }
 
     private void Update()
     {
-        if (refresh)
-        {
-            RefreshMap();
-            refresh = false;
-        }
+
     }
 
     /// <summary>
