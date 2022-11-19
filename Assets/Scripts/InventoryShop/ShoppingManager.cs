@@ -7,6 +7,7 @@ public class ShoppingManager : MonoBehaviour
 {
     //[SerializeField] private List<BuyItemSO> BuyItemSO = new List<BuyItemSO>();
     [SerializeField] private GameObject slotHolder;
+    [SerializeField] private SlotClass[] supplierIngredientItems;
 
     private SlotClass[] items;
     private GameObject[] slots;
@@ -33,7 +34,7 @@ public class ShoppingManager : MonoBehaviour
             slots[i] = slotHolder.transform.GetChild(i).gameObject;
         }
 
-
+        SetSupplierList();
 
         RefreshUI();
 
@@ -50,7 +51,7 @@ public class ShoppingManager : MonoBehaviour
 
     public void RefreshUI()
     {
-        PlacementPanel.ShowPlacementMenu(true, items);
+       
 
         for (int i = 0; i < slots.Length; i++)
         {
@@ -214,4 +215,26 @@ public class ShoppingManager : MonoBehaviour
         return items;
     }
 
+    public void AddItemsToInventory(InventoryManager inventory)
+    {
+
+        for (int i = 0; i < items.Length; i++)
+        {
+            inventory.Add(items[i].GetItem(), items[i].GetQuantity());
+        }
+
+    }
+
+
+
+
+
+    private void SetSupplierList()
+    {
+        for (int i = 0; i < supplierIngredientItems.Length; i++)
+        {
+            items[i] = supplierIngredientItems[i];
+
+        }
+    }
 }

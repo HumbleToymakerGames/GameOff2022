@@ -9,8 +9,11 @@ public class BuyItemSO : ScriptableObject
     //public List<SlotClass> addItems = new List<SlotClass>();
     public SlotClass addItem;
     public SlotClass subtractItem;
-
+    public int itemPrice;
     
+
+
+
 
     public void AddItemToCart(ShoppingManager shopFunction)
     {
@@ -20,5 +23,15 @@ public class BuyItemSO : ScriptableObject
     public void RemoveItemFromCart(ShoppingManager shopFunction)
     {
         shopFunction.Remove(subtractItem.GetItem(), subtractItem.GetQuantity());
+    }
+
+    private void AddItemPrice()
+    {
+
+    }
+
+    private void SubtractItemPrice()
+    {
+
     }
 }
