@@ -221,6 +221,8 @@ public class ShoppingManager : MonoBehaviour
         for (int i = 0; i < items.Length; i++)
         {
             inventory.Add(items[i].GetItem(), items[i].GetQuantity());
+
+            
         }
 
     }
