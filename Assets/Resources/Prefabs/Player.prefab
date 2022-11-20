@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 8765669348542087904}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,8 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.6570596, g: 0.41960788, b: 1, a: 1}
+  m_Sprite: {fileID: -153331335, guid: 501b385824eb440479f04a9a9b25b6fe, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -141,8 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c745bebb7dd6b4e8f6ed5c7ce7c9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockedState: 0
   placementPanel: {fileID: 0}
-  objectSelectButtonPrefab: {fileID: 9100716615943518781, guid: 10df2754d674bac4d92716cc53cc08f0, type: 3}
 --- !u!114 &1484749016
 MonoBehaviour:
   m_ObjectHideFlags: 0
