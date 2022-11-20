@@ -27,5 +27,5 @@ MonoBehaviour:
   usePositionOffsetIfApplicable: {x: 0, y: 0, z: 0}
   lightEmitter: 1
   lightOffset: {x: 0, y: 0.05, z: 0}
-  lightIntensity: 0.35
+  lightIntensity: 0.5
   lightColor: {r: 1, g: 1, b: 1, a: 1}
