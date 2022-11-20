@@ -139,6 +139,8 @@ public class MapData : MonoBehaviour
                         float height = (float)(lastPlacedObject.GetComponent<PlaceableObject>().placeableObjectSO.pixelHeight) / 64;
                         SpriteRenderer spr = placeableObject.GetComponent<SpriteRenderer>();
                         spr.sprite = Sprite.Create(p.sprite.texture, p.sprite.rect, new Vector2(0.5f, height * ((p.sprite.pixelsPerUnit / 2) / (p.sprite.bounds.size.y * p.sprite.pixelsPerUnit))), p.sprite.pixelsPerUnit);
+
+                        script.GetComponent<PlaceableObject>().height = height;
                     }
 
                     script.PlaceObjectAt(new Vector3Int(mapSaveData.placedObjects[i].position.x, mapSaveData.placedObjects[i].position.y, mapSaveData.placedObjects[i].position.z));

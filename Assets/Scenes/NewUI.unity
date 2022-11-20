@@ -10202,38 +10202,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 564663901226583981, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
-      propertyPath: dayColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 564663901226583981, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
-      propertyPath: dayColor.b
-      value: 0.5707547
-      objectReference: {fileID: 0}
-    - target: {fileID: 564663901226583981, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
-      propertyPath: dayColor.g
-      value: 0.8317287
-      objectReference: {fileID: 0}
-    - target: {fileID: 564663901226583981, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
-      propertyPath: dayColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 564663901226583981, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
-      propertyPath: nightColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 564663901226583981, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
-      propertyPath: nightColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 564663901226583981, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
-      propertyPath: nightColor.g
-      value: 0.3198763
-      objectReference: {fileID: 0}
-    - target: {fileID: 564663901226583981, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
-      propertyPath: nightColor.r
-      value: 0.25943398
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
 --- !u!224 &648642889 stripped

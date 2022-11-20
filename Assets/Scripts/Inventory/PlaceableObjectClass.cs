@@ -14,6 +14,11 @@ public class PlaceableObjectClass : ItemClass
     public ApplianceSO applianceSOIfApplicable;
     public Vector3Int usePositionOffsetIfApplicable;
 
+    public bool lightEmitter = false;
+    public Vector3 lightOffset;
+    public float lightIntensity;
+    public Color lightColor;
+
 
     public override ItemClass GetItem() { return this; }
     public override ApplianceClass GetAppliance() { return null; }
