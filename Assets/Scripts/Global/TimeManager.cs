@@ -26,6 +26,11 @@ public struct GameTime
         return gt1.hour != gt2.hour || gt1.minute != gt2.minute;
     }
 
+    public override string ToString()
+    {
+        return hour + ":" + minute;
+    }
+
 }
 
 public class TimeManager : SingletonMonoBehaviour<TimeManager>
@@ -123,5 +128,4 @@ public class TimeManager : SingletonMonoBehaviour<TimeManager>
         resultGT.minute = minutes % 60;
         return resultGT;
     }
-
 }

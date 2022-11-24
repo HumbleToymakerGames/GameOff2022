@@ -20,6 +20,7 @@ public class WorldCustomer : MonoBehaviour
     public void InitializeWithCustomer(Customer newCustomer)
     {
         customer = newCustomer;
+        customer.SetTimeUntilVariables();
         exiting = false;
         customer.worldCustomer = this;
     }
