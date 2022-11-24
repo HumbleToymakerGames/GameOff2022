@@ -27,7 +27,7 @@ public class Movement : MonoBehaviour
     protected virtual void Start()
     {
         tileMap = GameObject.FindGameObjectWithTag("GroundTileMap").GetComponent<Tilemap>();
-        characterTileOffset = new Vector3(0, transform.localScale.y, 0); 
+        characterTileOffset = new Vector3(0, transform.localScale.y/2, 0); 
     }
 
     protected virtual void Update()

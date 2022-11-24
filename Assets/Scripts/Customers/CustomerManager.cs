@@ -51,9 +51,10 @@ public class CustomerManager : SingletonMonoBehaviour<CustomerManager>
     {
         Customer newCustomer = new Customer(archetype);
         GameObject customerObject = GetUnusedCustomerOrInstantiate();
-        customerObject.GetComponent<WorldCustomer>().InitializeWithCustomer(newCustomer);
+        Destroy(customerObject.GetComponent<WorldCustomer>());
+        customerObject.AddComponent<WorldCustomer>().InitializeWithCustomer(newCustomer);
         customerObject.GetComponent<NpcMovement>().movementState = NPCMovementState.Random;
-        _customersInShop.Add(newCustomer);
+        _customersInShop.Add(customerObject.GetComponent<WorldCustomer>().customer);
         customerObject.SetActive(true);
     }
 

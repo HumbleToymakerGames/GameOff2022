@@ -19,11 +19,15 @@ public class Customer
     {
         _archetype = archetype;
         EventHandler.AdvanceGameMinuteEvent += CustomerTick;
-        _timeWillLeave = TimeManager.AddMinutesToGameTime(TimeManager.GetCurrentGameTime(), _archetype.minutesWillWait);
-        _timeWillStartPurchaseAttempt = TimeManager.AddMinutesToGameTime(TimeManager.GetCurrentGameTime(), _secondsBeforeStartPurchaseAttempt);
         //_preferredItem = ChooseRandomItemFrom(_archetype.preferredItemPool);
         //_fallbackItem = ChooseRandomItemFrom(_archetype.fallbackItemPool);
         // Debug.Log("A " + _archetype.archetypeName + " has entered the shop. They are looking for a " + _preferredItem.itemName + " but will settle for a " + _fallbackItem.itemName);
+    }
+
+    public void SetTimeUntilVariables()
+    {
+        _timeWillLeave = TimeManager.AddMinutesToGameTime(TimeManager.GetCurrentGameTime(), _archetype.minutesWillWait);
+        _timeWillStartPurchaseAttempt = TimeManager.AddMinutesToGameTime(TimeManager.GetCurrentGameTime(), _secondsBeforeStartPurchaseAttempt);
     }
 
     public void Despawn()
@@ -35,7 +39,7 @@ public class Customer
     {
         if (worldCustomer.exiting == true) return;
         if (_hasPurchasedItem == true) return;
-        if (TimeManager.GetCurrentGameTime() > _timeWillLeave) CustomerLeavesDisappointed();
+        if (TimeManager.GetCurrentGameTime() > this._timeWillLeave) CustomerLeavesDisappointed();
         if (TimeManager.GetCurrentGameTime() > _timeWillStartPurchaseAttempt) AttemptToPurchaseItem();
     }
 
@@ -53,7 +57,7 @@ public class Customer
 
     private void CustomerLeavesDisappointed()
     {
-        // Debug.Log("The " + _archetype.archetypeName + " left because the shop did not have a " + _preferredItem.itemName + " or a " + _fallbackItem.itemName + ".");
+        //Debug.Log("The " + _archetype.archetypeName + " left because the shop did not have a " + _preferredItem.itemName + " or a " + _fallbackItem.itemName + ".");
         worldCustomer.exiting = true;
         CustomerManager.Instance.BeginRemoveCustomer(this);
     }
