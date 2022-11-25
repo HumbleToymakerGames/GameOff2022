@@ -55,7 +55,18 @@ public class Movement : MonoBehaviour
         if (path.Count == 0) return;
         Vector3 worldSpaceTarget = tileMap.CellToWorld(path[stepsRemainingInPath]) + characterTileOffset;
         transform.position = Vector3.MoveTowards(transform.position, worldSpaceTarget, speed * Time.deltaTime);
-        if (transform.position == worldSpaceTarget) path.RemoveAt(stepsRemainingInPath);
+        if (transform.position == worldSpaceTarget)
+        {
+            path.RemoveAt(stepsRemainingInPath);
+            if (stepsRemainingInPath > 0)
+            {
+                worldSpaceTarget = tileMap.CellToWorld(path[stepsRemainingInPath - 1]) + characterTileOffset;
+                if (transform.position.x > worldSpaceTarget.x)
+                    GetComponent<SpriteRenderer>().flipX = false;
+                else if (transform.position.x <= worldSpaceTarget.x)
+                    GetComponent<SpriteRenderer>().flipX = true;
+            }
+        }
     }
 
     public void SetPlayerPathTo(Vector3Int destinationTile)
@@ -69,7 +80,10 @@ public class Movement : MonoBehaviour
     {
         path = PathToTile(destinationTile, mask);
         previousGoal = destinationTile;
-        if (path.Count > 0) pathStarted = true;
+        if (path.Count > 0)
+        {
+            pathStarted = true;
+        }
         return pathStarted;
     }
 

@@ -63,7 +63,8 @@ public class Appliance
     {
         currentFunction = function;
         UIManager.Instance.CloseApplianceContextPanel();
-        worldAppliance.MovePlayerToAppliance();
+        if(worldAppliance != null)
+            worldAppliance.MovePlayerToAppliance();
     }
 
 
