@@ -315,7 +315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf48805e61d553488d107bdff9b04f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuyItemSO: []
   slotHolder: {fileID: 1834161926}
 --- !u!4 &269419041 stripped
 Transform:
@@ -11992,18 +11991,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb3ba7f41af1164ababf61f95097fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buyFurniture:
-  - {fileID: 11400000, guid: 42e453c4039d14241b7aea1d80dcced4, type: 2}
-  - {fileID: 11400000, guid: 041b05b4fb09ed44d9634f6e298bd986, type: 2}
   slotHolder: {fileID: 1293569632}
   startingItems:
   - item: {fileID: 11400000, guid: e097996fd0733ea40b7d9489ffe16833, type: 2}
     quantity: 2
   - item: {fileID: 11400000, guid: 3002ed9e1d22a524a97af0e46eb886cd, type: 2}
     quantity: 2
-  - item: {fileID: 11400000, guid: db4e7404930f43e439ab886bfc15592d, type: 2}
-    quantity: 4
-  - item: {fileID: 11400000, guid: 1cd2716590a7962409627965ed690cd1, type: 2}
+  - item: {fileID: 11400000, guid: ca9c3d17d051b3e489f13af57a6aaffe, type: 2}
+    quantity: 2
+  - item: {fileID: 11400000, guid: ac8b3510a20ba5d4ebdab637d0096d2c, type: 2}
+    quantity: 2
+  - item: {fileID: 11400000, guid: b69edaa82b43be8448a1302aa070a2eb, type: 2}
+    quantity: 2
+  - item: {fileID: 11400000, guid: 17e7396bd043e8f439aa299d0da05de5, type: 2}
     quantity: 2
 --- !u!4 &1177866913
 Transform:
