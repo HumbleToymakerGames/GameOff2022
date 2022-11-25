@@ -10154,6 +10154,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 564663901226583891, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 564663901226583891, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
+      propertyPath: m_BackGroundColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 564663901226583891, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.759434
+      objectReference: {fileID: 0}
+    - target: {fileID: 564663901226583891, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.91769624
+      objectReference: {fileID: 0}
+    - target: {fileID: 564663901226583891, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 564663901226583893, guid: f9cb7ba06f03b1b47b3938d98e7074c6, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -11987,9 +12007,13 @@ MonoBehaviour:
     quantity: 2
   - item: {fileID: 11400000, guid: 3002ed9e1d22a524a97af0e46eb886cd, type: 2}
     quantity: 2
-  - item: {fileID: 11400000, guid: db4e7404930f43e439ab886bfc15592d, type: 2}
-    quantity: 4
-  - item: {fileID: 11400000, guid: 1cd2716590a7962409627965ed690cd1, type: 2}
+  - item: {fileID: 11400000, guid: ca9c3d17d051b3e489f13af57a6aaffe, type: 2}
+    quantity: 2
+  - item: {fileID: 11400000, guid: ac8b3510a20ba5d4ebdab637d0096d2c, type: 2}
+    quantity: 2
+  - item: {fileID: 11400000, guid: b69edaa82b43be8448a1302aa070a2eb, type: 2}
+    quantity: 2
+  - item: {fileID: 11400000, guid: 17e7396bd043e8f439aa299d0da05de5, type: 2}
     quantity: 2
 --- !u!4 &1177866913
 Transform:
@@ -13905,6 +13929,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 986291434}
     m_Modifications:
+    - target: {fileID: 383303902833294057, guid: 4c72be7733b9d49928427a7ae24068a1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 468719401862785618, guid: 4c72be7733b9d49928427a7ae24068a1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

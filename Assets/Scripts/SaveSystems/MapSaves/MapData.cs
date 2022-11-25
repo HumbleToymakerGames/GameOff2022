@@ -134,6 +134,16 @@ public class MapData : MonoBehaviour
                     script.flipped = mapSaveData.placedObjects[i].flipped;
                     script.SetComponents(p);
 
+
+                    //if (currentPlaceableObjectSO.type == TileType.DeskItem)
+                    //{
+                    //    float height = MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile == null ? 1f : (float)(MapInformation.groundMap[indexPosition.x, indexPosition.y].gameObjectOnTile.GetComponent<PlaceableObject>().placeableObjectSO.pixelHeight) / 64;
+                    //    SpriteRenderer spr = heldObject.GetComponent<SpriteRenderer>();
+                    //    spr.sprite = Sprite.Create(currentPlaceableObjectSO.sprite.texture, currentPlaceableObjectSO.sprite.rect, new Vector2(0.5f, height * ((currentPlaceableObjectSO.sprite.pixelsPerUnit / 2) / (currentPlaceableObjectSO.sprite.bounds.size.y * currentPlaceableObjectSO.sprite.pixelsPerUnit))), currentPlaceableObjectSO.sprite.pixelsPerUnit);
+                    //    heldObject.GetComponent<PlaceableObject>().height = height;
+                    //}
+
+
                     if (lastPlacedObject != null && mapSaveData.placedObjects[i].onDesk)
                     {
                         float height = (float)(lastPlacedObject.GetComponent<PlaceableObject>().placeableObjectSO.pixelHeight) / 64;
@@ -142,6 +152,15 @@ public class MapData : MonoBehaviour
 
                         script.GetComponent<PlaceableObject>().height = height;
                     }
+                    else
+                    {
+                        float height = 1f;
+                        SpriteRenderer spr = placeableObject.GetComponent<SpriteRenderer>();
+                        spr.sprite = Sprite.Create(p.sprite.texture, p.sprite.rect, new Vector2(0.5f, height * ((p.sprite.pixelsPerUnit / 2) / (p.sprite.bounds.size.y * p.sprite.pixelsPerUnit))), p.sprite.pixelsPerUnit);
+
+                        script.GetComponent<PlaceableObject>().height = height;
+                    }
+                        
 
                     script.PlaceObjectAt(new Vector3Int(mapSaveData.placedObjects[i].position.x, mapSaveData.placedObjects[i].position.y, mapSaveData.placedObjects[i].position.z));
                     break;

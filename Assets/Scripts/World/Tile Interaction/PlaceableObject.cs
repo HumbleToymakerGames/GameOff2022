@@ -183,16 +183,6 @@ public class PlaceableObject : MonoBehaviour
 
             worldAppliance = gameObject.GetComponent<WorldAppliance>();
             worldAppliance.applianceSO = placeableObjectSO.applianceSOIfApplicable;
-            if (!flipped)
-            {
-                worldAppliance.usePositionOffset = placeableObjectSO.usePositionOffsetIfApplicable;
-                transform.localScale = new Vector3(1, 1, 1);
-            }
-            else
-            {
-                worldAppliance.usePositionOffset = new Vector3Int(placeableObjectSO.usePositionOffsetIfApplicable.y, placeableObjectSO.usePositionOffsetIfApplicable.x, placeableObjectSO.usePositionOffsetIfApplicable.z);
-                transform.localScale = new Vector3(-1, 1, 1);
-            }
         }
         else
         {
@@ -209,6 +199,8 @@ public class PlaceableObject : MonoBehaviour
                 Destroy(gameObject.GetComponent<WorldAppliance>());
             }
         }
+
+        FlipObject(flipped);
     }
 
     /// <summary>
